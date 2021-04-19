@@ -8,7 +8,10 @@ class Node {
 public:
 
    Node(Tile* tile, Node* next);
+   Node(Tile* tile);
    Node(Node& other);
+
+   void setNext(Node* next);
 
    Tile*    tile;
    Node*    next;

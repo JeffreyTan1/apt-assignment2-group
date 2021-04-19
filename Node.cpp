@@ -7,6 +7,12 @@ Node::Node(Tile* tile, Node* next)
    this->next = next;
 }
 
+Node::Node(Tile* tile)
+{
+   this->tile = tile;
+   this->next = nullptr;
+}
+
 Node::Node(Node& other)
 {
    this->tile = other.tile;
