@@ -10,8 +10,11 @@ public:
    Node(Tile* tile, Node* next);
    Node(Tile* tile);
    Node(Node& other);
+   ~Node();
 
    void setNext(Node* next);
+
+   void setNextNullptr();
 
    Tile*    tile;
    Node*    next;

@@ -7,7 +7,16 @@ LinkedList::LinkedList() {
 
 LinkedList::LinkedList(LinkedList& other) 
 {
-   // TODO
+   if (other.head != nullptr)
+   {
+      for (int i = 0; i < other.size(); i++) {
+      Tile* tile = other.get(i);
+      this->addBack(tile);
+   }
+   //If the other linked list is empty then just call normal constructor
+   } else {
+      LinkedList();
+   }
 }
 
 LinkedList::~LinkedList() {
@@ -18,11 +27,11 @@ int LinkedList::size() {
    int count = 0;
 
    if (head != nullptr) {
-      Node currentNode = *head;
+      Node* currentNode = head;
 
-      while (currentNode.next != nullptr) {
+      while (currentNode->next != nullptr) {
          count++;
-         currentNode = *currentNode.next;
+         currentNode = currentNode->next;
       }
       count++;
    }
@@ -31,44 +40,66 @@ int LinkedList::size() {
 }
 
 Tile* LinkedList::get(int index) {
-   Tile* tile = nullptr;
+   Tile* rTile = nullptr;
 
    if (index >= 0 && index <= size() && head != nullptr){
-      Node currentNode = *head;
+      Node *currentNode = head;
 
       for (int i = 0; i < index; i++) {
-         currentNode = *currentNode.next;
+         currentNode = currentNode->next;
       }
 
-      tile = currentNode.tile;
+      rTile = currentNode->tile;
    }
 
-   return tile;
+   return rTile;
 }
 
 void LinkedList::addFront(Tile* tile) {
-   head = new Node(tile, head);
+   if (head != nullptr) {
+      head = new Node(tile, head);
+   } else {
+      head = new Node(tile);
+   }
 }
 
 void LinkedList::addBack(Tile* tile) {
    if (head != nullptr) {
-      Node currentNode = *head;
-      while (currentNode.next != nullptr) {
-         currentNode = *currentNode.next;
+      Node *currentNode = head;
+      while (currentNode->next != nullptr) {
+         currentNode = currentNode->next;
       }
       Node* newNode = new Node(tile);
-      currentNode.setNext(newNode);
+      currentNode->setNext(newNode);
    }
 }
 
 void LinkedList::removeBack() {
-   // TODO
+   if (head != nullptr) {
+      Node* currentNode = head;
+      Node* previousNode = nullptr;
+      while (currentNode->next != nullptr) {
+         previousNode = currentNode;
+         currentNode = currentNode->next;
+      }
+      previousNode->setNextNullptr();
+      delete currentNode;
+   }
 }
 
 void LinkedList::removeFront() {
-   // TODO
+   if (head != nullptr) {
+      if (head->next != nullptr) {
+         Node* removeNode = head;
+         head = head->next;
+         delete removeNode;
+      } else {
+         delete head;
+         head = nullptr;
+      }
+   }
 }
 
 void LinkedList::clear() {
-   // TODO
+      delete head;
 }
