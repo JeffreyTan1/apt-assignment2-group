@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <exception>
+#include <limits>
 
 #define EXIT_SUCCESS    0
 
@@ -26,7 +27,7 @@ int main(void) {
       while(std::cin.fail()) {
          std::cout <<"Invalid input, please try again \n> ";
          std::cin.clear();
-         std::cin.ignore();
+         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
          std::cin >> userChoice;
       }
       runMenu(userChoice, stopPtr);
