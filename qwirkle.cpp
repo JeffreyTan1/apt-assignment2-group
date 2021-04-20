@@ -33,7 +33,7 @@ int main(void)
       cout << "4. Quit" << endl;
       cout << "> ";
       cin >> userChoice;
-      while (cin.fail())
+      while (cin.fail()||userChoice<1||userChoice>4)
       {
          cout << "Invalid input, please try again \n> ";
          cin.clear();
