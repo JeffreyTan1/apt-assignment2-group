@@ -6,34 +6,39 @@
 
 #define EXIT_SUCCESS    0
 
-void runMenu(int userChoice);
+void runMenu(int userChoice, bool* stop);
 
 int main(void) {
    LinkedList* list = new LinkedList();
    delete list;
+   delete list;
+   bool stop = false;
+   bool* stopPtr = &stop;
    int userChoice;
-   std::cout << "Menu" << std::endl;
-   std::cout << "---" << std::endl;
-   std::cout << "1. New Game" << std::endl;
-   std::cout << "2. Load game" << std::endl;
-   std::cout << "3. Credits (Show student information)" << std::endl;
-   std::cout << "4. Quit" << std::endl;
-   std::cout << "> ";
-   try {
-      std::cin >> userChoice;
-      if(std::cin.fail()) {
-         throw std::invalid_argument("Invalid input, please try again");
+   while(!stop) {
+      std::cout << "Menu" << std::endl;
+      std::cout << "---" << std::endl;
+      std::cout << "1. New Game" << std::endl;
+      std::cout << "2. Load game" << std::endl;
+      std::cout << "3. Credits (Show student information)" << std::endl;
+      std::cout << "4. Quit" << std::endl;
+      std::cout << "> ";
+      try {
+         std::cin >> userChoice;
+         if(std::cin.fail()) {
+            throw std::invalid_argument("Invalid input, please try again");
+         }
+         runMenu(userChoice, stopPtr);
       }
-      runMenu(userChoice);
-   }
-   catch(std::invalid_argument& e) {
-      std::cout << e.what() << std::endl << std::endl;
-      std::cin.clear();
+      catch(std::invalid_argument& e) {
+         std::cout << e.what() << std::endl << std::endl;
+         std::cin.clear();
+      }
    }
    return EXIT_SUCCESS;
 }
 
-void runMenu(int userChoice) {
+void runMenu(int userChoice, bool* stop) {
    if(userChoice==1) {
      //New game
      std::cout << "Choice 1 selected \n \n";
@@ -49,5 +54,6 @@ void runMenu(int userChoice) {
    else if(userChoice==4) {
       //Quit
       std::cout << "Goodbye" << std::endl;
+      *stop = true;
    }
 }
