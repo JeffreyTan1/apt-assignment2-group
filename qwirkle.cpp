@@ -2,6 +2,7 @@
 #include "LinkedList.h"
 
 #include <iostream>
+#include <exception>
 
 #define EXIT_SUCCESS    0
 
@@ -17,8 +18,18 @@ int main(void) {
    std::cout << "2. Load game" << std::endl;
    std::cout << "3. Credits (Show student information)" << std::endl;
    std::cout << "4. Quit" << std::endl;
-   std::cin >> userChoice;
-   runMenu(userChoice);
+   std::cout << "> ";
+   try {
+      std::cin >> userChoice;
+      if(std::cin.fail()) {
+         throw std::invalid_argument("Invalid input, please try again");
+      }
+      runMenu(userChoice);
+   }
+   catch(std::invalid_argument& e) {
+      std::cout << e.what() << std::endl << std::endl;
+      std::cin.clear();
+   }
    return EXIT_SUCCESS;
 }
 
