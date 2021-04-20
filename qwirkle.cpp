@@ -8,8 +8,12 @@
 int main(void) {
    LinkedList* list = new LinkedList();
    delete list;
-
-   std::cout << "TODO: Implement Qwirkle!" << std::endl;
+   std::cout << "Menu" << std::endl;
+   std::cout << "---" << std::endl;
+   std::cout << "1. New Game" << std::endl;
+   std::cout << "2. Load game" << std::endl;
+   std::cout << "3. Credits (Show student information)" << std::endl;
+   std::cout << "4. Quit" << std::endl;
 
    return EXIT_SUCCESS;
 }
