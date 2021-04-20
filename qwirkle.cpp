@@ -5,6 +5,8 @@
 
 #define EXIT_SUCCESS    0
 
+void runMenu(int userChoice);
+
 int main(void) {
    LinkedList* list = new LinkedList();
    delete list;
@@ -16,4 +18,22 @@ int main(void) {
    std::cout << "4. Quit" << std::endl;
 
    return EXIT_SUCCESS;
+}
+
+void runMenu(int userChoice) {
+   if(userChoice==1) {
+     std::cout << "Choice 1 selected \n \n";
+   }
+   else if(userChoice==2) {
+      //Load game
+      std::cout << "Choice 2 selected \n \n";
+   }
+   else if(userChoice==3) {
+      //Credits
+      std::cout << "Choice 3 selected \n \n";
+   }
+   else if(userChoice==4) {
+      //Quit
+      std::cout << "Goodbye" << std::endl;
+   }
 }
