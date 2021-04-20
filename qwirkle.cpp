@@ -10,18 +10,21 @@ void runMenu(int userChoice);
 int main(void) {
    LinkedList* list = new LinkedList();
    delete list;
+   int userChoice;
    std::cout << "Menu" << std::endl;
    std::cout << "---" << std::endl;
    std::cout << "1. New Game" << std::endl;
    std::cout << "2. Load game" << std::endl;
    std::cout << "3. Credits (Show student information)" << std::endl;
    std::cout << "4. Quit" << std::endl;
-
+   std::cin >> userChoice;
+   runMenu(userChoice);
    return EXIT_SUCCESS;
 }
 
 void runMenu(int userChoice) {
    if(userChoice==1) {
+     //New game
      std::cout << "Choice 1 selected \n \n";
    }
    else if(userChoice==2) {
