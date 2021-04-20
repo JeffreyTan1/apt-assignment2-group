@@ -11,7 +11,6 @@ void runMenu(int userChoice, bool* stop);
 int main(void) {
    LinkedList* list = new LinkedList();
    delete list;
-   delete list;
    bool stop = false;
    bool* stopPtr = &stop;
    int userChoice;
@@ -23,17 +22,14 @@ int main(void) {
       std::cout << "3. Credits (Show student information)" << std::endl;
       std::cout << "4. Quit" << std::endl;
       std::cout << "> ";
-      try {
-         std::cin >> userChoice;
-         if(std::cin.fail()) {
-            throw std::invalid_argument("Invalid input, please try again");
-         }
-         runMenu(userChoice, stopPtr);
-      }
-      catch(std::invalid_argument& e) {
-         std::cout << e.what() << std::endl << std::endl;
+      std::cin >> userChoice;
+      while(std::cin.fail()) {
+         std::cout <<"Invalid input, please try again \n> ";
          std::cin.clear();
+         std::cin.ignore();
+         std::cin >> userChoice;
       }
+      runMenu(userChoice, stopPtr);
    }
    return EXIT_SUCCESS;
 }
