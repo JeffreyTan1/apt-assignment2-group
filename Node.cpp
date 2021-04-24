@@ -1,36 +1,47 @@
 
 #include "Node.h"
 
-Node::Node(Tile* tile, Node* next)
+Node::Node(Tile *tile, Node *next)
 {
    this->tile = tile;
    this->next = next;
 }
 
-Node::Node(Tile* tile)
+Node::Node(Tile *tile)
 {
    this->tile = tile;
    this->next = nullptr;
 }
 
-Node::Node(Node& other)
+Node::Node(Node &other)
 {
    this->tile = other.tile;
-   this->next = other.next; 
+   this->next = other.next;
 }
 
-Node::~Node() {
+Node::~Node()
+{
    if (next != nullptr)
    {
       next->~Node();
    }
-   
 }
 
-void Node::setNext(Node* next) {
+Tile *Node::getTile()
+{
+   return tile;
+}
+Node *Node::getNext()
+{
+   return next;
+}
+
+void Node::setNext(Node *next)
+{
    this->next = next;
 }
 
-void Node::setNextNullptr() {
+void Node::setNextNullptr()
+{
    this->next = nullptr;
 }

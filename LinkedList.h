@@ -1,15 +1,17 @@
-//Header from Timothy Wiley: PreRecVideos_w07/linkedlist
+//Much of this header is from Timothy Wiley: PreRecVideos_w07/linkedlist
 
 #ifndef ASSIGN2_LINKEDLIST_H
 #define ASSIGN2_LINKEDLIST_H
 
-#include "Node.h"
+class Node;
 
-class LinkedList {
+class Tile;
+
+class LinkedList
+{
 public:
-
    LinkedList();
-   LinkedList(LinkedList& other);
+   LinkedList(LinkedList &other);
    ~LinkedList();
 
    /**
@@ -20,17 +22,17 @@ public:
    /**
     * Get the value at the given index.
     */
-   Tile* get(int index);
+   Tile *get(int index);
 
    /**
     * Add the value to the back of the Linked List
     */
-   void addBack(Tile* tile);
+   void addBack(Tile *tile);
 
    /**
     * Add the value to the front of the Linked List
     */
-   void addFront(Tile* tile);
+   void addFront(Tile *tile);
 
    /**
     * Remove the value at the back of the Linked List
@@ -47,8 +49,13 @@ public:
     */
    void clear();
 
+   /**
+    * Checks if a tile exists in a Linked List
+    */
+   bool exists(Tile *tile);
+
 private:
-   Node* head;
+   Node *head;
 };
 
 #endif // ASSIGN2_LINKEDLIST_H

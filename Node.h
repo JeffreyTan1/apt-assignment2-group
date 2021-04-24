@@ -2,22 +2,26 @@
 #ifndef ASSIGN2_NODE_H
 #define ASSIGN2_NODE_H
 
-#include "Tile.h"
+class Tile;
 
-class Node {
+class Node
+{
 public:
-
-   Node(Tile* tile, Node* next);
-   Node(Tile* tile);
-   Node(Node& other);
+   Node(Tile *tile, Node *next);
+   Node(Tile *tile);
+   Node(Node &other);
    ~Node();
 
-   void setNext(Node* next);
-
+   Tile *getTile();
+   Node *getNext();
+   void setNext(Node *next);
    void setNextNullptr();
 
-   Tile*    tile;
-   Node*    next;
-};
+private:
+   Tile *tile;
+   Node *next;
+}
+
+;
 
 #endif // ASSIGN2_NODE_H

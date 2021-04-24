@@ -1,5 +1,6 @@
-
 #include "LinkedList.h"
+#include "Node.h"
+#include "Tile.h"
 
 LinkedList::LinkedList()
 {
@@ -36,10 +37,10 @@ int LinkedList::size()
    {
       Node *currentNode = head;
 
-      while (currentNode->next != nullptr)
+      while (currentNode->getNext() != nullptr)
       {
          count++;
-         currentNode = currentNode->next;
+         currentNode = currentNode->getNext();
       }
       count++;
    }
@@ -57,10 +58,10 @@ Tile *LinkedList::get(int index)
 
       for (int i = 0; i < index; i++)
       {
-         currentNode = currentNode->next;
+         currentNode = currentNode->getNext();
       }
 
-      rTile = currentNode->tile;
+      rTile = currentNode->getTile();
    }
 
    return rTile;
@@ -83,12 +84,16 @@ void LinkedList::addBack(Tile *tile)
    if (head != nullptr)
    {
       Node *currentNode = head;
-      while (currentNode->next != nullptr)
+      while (currentNode->getNext() != nullptr)
       {
-         currentNode = currentNode->next;
+         currentNode = currentNode->getNext();
       }
       Node *newNode = new Node(tile);
       currentNode->setNext(newNode);
+   }
+   else
+   {
+      head = new Node(tile);
    }
 }
 
@@ -98,13 +103,23 @@ void LinkedList::removeBack()
    {
       Node *currentNode = head;
       Node *previousNode = nullptr;
-      while (currentNode->next != nullptr)
+      bool cont = true;
+      while (cont)
       {
          previousNode = currentNode;
-         currentNode = currentNode->next;
+
+         if (currentNode->getNext() != nullptr)
+         {
+            currentNode = currentNode->getNext();
+         }
+         else
+         {
+            cont = false;
+         }
       }
       previousNode->setNextNullptr();
       delete currentNode;
+      currentNode = nullptr;
    }
 }
 
@@ -112,10 +127,10 @@ void LinkedList::removeFront()
 {
    if (head != nullptr)
    {
-      if (head->next != nullptr)
+      if (head->getNext() != nullptr)
       {
          Node *removeNode = head;
-         head = head->next;
+         head = head->getNext();
          delete removeNode;
       }
       else
@@ -129,4 +144,32 @@ void LinkedList::removeFront()
 void LinkedList::clear()
 {
    delete head;
+}
+
+bool LinkedList::exists(Tile *tile)
+{
+   bool exists = false;
+   if (head != nullptr)
+   {
+      Node *currentNode = head;
+      bool cont = true;
+      while (cont)
+      {
+         if ((currentNode->getTile())->equals(tile))
+         {
+            exists = true;
+            break;
+         }
+         if (currentNode->getNext() != nullptr)
+         {
+            currentNode = currentNode->getNext();
+         }
+         else
+         {
+            cont = false;
+         }
+      }
+   }
+
+   return exists;
 }
