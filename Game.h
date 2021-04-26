@@ -16,6 +16,9 @@ public:
     ~Game();
 
     void PlayTurn(std::string tile, std::string location);
+    void executeGameplay();
+
+
 
 private:
     Player *player1;

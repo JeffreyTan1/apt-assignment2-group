@@ -21,3 +21,7 @@ Game::~Game()
     delete board;
 }
 
+void Game::executeGameplay() {
+
+}
+
