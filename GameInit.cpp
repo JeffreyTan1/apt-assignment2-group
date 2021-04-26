@@ -49,8 +49,7 @@ GameInit::GameInit() {
 }
 
 GameInit::GameInit(std::string filename) {
-
-
+    
 }
 
 Player* GameInit::getPlayer1() {
