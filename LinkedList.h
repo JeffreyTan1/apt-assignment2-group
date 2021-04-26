@@ -54,6 +54,11 @@ public:
     */
    bool exists(Tile *tile);
 
+   /**
+    * Checks if a Linked List is empty
+    */
+   bool isEmpty();
+
 private:
    Node *head;
 };
