@@ -1,4 +1,8 @@
 #include "Game.h"
+#include "LinkedList.h"
+#include "Player.h"
+#include "Board.h"
+#include "Tile.h"
 
 Game::Game(Player *player1, Player *player2, LinkedList *bag, Board *board, std::string currentPlayer)
 {
