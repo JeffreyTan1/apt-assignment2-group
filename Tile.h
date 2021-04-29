@@ -14,6 +14,7 @@ public:
    Tile(char colour, int shape);
 
    bool equals(Tile *tile);
+   bool isValid();
 
    Colour colour;
    Shape shape;
