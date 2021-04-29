@@ -11,7 +11,7 @@ class Player;
 class Game
 {
 public:
-    Game(Player *player1, Player *player2, LinkedList *bag, Board *board, std::string currentPlayer);
+    Game(Player *player1, Player *player2, LinkedList *bag, Board *board, Player* currentPlayer);
 
     ~Game();
 
@@ -25,7 +25,7 @@ private:
     Player *player2;
     LinkedList *bag;
     Board *board;
-    std::string currentPlayer;
+    Player* currentPlayer;
 };
 
 #endif // ASSIGN2_NODE_H
