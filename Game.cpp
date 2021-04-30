@@ -101,3 +101,12 @@ void Game::drawCard() {
     currentPlayer->getHand()->addBack(newTile);
 }
 
+void Game::switchPlayer() {
+    if(currentPlayer->equals(player1)) {
+        currentPlayer = player2;
+    }
+    else {
+        currentPlayer = player1;
+    }
+}
+
