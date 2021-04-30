@@ -12,7 +12,7 @@ public:
     Board();
 
     ~Board();
-    void placeTile(Tile tile, int row, int col);
+    void placeTile(Tile *tile, int row, int col);
 
 private:
     vector<vector<Tile>> board;
