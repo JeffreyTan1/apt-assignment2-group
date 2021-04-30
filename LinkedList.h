@@ -59,6 +59,11 @@ public:
     */
    bool isEmpty();
 
+   /**
+    * Remove a given element from a Linked List
+    */
+   bool removeElement(Tile* tile);
+
 private:
    Node *head;
 };
