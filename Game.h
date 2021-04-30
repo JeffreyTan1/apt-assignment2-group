@@ -17,6 +17,7 @@ public:
 
     void PlayTurn(std::string tile, std::string location);
     void executeGameplay();
+    void switchPlayer();
 
 
 

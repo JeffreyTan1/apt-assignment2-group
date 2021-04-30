@@ -68,8 +68,15 @@ void Game::executeGameplay()
                 }
             }
         }
-        else if(true) { //user is replacing tile
-
+        else if(commandSplit[0]=="replace") { //user is replacing tile
+            Tile *replaceTile = new Tile(commandSplit[1].at(0),commandSplit[1].at(0));
+            if(currentPlayer->getHand()->exists(replaceTile)) {
+                currentPlayer->getHand()->removeElement(replaceTile);
+                bag->addBack(replaceTile);
+                Tile* newTile = bag->get(0);
+                bag->removeFront();
+                currentPlayer->getHand()->addBack(newTile);
+            }
         }
         else if(true) { //user is saving game
             //save the game
