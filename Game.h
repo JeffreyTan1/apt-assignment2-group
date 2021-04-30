@@ -15,9 +15,12 @@ public:
 
     ~Game();
 
-    void PlayTurn(std::string tile, std::string location);
+    void playTurn(vector<string> userInput);
     void executeGameplay();
     void switchPlayer();
+    void playTile(Tile* tile, char row, char col);
+    void replaceTile(Tile* tile);
+    void drawCard();
 
 
 
@@ -27,6 +30,7 @@ private:
     LinkedList *bag;
     Board *board;
     Player* currentPlayer;
+    bool gameOver;
 };
 
 #endif // ASSIGN2_NODE_H

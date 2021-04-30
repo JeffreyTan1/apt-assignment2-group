@@ -21,6 +21,7 @@ Game::Game(Player *player1, Player *player2, LinkedList *bag, Board *board, Play
     this->bag = bag;
     this->board = board;
     this->currentPlayer = currentPlayer;
+    this->gameOver = false;
 }
 
 Game::~Game()
@@ -33,8 +34,7 @@ Game::~Game()
 
 void Game::executeGameplay() 
 {
-    bool stop = false;
-    while(!stop&&!player1->getHand()->isEmpty()&&player2->getHand()->isEmpty()&&!bag->isEmpty()) 
+    while(!gameOver&&!player1->getHand()->isEmpty()&&player2->getHand()->isEmpty()&&!bag->isEmpty()) 
     {
         string command;
         cout << currentPlayer->getName() << ", it's your turn" << endl;
@@ -44,47 +44,60 @@ void Game::executeGameplay()
         cout << "Your hand is" << endl;
         //print current players hand
         getline(cin, command);
-        //command is input as an array separated by spaces
-        std::vector<std::string> commandSplit; 
+        std::vector<string> commandSplit; 
         std::istringstream iss(command); 
-        for(std::string command; iss >> command; ) {
+        for(string command; iss >> command; ) {
             commandSplit.push_back(command);
         }
-        //if command[1] == replace
-        if(commandSplit[0]=="place") { //placing tile
-            int locationRow = commandSplit[3].at(0);
-            int locationCol = commandSplit[3].at(1);
-            Tile placeTile = Tile(commandSplit[1].at(0), commandSplit[1].at(1));
-            if(placeTile.isValid()) { //and move is legal
-                board->placeTile(placeTile, locationRow, locationCol);
-                //update the score
-                if(!bag->isEmpty()) {
-                    Tile* newTile = bag->get(0);
-                    bag->removeFront();
-                    currentPlayer->getHand()->addBack(newTile);
-                }
-                if(false) { //qwirkle is scored
-                    cout << "QWIRKLE!!!";
-                }
-            }
+        playTurn(commandSplit);
+        switchPlayer();
+    }
+
+}
+
+void Game::playTurn(vector<string> userInput) {
+    if(userInput[0]=="place") { //placing tile
+            int locationRow = userInput[3].at(0);
+            int locationCol = userInput[3].at(1);
+            Tile *tile = new Tile(userInput[1].at(0), userInput[1].at(1));
+            playTile(tile, locationRow, locationCol);
         }
-        else if(commandSplit[0]=="replace") { //user is replacing tile
-            Tile *replaceTile = new Tile(commandSplit[1].at(0),commandSplit[1].at(0));
-            if(currentPlayer->getHand()->exists(replaceTile)) {
-                currentPlayer->getHand()->removeElement(replaceTile);
-                bag->addBack(replaceTile);
-                Tile* newTile = bag->get(0);
-                bag->removeFront();
-                currentPlayer->getHand()->addBack(newTile);
-            }
+        else if(userInput[0]=="replace") { //user is replacing tile
+            Tile *changeTile = new Tile(userInput[1].at(0),userInput[1].at(0));
+            replaceTile(changeTile);
         }
         else if(true) { //user is saving game
             //save the game
         }
         else if(true) { //user is quitting game
-            stop = true;
+            gameOver = true;
+        }
+}
+
+void Game::playTile(Tile* tile, char row, char col) {
+    if(tile->isValid()) { //and move is legal
+        board->placeTile(tile, row, col);
+        //update the score
+        if(!bag->isEmpty()) {
+            drawCard();
+        }
+        if(false) { //qwirkle is scored
+            cout << "QWIRKLE!!!";
         }
     }
+}
 
+void Game::replaceTile(Tile* tile) {
+    if(currentPlayer->getHand()->exists(tile)) {
+        currentPlayer->getHand()->removeElement(tile);
+        bag->addBack(tile);
+        drawCard();
+    }
+}
+
+void Game::drawCard() {
+    Tile* newTile = bag->get(0);
+    bag->removeFront();
+    currentPlayer->getHand()->addBack(newTile);
 }
 
