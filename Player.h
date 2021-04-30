@@ -19,6 +19,8 @@ public:
 
     LinkedList *getHand();
 
+    bool equals(Player *player);
+
 private:
     std::string name;
     int points;
