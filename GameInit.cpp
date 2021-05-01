@@ -5,10 +5,15 @@
 #include "Player.h"
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <cstring>
 
 using std::cout;
 using std::endl;
 using std::cin;
+
+using std::ifstream;
+using std::atoi;
 
 GameInit::GameInit() {
     board = new Board();
@@ -49,9 +54,34 @@ GameInit::GameInit() {
 }
 
 GameInit::GameInit(std::string filename) {
+    ifstream saveFile(filename);
+    std::string input = NULL;
 
+    std::string p1Name;
+    int p1Points;
+    LinkedList* p1Hand = new LinkedList();
+
+    saveFile >> p1Name;
+    saveFile >> input;
+    p1Points = stoi(input);
+    saveFile >> input;
+
+     token = strtok(input.c_str(), ",");
+    while (token != NULL) {
+        char colour = token.at(0);
+        int shape = (int) token.at(1);
+
+        Tile * newTile = new Tile(colour, shape);
+        p1Hand->addBack(newTile);
+        
+        token = strtok(NULL, ",")
+    }
+
+    player1 = new Player(p1Name, p1Points, p1Hand);
 
 }
+
+
 
 Player* GameInit::getPlayer1() {
     return player1;
