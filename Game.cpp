@@ -74,7 +74,7 @@ void Game::playTurn(vector<string> userInput) {
         }
 }
 
-void Game::playTile(Tile* tile, char row, char col) {
+void Game::playTile(Tile* tile, int row, int col) {
     if(tile->isValid()) { //and move is legal
         board->placeTile(tile, row, col);
         //update the score
@@ -85,6 +85,69 @@ void Game::playTile(Tile* tile, char row, char col) {
             cout << "QWIRKLE!!!";
         }
     }
+}
+
+bool Game::isValidMove(Tile* userTile, int row, int col) {
+    bool diffShape = false;
+    bool diffColour = false;
+    bool returnVal = true;
+    bool tileFound = false;
+    int i = 0;
+    if(board->getTileAt(row, col)==nullptr) { 
+        //check the row (increase col)
+        Tile *currentTile = board->getTileAt(row, 0);
+        while(!tileFound&&i<=col+1&&returnVal) {
+            Tile *currentTile = board->getTileAt(row, i);
+            if(currentTile!=nullptr) {
+                tileFound = true;
+                if(currentTile->equals(userTile)) {
+                    returnVal = false;
+                }
+                else if(currentTile->colour==userTile->colour) {
+                    diffShape=true;
+                }
+                else if(currentTile->shape==userTile->shape) {
+                    diffColour=true;
+                }
+            }
+            i++;
+        }
+        while(!tileFound&&i<=26) { //if no tile was found that could connect to userTile, see if the row is empty
+            Tile *currentTile = board->getTileAt(row, i);
+            if(currentTile!=nullptr) {
+                tileFound = true;
+                returnVal = false; //userTile can't connect to this tile
+            }
+            i++;
+        }
+        Tile *neighbour = currentTile;
+        while(neighbour!=nullptr&&returnVal) {
+            if(neighbour->equals(userTile)) {
+                returnVal = false;
+            }
+            else if(diffShape) {
+                returnVal = !(neighbour->shape==userTile->shape);
+            }
+            else if(diffColour) {
+                returnVal = !(neighbour->colour==userTile->colour);
+            }
+            if(i!=col) {
+                neighbour=board->getTileAt(row, i+1);
+                i++;
+            }
+            else {
+                neighbour=board->getTileAt(row, i+2);
+                i+=2;
+            }
+        }
+        if(i<col-1&&tileFound) {
+            returnVal=false;
+        }
+    }
+    else {
+        returnVal=false;
+    }
+    return returnVal;
 }
 
 void Game::replaceTile(Tile* tile) {

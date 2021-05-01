@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "LinkedList.h"
 
 Player::Player(std::string name, int points, LinkedList *hand)
 {
@@ -25,4 +26,8 @@ int Player::getPoints()
 LinkedList *Player::getHand()
 {
     return hand;
+}
+
+bool Player::equals(Player *player) {
+    return true;
 }

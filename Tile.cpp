@@ -15,3 +15,7 @@ bool Tile::equals(Tile *tile)
     }
     return equal;
 }
+
+bool Tile::isValid() {
+    return true;
+}

@@ -1,5 +1,10 @@
 
+#include "Game.h"
 #include "LinkedList.h"
+#include "Player.h"
+#include "Board.h"
+#include "Tile.h"
+#include "GameInit.h"
 
 #include <iostream>
 #include <exception>
@@ -51,6 +56,11 @@ void runMenu(int userChoice, bool *stop)
    {
       //New game
       cout << "Choice 1 selected \n \n";
+      GameInit *gameInit = new GameInit();
+      Game *game = new Game(gameInit->getPlayer1(), gameInit->getPlayer2(), gameInit->getBag(), gameInit->getBoard(), gameInit->getPlayer1());
+      game->executeGameplay();
+      delete game;
+      //delete gameInit; (add once destructor implemented)
    }
    else if (userChoice == 2)
    {

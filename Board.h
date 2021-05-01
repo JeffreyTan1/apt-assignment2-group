@@ -13,9 +13,10 @@ public:
 
     ~Board();
     void placeTile(Tile *tile, int row, int col);
+    Tile* getTileAt(int row, int col);
 
 private:
-    vector<vector<Tile>> board;
+    vector<vector<Tile*>> board;
 };
 
 #endif // ASSIGN2_NODE_H

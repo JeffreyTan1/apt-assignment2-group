@@ -15,12 +15,13 @@ public:
 
     ~Game();
 
-    void playTurn(vector<string> userInput);
+    void playTurn(std::vector<std::string> userInput);
     void executeGameplay();
     void switchPlayer();
-    void playTile(Tile* tile, char row, char col);
-    void replaceTile(Tile* tile);
+    void playTile(Tile *tile, int row, int col);
+    void replaceTile(Tile *tile);
     void drawCard();
+    bool isValidMove(Tile *userTile, int row, int col);
 
 
 

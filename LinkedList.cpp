@@ -173,3 +173,13 @@ bool LinkedList::exists(Tile *tile)
 
    return exists;
 }
+
+bool LinkedList::removeElement(Tile* tile) {
+   //TO DO
+   return true;
+}
+
+bool LinkedList::isEmpty() {
+   //TO DO
+   return true;
+}
