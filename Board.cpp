@@ -1,21 +1,25 @@
 #include "Board.h"
 #include "Tile.h"
 
-Board::Board() {
+Board::Board() 
+{
     //TO DO
     
 }
 
-Board::~Board() {
+Board::~Board() 
+{
     //TO DO
     
 }
 
-void Board::placeTile(Tile *tile, int row, int col) {
+void Board::placeTile(Tile *tile, int row, int col) 
+{
     //TO DO
 }
 
-Tile* Board::getTileAt(int row, int col) {
+Tile* Board::getTileAt(int row, int col) 
+{
     //TO DO
     Tile *tile = new Tile('R', 1);
     return tile;
