@@ -54,6 +54,7 @@ GameInit::GameInit() {
 }
 
 GameInit::GameInit(std::string filename) {
+<<<<<<< HEAD
     ifstream saveFile(filename);
     std::string input = NULL;
 
@@ -79,6 +80,9 @@ GameInit::GameInit(std::string filename) {
 
     player1 = new Player(p1Name, p1Points, p1Hand);
 
+=======
+    
+>>>>>>> a05bf477846c38a1333d71690244b5e5cda2c669
 }
 
 
