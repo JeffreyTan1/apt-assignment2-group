@@ -34,4 +34,4 @@ private:
     bool gameOver;
 };
 
-#endif // ASSIGN2_NODE_H
+#endif // ASSIGN2_GAME_H

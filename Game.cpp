@@ -7,6 +7,8 @@
 #include <iostream>
 #include <sstream> 
 #include <string>
+#define ASCII_CONVERTER_DIGIT 48
+#define ASCII_CONVERTER_LETTER 65
 
 using std::cin;
 using std::cout;
@@ -34,7 +36,7 @@ Game::~Game()
 
 void Game::executeGameplay() 
 {
-    while(!gameOver&&!player1->getHand()->isEmpty()&&player2->getHand()->isEmpty()&&!bag->isEmpty()) 
+    while(!gameOver)//(!gameOver&&!player1->getHand()->isEmpty()&&player2->getHand()->isEmpty()&&!bag->isEmpty())
     {
         string command;
         cout << currentPlayer->getName() << ", it's your turn" << endl;
@@ -43,6 +45,7 @@ void Game::executeGameplay()
         //print  board
         cout << "Your hand is" << endl;
         //print current players hand
+        cin.ignore();
         getline(cin, command);
         std::vector<string> commandSplit; 
         std::istringstream iss(command); 
@@ -57,9 +60,9 @@ void Game::executeGameplay()
 
 void Game::playTurn(vector<string> userInput) {
     if(userInput[0]=="place") { //placing tile
-            int locationRow = userInput[3].at(0);
-            int locationCol = userInput[3].at(1);
-            Tile *tile = new Tile(userInput[1].at(0), userInput[1].at(1));
+            int locationRow = (userInput[3].at(0))-ASCII_CONVERTER_LETTER;
+            int locationCol = (userInput[3].at(1))-ASCII_CONVERTER_DIGIT;
+            Tile *tile = new Tile(userInput[1].at(0), (userInput[1].at(1))-ASCII_CONVERTER_DIGIT);
             playTile(tile, locationRow, locationCol);
         }
         else if(userInput[0]=="replace") { //user is replacing tile
