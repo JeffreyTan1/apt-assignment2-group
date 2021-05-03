@@ -1,5 +1,9 @@
 #include "Tile.h"
 
+Tile::Tile() {
+    colour = NULL;
+    shape = NULL;
+}
 Tile::Tile(char colour, int shape)
 {
     this->colour = colour;

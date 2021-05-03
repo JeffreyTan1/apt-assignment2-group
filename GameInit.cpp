@@ -8,6 +8,8 @@
 #include <string>
 #include <fstream>
 #include <cstring>
+#include <algorithm>
+#include <random>
 
 using std::cin;
 using std::cout;
@@ -22,16 +24,27 @@ GameInit::GameInit()
 
     bag = new LinkedList();
 
+    //create a vector containing all tiles
+    std::vector<Tile*> allTiles;
+
     char colours[6] = {'R', 'O', 'Y', 'G', 'B', 'P'};
 
-    // Not random... yet
-    for (int i = 0; i < 6; i++)
-    {
-        for (int j = 0; j < 6; j++)
-        {
-            Tile *newTile = new Tile(colours[i], j);
-            bag->addBack(newTile);
+    int shapes[6] = {1, 2, 3, 4, 5, 6};
+
+    for(int i = 0; i < 2; i++){
+        for (int j = 0; j < 6; j++){
+            for (int k = 0; k <6; k++){
+                Tile* newTile = new Tile(colours[j], shapes[k]);
+                allTiles.push_back(newTile);
+            }
         }
+    }
+    //shuffle the vector
+    std::default_random_engine engine(10);
+    std::shuffle(allTiles.begin(), allTiles.end(), engine);
+    //add tiles to bag
+    for (int i = 0; i < 72; i++) {
+        bag->addBack(allTiles.at(i));
     }
 
     //Create player 1 data structures

@@ -13,6 +13,8 @@ typedef int Shape;
 class Tile
 {
 public:
+   Tile();
+   
    Tile(char colour, int shape);
 
    bool equals(Tile *tile);
