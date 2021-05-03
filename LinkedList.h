@@ -55,7 +55,7 @@ public:
     */
    bool exists(Tile *tile);
 
-   std::string to_string();
+   std::string toString();
 
 private:
    Node *head;

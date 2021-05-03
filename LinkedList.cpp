@@ -174,7 +174,7 @@ bool LinkedList::exists(Tile *tile)
    return exists;
 }
 
-std::string LinkedList::to_string() {
+std::string LinkedList::toString() {
    std::string linkedListString = "";
    if (head != nullptr)
    {
