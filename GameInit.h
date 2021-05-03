@@ -17,19 +17,22 @@ public:
    GameInit(std::string filename);
    ~GameInit();
 
-   Player* getPlayer1();
-   Player* getPlayer2();
-   Board* getBoard();
-   LinkedList* getBag();
-
+   Player *getPlayer1();
+   Player *getPlayer2();
+   Board *getBoard();
+   LinkedList *getBag();
+   int getBHeight();
+   int getBWidth();
+   std::string getCurrPlayer();
 
 private:
    Player *player1;
    Player *player2;
-   Board* board;
+   Board *board;
    LinkedList *bag;
-
-
+   int bHeight;
+   int bWidth;
+   std::string currPlayer;
 };
 
 #endif // ASSIGN2_GAMEINIT_H

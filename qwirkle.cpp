@@ -1,5 +1,8 @@
 
 #include "LinkedList.h"
+#include "GameInit.h"
+#include "Game.h"
+#include "Player.h"
 
 #include <iostream>
 #include <exception>
@@ -50,6 +53,10 @@ void runMenu(int userChoice, bool *stop)
    if (userChoice == 1)
    {
       //New game
+      GameInit* gameInit = new GameInit();
+      Game * newGame = new Game(gameInit->getPlayer1(), gameInit->getPlayer2(), gameInit->getBag(), 
+      gameInit->getBoard(), gameInit->getPlayer1()->getName());
+
       cout << "Choice 1 selected \n \n";
    }
    else if (userChoice == 2)
