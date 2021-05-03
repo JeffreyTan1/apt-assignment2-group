@@ -4,6 +4,7 @@
 #include <iostream>
 #include <exception>
 #include <limits>
+#include "Board.h"
 
 #define EXIT_SUCCESS 0
 
@@ -50,7 +51,16 @@ void runMenu(int userChoice, bool *stop)
    if (userChoice == 1)
    {
       //New game
+      //why no ** ???
       cout << "Choice 1 selected \n \n";
+      Board* board= new Board();
+      board->setBoard();
+      Tile* vent= new Tile('G',5);
+      Tile* vent2= new Tile('R',5);
+      board->addTile(vent,"A",3);
+      board->addTile(vent2,"B",4);
+      board->toString();
+
    }
    else if (userChoice == 2)
    {
