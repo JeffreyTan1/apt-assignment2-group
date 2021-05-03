@@ -66,7 +66,7 @@ void Game::playTurn(vector<string> userInput) {
             playTile(tile, locationRow, locationCol);
         }
         else if(userInput[0]=="replace") { //user is replacing tile
-            Tile *changeTile = new Tile(userInput[1].at(0),userInput[1].at(0));
+            Tile *changeTile = new Tile(userInput[1].at(0),(userInput[1].at(0))-ASCII_CONVERTER_DIGIT);
             replaceTile(changeTile);
         }
         else if(true) { //user is saving game
@@ -115,36 +115,23 @@ bool Game::isValidMove(Tile* userTile, int row, int col) {
             }
             i++;
         }
-        while(!tileFound&&i<=26) { //if no tile was found that could connect to userTile, see if the row is empty
-            Tile *currentTile = board->getTileAt(row, i);
-            if(currentTile!=nullptr) {
-                tileFound = true;
-                returnVal = false; //userTile can't connect to this tile
-            }
-            i++;
+        if(!tileFound) {
+            returnVal=board->rowIsEmpty(row);
         }
-        Tile *neighbour = currentTile;
-        while(neighbour!=nullptr&&returnVal) {
-            if(neighbour->equals(userTile)) {
+        else {
+            Tile *neighbour = currentTile;
+            while (neighbour != nullptr && returnVal) {
+                int increase=1;
+                returnVal = compareTiles(neighbour, userTile, diffShape);
+                if(col==i) {
+                    increase=2;
+                }
+                neighbour = board->getTileAt(row, i + increase);
+                i+=increase;
+            }
+            if (i < col - 1 && tileFound) {
                 returnVal = false;
             }
-            else if(diffShape) {
-                returnVal = !(neighbour->shape==userTile->shape);
-            }
-            else if(diffColour) {
-                returnVal = !(neighbour->colour==userTile->colour);
-            }
-            if(i!=col) {
-                neighbour=board->getTileAt(row, i+1);
-                i++;
-            }
-            else {
-                neighbour=board->getTileAt(row, i+2);
-                i+=2;
-            }
-        }
-        if(i<col-1&&tileFound) {
-            returnVal=false;
         }
     }
     else {
@@ -174,5 +161,19 @@ void Game::switchPlayer() {
     else {
         currentPlayer = player1;
     }
+}
+
+bool Game::compareTiles(Tile *tile, Tile *other, bool diffShape) {
+    bool returnVal = true;
+    if (tile->equals(other)) {
+        returnVal = false;
+    }
+    else if (diffShape) {
+        returnVal = !(tile->shape == other->shape);
+    }
+    else if (!diffShape) {
+        returnVal = !(tile->colour == other->colour);
+    }
+    return returnVal;
 }
 
