@@ -2,6 +2,7 @@
 
 #ifndef ASSIGN2_LINKEDLIST_H
 #define ASSIGN2_LINKEDLIST_H
+#include<string>
 
 class Node;
 
@@ -53,6 +54,8 @@ public:
     * Checks if a tile exists in a Linked List
     */
    bool exists(Tile *tile);
+
+   std::string to_string();
 
 private:
    Node *head;

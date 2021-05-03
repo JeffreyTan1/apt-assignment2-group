@@ -23,7 +23,7 @@ public:
    LinkedList *getBag();
    int getBHeight();
    int getBWidth();
-   std::string getCurrPlayer();
+   Player* getCurrPlayer();
 
 private:
    Player *player1;
@@ -32,7 +32,7 @@ private:
    LinkedList *bag;
    int bHeight;
    int bWidth;
-   std::string currPlayer;
+   Player* currPlayer;
 };
 
 #endif // ASSIGN2_GAMEINIT_H

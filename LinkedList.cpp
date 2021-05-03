@@ -173,3 +173,24 @@ bool LinkedList::exists(Tile *tile)
 
    return exists;
 }
+
+std::string LinkedList::to_string() {
+   std::string linkedListString = "";
+   if (head != nullptr)
+   {
+      Node *currentNode = head;
+      bool cont = true;
+      while (cont)
+      {
+         //linkedListString = linkedListString + currentNode->getTile()->toString()
+         currentNode = currentNode->getNext();
+         if (currentNode->getNext() == nullptr){
+            cont = false;
+         } else {
+            linkedListString = linkedListString + ",";
+         }
+      }
+   }
+
+   return linkedListString;
+}

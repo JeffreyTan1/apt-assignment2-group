@@ -2,6 +2,8 @@
 #ifndef ASSIGN2_TILE_H
 #define ASSIGN2_TILE_H
 
+#include<string>
+
 // Define a Colour type
 typedef char Colour;
 

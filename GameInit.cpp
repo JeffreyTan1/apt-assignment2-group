@@ -172,7 +172,13 @@ GameInit::GameInit(std::string filename)
     }
 
     //read current player
-    saveFile >> currPlayer;
+    saveFile >> input;
+
+    if (player1->getName().compare(input)) {
+        currPlayer = player1;
+    } else if (player2->getName().compare(input)) {
+        currPlayer = player2;
+    }
 
     //End of initialiser
 }
@@ -203,7 +209,7 @@ int GameInit::getBWidth()
     return bWidth;
 }
 
-std::string GameInit::getCurrPlayer()
+Player* GameInit::getCurrPlayer()
 {
     return currPlayer;
 }
