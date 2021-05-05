@@ -44,7 +44,7 @@ GameInit::GameInit() {
         p2Hand->addBack(bag->get(0));
         bag->removeFront();
     }
-    player2 = new Player(p1Name, 0, p1Hand);
+    player2 = new Player(p2Name, 0, p2Hand);
 
 }
 

@@ -1,5 +1,3 @@
-//Much of this header is from Timothy Wiley: PreRecVideos_w07/linkedlist
-
 #ifndef ASSIGN2_LINKEDLIST_H
 #define ASSIGN2_LINKEDLIST_H
 
@@ -53,6 +51,16 @@ public:
     * Checks if a tile exists in a Linked List
     */
    bool exists(Tile *tile);
+
+   /**
+    * Checks if a Linked List is empty
+    */
+   bool isEmpty();
+
+   /**
+    * Remove a given element from a Linked List
+    */
+   bool removeElement(Tile* tile);
 
 private:
    Node *head;

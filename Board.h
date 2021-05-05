@@ -16,7 +16,10 @@ public:
     ~Board();
     void toString();
     void addTile(Tile* tile, std::string colour, int shape);
-    void test();
+    
+    void placeTile(Tile *tile, int row, int col);
+    Tile* getTileAt(int row, int col);
+    bool rowIsEmpty(int row);
 
 private:
     vector<vector<Tile*>> board;

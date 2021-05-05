@@ -8,7 +8,7 @@ using namespace std;
 //class Tile;
 int n = 6;
 
-int m = 6;
+int m = 7;
 
 string init[6] = {"A", "B", "C", "D", "E", "F"};
 Tile* testy= new Tile('z',5);
@@ -19,16 +19,11 @@ Tile* testy= new Tile('z',5);
 
 Board::Board()
 {
-}
-
-void Board::setBoard()
-{
-
     string init[6] = {"A", "B", "C", "D", "E", "F"};
-
     vector<vector<Tile*>> vec(n, vector<Tile*>(m));
     this->board=vec;
 }
+
 
 vector<vector<Tile*>> Board::getBoard()
 {
@@ -39,7 +34,7 @@ void Board::toString()
 {
     for (int i = 0; i < 2; i++)
     {
-        for (int j = 0; j < m; j++)
+        for (int j = 0; j < m-1; j++)
         {
             if (i == 0 && j == 0)
             {
@@ -54,7 +49,7 @@ void Board::toString()
                 cout << "  -"
                      << "--";
             }
-            else if (i == 1 && j == m - 1)
+            else if (i == 1 && j == m-2)
             {
                 cout << "----";
             }
@@ -77,8 +72,6 @@ void Board::toString()
                 cout<<"|";
             }else{
                 cout<<"  |";
-            }if(j==m-1){
-                cout<<"  |";
             }
     }
             cout << endl;
@@ -96,4 +89,34 @@ void Board::addTile(Tile* tile, string posX, int posY){
     }
     board[position][posY]=tile;
 }
+
+  void Board::placeTile(Tile *tile, int row, int col){
+    if(col>m){
+        board[row][col-1]=tile;
+    }else{
+        board[row][col]=tile;
+    }
+  }
+
+Tile* Board::getTileAt(int row, int col) 
+{
+    //TO DO
+    Tile *tile = new Tile('R', 1);
+    return tile;
+}
+
+bool Board::rowIsEmpty(int row) {
+    int i=0;
+    bool tileFound = false;
+    while(i<=26&&!tileFound) {
+        Tile *currentTile = getTileAt(row, i);
+        if (currentTile != nullptr) {
+            tileFound = true;
+        }
+        i++;
+    }
+    return tileFound;
+}
+
+
 

@@ -24,3 +24,7 @@ std::string Tile::toString(Tile *tile){
     std::string retval= tile->colour+std::to_string(tile->shape);
     return retval;
 }
+
+bool Tile::isValid() {
+    return true;
+}
