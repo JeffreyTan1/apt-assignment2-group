@@ -128,3 +128,19 @@ bool Board::rowIsEmpty(int row)
     }
     return tileFound;
 }
+
+bool Board::colIsEmpty(int col)
+{
+    int i = 0;
+    bool tileFound = false;
+    while (i <= 26 && !tileFound)
+    {
+        Tile *currentTile = getTileAt(col, i);
+        if (currentTile != nullptr)
+        {
+            tileFound = true;
+        }
+        i++;
+    }
+    return tileFound;
+}

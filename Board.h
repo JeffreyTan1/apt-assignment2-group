@@ -20,6 +20,7 @@ public:
     void placeTile(Tile *tile, int row, int col);
     Tile* getTileAt(int row, int col);
     bool rowIsEmpty(int row);
+    bool colIsEmpty(int col);
 
 private:
     vector<vector<Tile*>> board;
