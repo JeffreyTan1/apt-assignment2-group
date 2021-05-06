@@ -43,7 +43,7 @@ void Game::executeGameplay()
         cout << currentPlayer->getName() << ", it's your turn" << endl;
         cout << "Score for " << player1->getName() << ": " << player1->getPoints() << endl;
         cout << "Score for " << player2->getName() << ": " << player2->getPoints() << endl;
-        //print  board
+        board->toString();
         cout << "Your hand is" << endl;
         //print current players hand
         cout << currentPlayer->getHand()->toString() << endl;
@@ -106,7 +106,110 @@ void Game::playTile(Tile *tile, int row, int col)
 
 bool Game::isValidMove(Tile *userTile, int row, int col)
 {
+    bool returnVal = true;
     bool diffShape = false;
+    bool tileFound = false;
+    int i = 0;
+    Tile* neighbours[] = {board->getTileAt(row, col+1), board->getTileAt(row, col-1), board->getTileAt(row+1, col), board->getTileAt(row-1, col)};
+    while(i<4&&returnVal) 
+    {
+        Tile* neighbour = neighbours[i];
+        if(neighbour!=nullptr) 
+        {           
+            diffShape = false;
+            //if neither colour nor shape are the same, move is not valid
+            if(neighbour->shape!=userTile->shape&&neighbour->colour!=userTile->colour) {
+                returnVal=false;
+            }
+            //if both colour and shape are the same, move is not valid
+            else if(neighbour->equals(userTile)) {
+                returnVal=false;
+            }
+            //if the colour is the same, all shapes in this line should be different
+            //otherwise, the colour should be different ie. diffShape=false as it was initialised
+            else if(neighbour->colour==userTile->colour) 
+            {
+                diffShape=true;
+                returnVal=checkNeighbours(row, col, diffShape, neighbour);
+            }
+            else {
+                returnVal=checkNeighbours(row, col, diffShape, neighbour);
+            }
+        }
+        i++;
+    }
+    return returnVal;
+}
+
+void Game::replaceTile(Tile *tile)
+{
+    if (currentPlayer->getHand()->exists(tile))
+    {
+        currentPlayer->getHand()->removeElement(tile);
+        bag->addBack(tile);
+        drawCard();
+    }
+}
+
+void Game::drawCard()
+{
+    Tile *newTile = bag->get(0);
+    bag->removeFront();
+    currentPlayer->getHand()->addBack(newTile);
+}
+
+void Game::switchPlayer()
+{
+    if (currentPlayer->equals(player1))
+    {
+        currentPlayer = player2;
+    }
+    else
+    {
+        currentPlayer = player1;
+    }
+}
+
+bool Game::compareTiles(Tile *tile, Tile *other, bool diffShape)
+{
+    bool returnVal = true;
+    if (tile->equals(other))
+    {
+        returnVal = false;
+    }
+    else if (diffShape)
+    {
+        returnVal = !(tile->shape == other->shape);
+    }
+    else if (!diffShape)
+    {
+        returnVal = !(tile->colour == other->colour);
+    }
+    return returnVal;
+}
+
+bool Game::checkNeighbours(int row, int col, bool diffShape, Tile* originalTile)
+{
+    bool returnVal = false;
+    Tile* neighbours[] = {board->getTileAt(row, col+1),board->getTileAt(row, col-1)};
+    for(Tile* neighbour:neighbours) 
+    {
+        if(neighbour!=nullptr) 
+        {
+            //if shape is meant to be different, check it is different
+            if(diffShape&&neighbour->shape!=originalTile->shape) {
+                returnVal=true;
+            }
+            //if colour is meant to be different, check it is different
+            else if(!diffShape&&neighbour->colour!=originalTile->colour) {
+                returnVal=true;
+            }
+        }
+    }
+}
+
+
+    /*bool diffShape = false;
     bool returnVal = true;
     bool tileFound = false;
     int i = 0;
@@ -159,52 +262,4 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
     {
         returnVal = false;
     }
-    return returnVal;
-}
-
-void Game::replaceTile(Tile *tile)
-{
-    if (currentPlayer->getHand()->exists(tile))
-    {
-        currentPlayer->getHand()->removeElement(tile);
-        bag->addBack(tile);
-        drawCard();
-    }
-}
-
-void Game::drawCard()
-{
-    Tile *newTile = bag->get(0);
-    bag->removeFront();
-    currentPlayer->getHand()->addBack(newTile);
-}
-
-void Game::switchPlayer()
-{
-    if (currentPlayer->equals(player1))
-    {
-        currentPlayer = player2;
-    }
-    else
-    {
-        currentPlayer = player1;
-    }
-}
-
-bool Game::compareTiles(Tile *tile, Tile *other, bool diffShape)
-{
-    bool returnVal = true;
-    if (tile->equals(other))
-    {
-        returnVal = false;
-    }
-    else if (diffShape)
-    {
-        returnVal = !(tile->shape == other->shape);
-    }
-    else if (!diffShape)
-    {
-        returnVal = !(tile->colour == other->colour);
-    }
-    return returnVal;
-}
+    return returnVal;*/

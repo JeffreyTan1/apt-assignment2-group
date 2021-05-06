@@ -25,6 +25,7 @@ public:
     void drawCard();
     bool isValidMove(Tile *userTile, int row, int col);
     bool compareTiles(Tile *tile, Tile *other, bool diffShape);
+    bool checkNeighbours(int row, int col, bool diffShape, Tile* originalTile);
 
 
 
