@@ -3,7 +3,7 @@
 #define ASSIGN2_TILE_H
 #include <string>
 
-#include<string>
+#include <string>
 
 // Define a Colour type
 typedef char Colour;
@@ -14,11 +14,9 @@ typedef int Shape;
 class Tile
 {
 public:
-   Tile();
-   
    Tile(char colour, int shape);
    Tile();
-   std::string toString(Tile *tile);
+   std::string toString();
    bool equals(Tile *tile);
    bool isValid();
 

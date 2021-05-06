@@ -174,6 +174,16 @@ bool LinkedList::exists(Tile *tile)
    return exists;
 }
 
+bool LinkedList::isEmpty()
+{
+   bool empty = false;
+   if (head == nullptr)
+   {
+      empty = true;
+   }
+   return empty;
+}
+
 std::string LinkedList::toString()
 {
    std::string linkedListString = "";
@@ -183,8 +193,8 @@ std::string LinkedList::toString()
       bool cont = true;
       while (cont)
       {
-         //linkedListString = linkedListString + currentNode->getTile()->toString()
-         currentNode = currentNode->getNext();
+         linkedListString = linkedListString + currentNode->getTile()->toString();
+
          if (currentNode->getNext() == nullptr)
          {
             cont = false;
@@ -192,9 +202,74 @@ std::string LinkedList::toString()
          else
          {
             linkedListString = linkedListString + ",";
+            currentNode = currentNode->getNext();
          }
       }
    }
 
    return linkedListString;
+}
+
+void LinkedList::removeElement(Tile *tile)
+{
+
+   if (head != nullptr)
+   {
+      Node *previousNode = nullptr;
+      Node *currentNode = head;
+      bool cont = true;
+
+      while (cont)
+      {
+         //If the tile is identified
+         if (currentNode->getTile()->equals(tile))
+         {
+            //check for if current node has a next node
+            if (currentNode->getNext() != nullptr)
+            {
+               //HAS NEXT NODE CONDITION
+
+               //check for if current node has a previous node
+               if (previousNode != nullptr)
+               {
+                  previousNode->setNext(currentNode->getNext());
+                  delete currentNode;
+               }
+               // else node which contians tile is at the head of LL which has other nodes
+               else
+               {
+                  head = currentNode->getNext();
+                  delete currentNode;
+               }
+            }
+            else
+            {
+               //DOES NOT HAVE NEXT NODE CONDITION
+
+               //check if current node has a previous node
+               if (previousNode != nullptr)
+               {
+                  //node is at the end of the LL
+                  previousNode->setNextNullptr();
+               }
+               else
+               {
+                  //node is head of a LL which just has the one node
+                  delete head;
+                  head = nullptr;
+               }
+            }
+            //end while loop
+            cont = false;
+         }
+
+         // if node is not found in this iteration then the node must be further on in the list
+         // we assume that the tile will always be contained by a node in the LL if removeElement is called
+         else
+         {
+            previousNode = currentNode;
+            currentNode = currentNode->getNext();
+         }
+      }
+   }
 }

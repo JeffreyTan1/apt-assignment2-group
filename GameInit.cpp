@@ -10,7 +10,7 @@
 #include <cstring>
 #include <algorithm>
 #include <random>
-
+#define ASCII_CONVERTER_LETTER 65
 using std::cin;
 using std::cout;
 using std::endl;
@@ -42,6 +42,7 @@ GameInit::GameInit()
             }
         }
     }
+
     //shuffle the vector
     std::default_random_engine engine(10);
     std::shuffle(allTiles.begin(), allTiles.end(), engine);
@@ -58,6 +59,7 @@ GameInit::GameInit()
     LinkedList *p1Hand = new LinkedList();
     for (int i = 0; i < 6; i++)
     {
+
         p1Hand->addBack(bag->get(0));
         bag->removeFront();
     }
@@ -119,8 +121,8 @@ GameInit::GameInit(std::string filename)
     p2Points = stoi(input);
 
     saveFile.getline(line, 256);
-    std::string convString(line);
-    std::stringstream ss(convString);
+    std::string convString2(line);
+    std::stringstream ss2(convString2);
 
     while (ss.good())
     {
@@ -133,17 +135,17 @@ GameInit::GameInit(std::string filename)
         p2Hand->addBack(newTile);
     }
 
-    player1 = new Player(p2Name, p2Points, p2Hand);
+    player2 = new Player(p2Name, p2Points, p2Hand);
 
     //read board size
     saveFile.getline(line, 256);
-    std::string convString(line);
-    std::stringstream ss(convString);
+    std::string convString3(line);
+    std::stringstream ss3(convString3);
     for (int i = 0; i < 2; i++)
     {
         std::string substr;
         std::getline(ss, substr, ',');
-        if (i = 0)
+        if (i == 0)
         {
             bHeight = stoi(substr);
         }
@@ -155,8 +157,8 @@ GameInit::GameInit(std::string filename)
 
     //read board state
     saveFile.getline(line, 256);
-    std::string convString(line);
-    std::stringstream ss(convString);
+    std::string convString4(line);
+    std::stringstream ss4(convString4);
     while (ss.good())
     {
         std::string substr;
@@ -164,18 +166,18 @@ GameInit::GameInit(std::string filename)
         char tileChar = substr.at(0);
         int tileShape = (int)substr.at(1);
 
-        char boardRow = substr.at(3);
+        int boardRow = substr.at(3) - ASCII_CONVERTER_LETTER;
         int boardCol = (int)substr.at(4);
 
         Tile *newTile = new Tile(tileChar, tileShape);
-        //TODO: follow up with Shashwot Karki
-        //board->addTileTo(newTile, boardRow, boardCol);
+
+        board->placeTile(newTile, boardRow, boardCol);
     }
 
     //read bag
     saveFile.getline(line, 256);
-    std::string convString(line);
-    std::stringstream ss(convString);
+    std::string convString5(line);
+    std::stringstream ss5(convString5);
 
     while (ss.good())
     {

@@ -2,17 +2,12 @@
 
 Tile::Tile()
 {
-    colour = NULL;
-    shape = NULL;
 }
+
 Tile::Tile(char colour, int shape)
 {
     this->colour = colour;
     this->shape = shape;
-}
-
-Tile::Tile()
-{
 }
 
 bool Tile::equals(Tile *tile)
@@ -25,9 +20,9 @@ bool Tile::equals(Tile *tile)
     return equal;
 }
 
-std::string Tile::toString(Tile *tile)
+std::string Tile::toString()
 {
-    std::string retval = tile->colour + std::to_string(tile->shape);
+    std::string retval = colour + std::to_string(shape);
     return retval;
 }
 

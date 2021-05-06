@@ -53,7 +53,14 @@ public:
     */
    bool exists(Tile *tile);
 
+   /**
+    * Checks if LinkedList is empty
+    */
+   bool isEmpty();
+
    std::string toString();
+
+   void removeElement(Tile *tile);
 
 private:
    Node *head;

@@ -56,9 +56,6 @@ void runMenu(int userChoice, bool *stop)
 {
    if (userChoice == 1)
    {
-      //New game
-      GameInit *gameInit = new GameInit();
-
       cout << "Choice 1 selected \n \n";
       GameInit *gameInit = new GameInit();
       Game *game = new Game(gameInit->getPlayer1(), gameInit->getPlayer2(), gameInit->getBag(), gameInit->getBoard(), gameInit->getPlayer1());
