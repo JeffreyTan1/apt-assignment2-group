@@ -1,6 +1,7 @@
 
 #ifndef ASSIGN2_TILE_H
 #define ASSIGN2_TILE_H
+#include <string>
 
 #include<string>
 
@@ -16,8 +17,10 @@ public:
    Tile();
    
    Tile(char colour, int shape);
-
+   Tile();
+   std::string toString(Tile *tile);
    bool equals(Tile *tile);
+   bool isValid();
 
    Colour colour;
    Shape shape;

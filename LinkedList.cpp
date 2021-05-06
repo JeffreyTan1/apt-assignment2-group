@@ -174,7 +174,8 @@ bool LinkedList::exists(Tile *tile)
    return exists;
 }
 
-std::string LinkedList::toString() {
+std::string LinkedList::toString()
+{
    std::string linkedListString = "";
    if (head != nullptr)
    {
@@ -184,9 +185,12 @@ std::string LinkedList::toString() {
       {
          //linkedListString = linkedListString + currentNode->getTile()->toString()
          currentNode = currentNode->getNext();
-         if (currentNode->getNext() == nullptr){
+         if (currentNode->getNext() == nullptr)
+         {
             cont = false;
-         } else {
+         }
+         else
+         {
             linkedListString = linkedListString + ",";
          }
       }

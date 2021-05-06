@@ -7,6 +7,9 @@
 #include <iostream>
 #include <exception>
 #include <limits>
+#include "Board.h"
+#include "GameInit.h"
+#include "Game.h"
 
 #define EXIT_SUCCESS 0
 
@@ -26,6 +29,7 @@ int main(void)
    bool stop = false;
    bool *stopPtr = &stop;
    int userChoice;
+
    while (!stop)
    {
       cout << "Menu" << endl;
@@ -36,7 +40,7 @@ int main(void)
       cout << "4. Quit" << endl;
       cout << "> ";
       cin >> userChoice;
-      while (cin.fail()||userChoice<1||userChoice>4)
+      while (cin.fail() || userChoice < 1 || userChoice > 4)
       {
          cout << "Invalid input, please try again \n> ";
          cin.clear();
@@ -53,11 +57,24 @@ void runMenu(int userChoice, bool *stop)
    if (userChoice == 1)
    {
       //New game
-      GameInit* gameInit = new GameInit();
-      Game * newGame = new Game(gameInit->getPlayer1(), gameInit->getPlayer2(), gameInit->getBag(), 
-      gameInit->getBoard(), gameInit->getPlayer1()->getName());
+      GameInit *gameInit = new GameInit();
 
       cout << "Choice 1 selected \n \n";
+      GameInit *gameInit = new GameInit();
+      Game *game = new Game(gameInit->getPlayer1(), gameInit->getPlayer2(), gameInit->getBag(), gameInit->getBoard(), gameInit->getPlayer1());
+      game->executeGameplay();
+      delete game;
+
+      //New game
+      //why no ** ???
+      // cout << "Choice 1 selected \n \n";
+      // Board* board= new Board();
+      // board->setBoard();
+      // Tile* vent= new Tile('G',5);
+      // Tile* vent2= new Tile('R',5);
+      // board->addTile(vent,"A",3);
+      // board->addTile(vent2,"B",4);
+      // board->toString();
    }
    else if (userChoice == 2)
    {

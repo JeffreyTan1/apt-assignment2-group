@@ -1,4 +1,6 @@
 #include "Player.h"
+#include "LinkedList.h"
+#include <algorithm>
 
 Player::Player(std::string name, int points, LinkedList *hand)
 {
@@ -25,4 +27,12 @@ int Player::getPoints()
 LinkedList *Player::getHand()
 {
     return hand;
+}
+
+bool Player::equals(Player *player) {
+    bool retval= false;
+    if(this==player){
+        return true;
+    }
+    return retval;
 }

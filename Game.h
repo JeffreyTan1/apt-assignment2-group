@@ -2,6 +2,8 @@
 #define ASSIGN2_GAME_H
 
 #include <string>
+#include <vector>
+
 
 class LinkedList;
 class Tile;
@@ -11,18 +13,28 @@ class Player;
 class Game
 {
 public:
-    Game(Player *player1, Player *player2, LinkedList *bag, Board *board, std::string currentPlayer);
+    Game(Player *player1, Player *player2, LinkedList *bag, Board *board, Player* currentPlayer);
 
     ~Game();
 
-    void PlayTurn(std::string tile, std::string location);
+    void playTurn(std::vector<std::string> userInput);
+    void executeGameplay();
+    void switchPlayer();
+    void playTile(Tile *tile, int row, int col);
+    void replaceTile(Tile *tile);
+    void drawCard();
+    bool isValidMove(Tile *userTile, int row, int col);
+    bool compareTiles(Tile *tile, Tile *other, bool diffShape);
+
+
 
 private:
     Player *player1;
     Player *player2;
     LinkedList *bag;
     Board *board;
-    std::string currentPlayer;
+    Player* currentPlayer;
+    bool gameOver;
 };
 
-#endif // ASSIGN2_NODE_H
+#endif // ASSIGN2_GAME_H

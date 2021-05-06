@@ -1,8 +1,6 @@
-//Much of this header is from Timothy Wiley: PreRecVideos_w07/linkedlist
-
 #ifndef ASSIGN2_LINKEDLIST_H
 #define ASSIGN2_LINKEDLIST_H
-#include<string>
+#include <string>
 
 class Node;
 

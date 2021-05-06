@@ -25,16 +25,19 @@ GameInit::GameInit()
     bag = new LinkedList();
 
     //create a vector containing all tiles
-    std::vector<Tile*> allTiles;
+    std::vector<Tile *> allTiles;
 
     char colours[6] = {'R', 'O', 'Y', 'G', 'B', 'P'};
 
     int shapes[6] = {1, 2, 3, 4, 5, 6};
 
-    for(int i = 0; i < 2; i++){
-        for (int j = 0; j < 6; j++){
-            for (int k = 0; k <6; k++){
-                Tile* newTile = new Tile(colours[j], shapes[k]);
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 6; j++)
+        {
+            for (int k = 0; k < 6; k++)
+            {
+                Tile *newTile = new Tile(colours[j], shapes[k]);
                 allTiles.push_back(newTile);
             }
         }
@@ -43,7 +46,8 @@ GameInit::GameInit()
     std::default_random_engine engine(10);
     std::shuffle(allTiles.begin(), allTiles.end(), engine);
     //add tiles to bag
-    for (int i = 0; i < 72; i++) {
+    for (int i = 0; i < 72; i++)
+    {
         bag->addBack(allTiles.at(i));
     }
 
@@ -187,9 +191,12 @@ GameInit::GameInit(std::string filename)
     //read current player
     saveFile >> input;
 
-    if (player1->getName().compare(input)) {
+    if (player1->getName().compare(input))
+    {
         currPlayer = player1;
-    } else if (player2->getName().compare(input)) {
+    }
+    else if (player2->getName().compare(input))
+    {
         currPlayer = player2;
     }
 
@@ -222,7 +229,7 @@ int GameInit::getBWidth()
     return bWidth;
 }
 
-Player* GameInit::getCurrPlayer()
+Player *GameInit::getCurrPlayer()
 {
     return currPlayer;
 }
