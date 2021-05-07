@@ -64,13 +64,14 @@ void Game::executeGameplay()
 
 void Game::playTurn(vector<string> userInput)
 {
+    //or 'lace' lol
     if (userInput[0] == "place" || userInput[0] == "lace")
     {
         int locationRow = (userInput[3].at(0)) - ASCII_CONVERTER_LETTER;
         int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;
         Tile *tile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
         playTile(tile, locationRow, locationCol + 1);
-        board->toString();
+        board->printBoard();
     }
     else if (userInput[0] == "replace")
     { //user is replacing tile

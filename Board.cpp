@@ -26,7 +26,7 @@ vector<vector<Tile *>> Board::getBoard()
     return this->board;
 }
 
-void Board::toString()
+void Board::printBoard()
 {
     for (int i = 0; i < 2; i++)
     {

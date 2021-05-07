@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu May  6 20:27:56 2021
+# Make data base, printed on Fri May  7 21:23:46 2021
 
 # Variables
 
@@ -15,7 +15,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # automatic
 ?F = $(notdir $?)
 # environment
-WSLENV = VSCODE_WSL_EXT_LOCATION/up
+WSLENV = VSCODE_WSL_EXT_LOCATION/up:VSCODE_SERVER_TAR/up
 # default
 .SHELLFLAGS := -c
 # environment
@@ -29,14 +29,13 @@ VSCODE_LOG_NATIVE = false
 # automatic
 @F = $(notdir $@)
 # makefile
- 
 CURDIR := /mnt/c/Users/tanma/Google Drive/Synced Desktop/Y2S1/APT Files/Assignments/2/apt-assignment2-group
 # makefile
 SHELL = /bin/sh
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
 # environment
-_ = /root/.vscode-server/bin/3c4e3df9e89829dce27b7b5c24508306b151f30d/node
+_ = /root/.vscode-server/bin/cfa2e218100323074ac1948c885448fdf4de2a7f/node
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # 'override' directive
@@ -52,11 +51,13 @@ VSCODE_CWD = /mnt/c/Users/tanma/AppData/Local/Programs/Microsoft VS Code
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /root/.vscode-server/bin/3c4e3df9e89829dce27b7b5c24508306b151f30d/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/WINDOWS/System32:/mnt/c/Ruby30-x64/bin:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38-32/Scripts/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38-32/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python36/Scripts/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python36/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38/Scripts/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38/:/mnt/c/Users/tanma/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/Intel/WiFi/bin/:/mnt/c/Program Files/Common Files/Intel/WirelessCommon/:/mnt/c/Users/tanma/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/tanma/go/bin:/mnt/c/Users/tanma/AppData/Local/Programs/IPFS Desktop/resources/app.asar.unpacked/src/ipfs-on-path/scripts/bin-win:/mnt/c/Users/tanma/AppData/Local/GitHubDesktop/bin:/mnt/c/Users/tanma/AppData/Local/Microsoft/WindowsApps:/mnt/c/apache-maven-3.6.3/bin:/mnt/c/Program Files/Java/jdk-11.0.10/bin:/mnt/c/Program Files/JetBrains/IntelliJ IDEA Community Edition 2021.1/bin:/mnt/c/Program Files/heroku/bin:/snap/bin
+PATH = /root/.vscode-server/bin/cfa2e218100323074ac1948c885448fdf4de2a7f/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/WINDOWS/System32:/mnt/c/Ruby30-x64/bin:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38-32/Scripts/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38-32/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python36/Scripts/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python36/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38/Scripts/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38/:/mnt/c/Users/tanma/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/Intel/WiFi/bin/:/mnt/c/Program Files/Common Files/Intel/WirelessCommon/:/mnt/c/Users/tanma/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/tanma/go/bin:/mnt/c/Users/tanma/AppData/Local/Programs/IPFS Desktop/resources/app.asar.unpacked/src/ipfs-on-path/scripts/bin-win:/mnt/c/Users/tanma/AppData/Local/GitHubDesktop/bin:/mnt/c/Users/tanma/AppData/Local/Microsoft/WindowsApps:/mnt/c/apache-maven-3.6.3/bin:/mnt/c/Program Files/Java/jdk-11.0.10/bin:/mnt/c/Program Files/JetBrains/IntelliJ IDEA Community Edition 2021.1/bin:/mnt/c/Program Files/heroku/bin:/snap/bin
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-f438bf9a-c36f-45ff-9a3a-c8984ab20527.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-6647cf93-8ed5-4308-9be7-db532cd6e83c.sock
+# environment
+VSCODE_SERVER_TAR = /mnt/c/Users/tanma/AppData/Local/Temp/vscode-remote-wsl/cfa2e218100323074ac1948c885448fdf4de2a7f/vscode-server-linux-x64.tar.gz
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -70,7 +71,7 @@ PWD = /mnt/c/Users/tanma/Google Drive/Synced Desktop/Y2S1/APT Files/Assignments/
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/15_interop
+WSL_INTEROP = /run/WSL/12_interop
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/server/remoteExtensionHostProcess
 # environment
@@ -134,7 +135,7 @@ SUFFIXES :=
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
-VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /root/.vscode-server/bin/3c4e3df9e89829dce27b7b5c24508306b151f30d/remote/node_modules
+VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /root/.vscode-server/bin/cfa2e218100323074ac1948c885448fdf4de2a7f/remote/node_modules
 # default
 .RECIPEPREFIX := 
 # environment
@@ -148,7 +149,7 @@ WSL_DISTRO_NAME = Ubuntu
 # environment
 MOTD_SHOWN = update-motd
 # variable set hash-table stats:
-# Load=68/1024=7%, Rehash=0, Collisions=4/96=4%
+# Load=69/1024=7%, Rehash=0, Collisions=4/97=4%
 
 # Pattern-specific Variable Values
 
@@ -173,7 +174,14 @@ MOTD_SHOWN = update-motd
 # Not a target:
 Tile.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2021-05-06 20:26:03.7818704
+#  Last modified 2021-05-06 22:31:01.8281997
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+Board.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-05-06 22:31:29.9897962
 #  File has been updated.
 #  Successfully updated.
 
@@ -192,6 +200,20 @@ all: qwirkle
 #  File has not been updated.
 
 # Not a target:
+LinkedList.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-05-06 22:31:20.8294284
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+Game.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-05-06 22:41:16.2198712
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
 Makefile:
 #  Implicit rule search has been done.
 #  Last modified 2021-05-06 20:27:55.9474252
@@ -201,39 +223,24 @@ Makefile:
 Tile.o: Tile.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'Tile'
-#  Last modified 2021-05-06 20:26:03.7768723
+#  Last modified 2021-05-06 22:31:39.6048826
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := Tile.o
-# automatic
-# % := 
-# automatic
-# * := Tile
-# automatic
-# + := Tile.cpp
-# automatic
-# | := 
-# automatic
-# < := Tile.cpp
-# automatic
-# ^ := Tile.cpp
-# automatic
-# ? := Tile.cpp
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/12=8%
+#  Successfully updated.
 #  recipe to execute (from 'Makefile', line 12):
 	g++ -Wall -Werror -std=c++14 -g -O -c $^
 
-# Not a target:
-Board.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+Board.o: Board.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'Board'
+#  Last modified 2021-05-06 22:31:40.3735043
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 12):
+	g++ -Wall -Werror -std=c++14 -g -O -c $^
 
 qwirkle: Tile.o Node.o LinkedList.o Board.o Game.o GameInit.o Player.o qwirkle.o
 #  Implicit rule search has not been done.
-#  Last modified 2021-05-06 20:26:03.7678712
+#  Last modified 2021-05-06 22:35:59.1821918
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
@@ -248,22 +255,54 @@ qwirkle.o:
 #  File has not been updated.
 
 # Not a target:
+Node.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-05-06 20:22:23.635992
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
 .DEFAULT:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-LinkedList.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+LinkedList.o: LinkedList.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'LinkedList'
+#  Last modified 2021-05-06 22:31:39.8595026
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 12):
+	g++ -Wall -Werror -std=c++14 -g -O -c $^
 
-# Not a target:
-Game.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+ 
+Game.o: Game.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'Game'
+#  Last modified 2021-05-06 22:35:58.8066729
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := Game.o
+# automatic
+# % := 
+# automatic
+# * := Game
+# automatic
+# + := Game.cpp
+# automatic
+# | := 
+# automatic
+# < := Game.cpp
+# automatic
+# ^ := Game.cpp
+# automatic
+# ? := Game.cpp
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/12=8%
+#  recipe to execute (from 'Makefile', line 12):
+	g++ -Wall -Werror -std=c++14 -g -O -c $^
 
 clean:
 #  Implicit rule search has not been done.
@@ -278,11 +317,14 @@ GameInit.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-Node.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+Node.o: Node.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'Node'
+#  Last modified 2021-05-06 21:54:53.0645129
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 12):
+	g++ -Wall -Werror -std=c++14 -g -O -c $^
 
 # Not a target:
 Player.o:
@@ -291,19 +333,19 @@ Player.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=16/1024=2%, Rehash=0, Collisions=0/41=0%
+# Load=20/1024=2%, Rehash=0, Collisions=0/57=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 42 / storage = 380 B / avg = 9 B
-# current buf: size = 8162 B / used = 380 B / count = 42 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 46 / storage = 407 B / avg = 8 B
+# current buf: size = 8162 B / used = 407 B / count = 46 / avg = 8 B
 
-# strcache performance: lookups = 64 / hit rate = 34%
+# strcache performance: lookups = 76 / hit rate = 39%
 # hash-table stats:
-# Load=42/8192=1%, Rehash=0, Collisions=1/64=2%
-# Finished Make data base on Thu May  6 20:27:56 2021
+# Load=46/8192=1%, Rehash=0, Collisions=1/76=1%
+# Finished Make data base on Fri May  7 21:23:46 2021
 
  
