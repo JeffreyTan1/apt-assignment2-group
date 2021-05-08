@@ -3,7 +3,7 @@
 #include <vector>
 using std::vector;
 #include "Tile.h"
-
+#include <string>
 //class Tile;
 
 class Board
@@ -19,10 +19,12 @@ public:
     void placeTile(Tile *tile, int row, int col);
     Tile *getTileAt(int row, int col);
     bool rowIsEmpty(int row);
+    std::string getState();
 
 private:
-    vector<vector<Tile *>> board;
+    vector<vector<Tile *>>
+        board;
     Tile *apple = new Tile();
 };
 
-#endif // ASSIGN2_NODE_H
+#endif // ASSIGN2_BOARD_H

@@ -10,20 +10,36 @@
 #include <cstring>
 #include <algorithm>
 #include <random>
+#define ASCII_CONVERTER_DIGIT 48
 #define ASCII_CONVERTER_LETTER 65
+using std::atoi;
 using std::cin;
 using std::cout;
 using std::endl;
-
-using std::atoi;
+using std::getline;
 using std::ifstream;
+using std::stoi;
 
 GameInit::GameInit()
 {
     board = new Board();
-
     bag = new LinkedList();
+    newRandomBag();
 
+    newPlayer(1);
+    newPlayer(2);
+
+    cout << "player 1 name:" << player1->getName() << endl;
+
+    currPlayer = player1;
+
+    cout << "current player name:" << currPlayer->getName() << endl;
+
+    //End of initialiser
+}
+
+void GameInit::newRandomBag()
+{
     //create a vector containing all tiles
     std::vector<Tile *> allTiles;
 
@@ -51,96 +67,109 @@ GameInit::GameInit()
     {
         bag->addBack(allTiles.at(i));
     }
+}
 
+void GameInit::newPlayer(int pNum)
+{
     //Create player 1 data structures
-    cout << "Enter a name for player 1 (uppercase characters only)" << endl;
-    std::string p1Name;
-    cin >> p1Name;
-    LinkedList *p1Hand = new LinkedList();
+    cout << "Enter a name for player " << pNum << " (uppercase characters only)" << endl;
+    std::string name;
+    cin >> name;
+    LinkedList *hand = new LinkedList();
     for (int i = 0; i < 6; i++)
     {
 
-        p1Hand->addBack(bag->get(0));
+        hand->addBack(bag->get(0));
         bag->removeFront();
     }
-    player1 = new Player(p1Name, 0, p1Hand);
 
-    //Create player 2 data structures
-    cout << "Enter a name for player 2 (uppercase characters only)" << endl;
-    std::string p2Name;
-    cin >> p2Name;
-    LinkedList *p2Hand = new LinkedList();
-    for (int i = 0; i < 6; i++)
+    if (pNum == 1)
     {
-        p2Hand->addBack(bag->get(0));
-        bag->removeFront();
+        player1 = new Player(name, 0, hand);
     }
-    player2 = new Player(p2Name, 0, p2Hand);
+    else if (pNum == 2)
+    {
+        player2 = new Player(name, 0, hand);
+    }
 }
 
 GameInit::GameInit(std::string filename)
 {
-    ifstream saveFile(filename);
-    std::string input = NULL;
-    //c-string for getline and get methods
-    char line[256];
+    board = new Board();
+    bag = new LinkedList();
 
-    //read player 1 data
-    std::string p1Name;
-    int p1Points;
-    LinkedList *p1Hand = new LinkedList();
+    ifstream saveFile("s.txt");
 
-    saveFile >> p1Name;
-    saveFile >> input;
-    p1Points = stoi(input);
+    std::string line1;
+    std::string line2;
+    std::string line3;
 
-    saveFile.getline(line, 256);
-    std::string convString(line);
-    std::stringstream ss(convString);
+    for (int i = 0; i < 2; i++)
+    {
+        std::getline(saveFile, line1);
+        line1.pop_back();
+        std::getline(saveFile, line2);
+        line2.pop_back();
+        std::getline(saveFile, line3);
+        line3.pop_back();
+        loadPlayer(line1, line2, line3, i + 1);
+    }
+
+    std::string line4;
+    std::getline(saveFile, line4);
+    line4.pop_back();
+    loadBoardSize(line4);
+
+    std::string line5;
+    std::getline(saveFile, line5);
+    line5.pop_back();
+    loadBoardState(line5);
+
+    std::string line6;
+    std::getline(saveFile, line6);
+    line6.pop_back();
+    loadBagState(line6);
+
+    std::string line7;
+    std::getline(saveFile, line7);
+    line7.pop_back();
+    loadCurrPlayer(line7);
+
+    saveFile.close();
+    //End of initialiser
+}
+
+void GameInit::loadPlayer(std::string line1, std::string line2, std::string line3, int pNum)
+{
+    int points = stoi(line2);
+    std::stringstream ss(line3);
+
+    LinkedList *hand = new LinkedList();
 
     while (ss.good())
     {
         std::string substr;
         std::getline(ss, substr, ',');
         char colour = substr.at(0);
-        int shape = (int)substr.at(1);
-
+        int shape = substr.at(1) - ASCII_CONVERTER_DIGIT;
         Tile *newTile = new Tile(colour, shape);
-        p1Hand->addBack(newTile);
+        hand->addBack(newTile);
     }
 
-    player1 = new Player(p1Name, p1Points, p1Hand);
-
-    //read player 2 data
-    std::string p2Name;
-    int p2Points;
-    LinkedList *p2Hand = new LinkedList();
-
-    saveFile >> p2Name;
-    saveFile >> input;
-    p2Points = stoi(input);
-
-    saveFile.getline(line, 256);
-    std::string convString2(line);
-    std::stringstream ss2(convString2);
-
-    while (ss.good())
+    if (pNum == 1)
     {
-        std::string substr;
-        std::getline(ss, substr, ',');
-        char colour = substr.at(0);
-        int shape = (int)substr.at(1);
-
-        Tile *newTile = new Tile(colour, shape);
-        p2Hand->addBack(newTile);
+        player1 = new Player(line1, points, hand);
     }
+    else if (pNum == 2)
+    {
+        player2 = new Player(line1, points, hand);
+    }
+}
 
-    player2 = new Player(p2Name, p2Points, p2Hand);
+void GameInit::loadBoardSize(std::string line4)
+{
+    std::stringstream ss(line4);
 
-    //read board size
-    saveFile.getline(line, 256);
-    std::string convString3(line);
-    std::stringstream ss3(convString3);
     for (int i = 0; i < 2; i++)
     {
         std::string substr;
@@ -154,30 +183,48 @@ GameInit::GameInit(std::string filename)
             bWidth = stoi(substr);
         }
     }
+}
 
-    //read board state
-    saveFile.getline(line, 256);
-    std::string convString4(line);
-    std::stringstream ss4(convString4);
+void GameInit::loadBoardState(std::string line5)
+{
+    std::stringstream ss(line5);
+    int iter = 0;
     while (ss.good())
     {
+        char tileChar;
+        int tileShape;
+        int boardRow;
+        int boardCol;
+
         std::string substr;
         std::getline(ss, substr, ',');
-        char tileChar = substr.at(0);
-        int tileShape = (int)substr.at(1);
 
-        int boardRow = substr.at(3) - ASCII_CONVERTER_LETTER;
-        int boardCol = (int)substr.at(4);
+        if (iter == 0)
+        {
+            tileChar = substr.at(0);
+            tileShape = (int)substr.at(1) - ASCII_CONVERTER_DIGIT;
+            boardRow = (int)substr.at(3) - ASCII_CONVERTER_LETTER;
+            boardCol = (int)substr.at(4) - ASCII_CONVERTER_DIGIT;
+        }
+        else
+        {
+            tileChar = substr.at(1);
+            tileShape = (int)substr.at(2) - ASCII_CONVERTER_DIGIT;
+            boardRow = (int)substr.at(4) - ASCII_CONVERTER_LETTER;
+            boardCol = (int)substr.at(5) - ASCII_CONVERTER_DIGIT;
+        }
 
         Tile *newTile = new Tile(tileChar, tileShape);
 
         board->placeTile(newTile, boardRow, boardCol);
-    }
 
-    //read bag
-    saveFile.getline(line, 256);
-    std::string convString5(line);
-    std::stringstream ss5(convString5);
+        iter++;
+    }
+}
+
+void GameInit::loadBagState(std::string line6)
+{
+    std::stringstream ss(line6);
 
     while (ss.good())
     {
@@ -189,34 +236,35 @@ GameInit::GameInit(std::string filename)
         Tile *newTile = new Tile(colour, shape);
         bag->addBack(newTile);
     }
+}
 
-    //read current player
-    saveFile >> input;
-
-    if (player1->getName().compare(input))
+void GameInit::loadCurrPlayer(std::string line7)
+{
+    if (player1->getName().compare(line7))
     {
         currPlayer = player1;
     }
-    else if (player2->getName().compare(input))
+    else if (player2->getName().compare(line7))
     {
         currPlayer = player2;
     }
-
-    //End of initialiser
 }
 
 Player *GameInit::getPlayer1()
 {
     return player1;
 }
+
 Player *GameInit::getPlayer2()
 {
     return player2;
 }
+
 Board *GameInit::getBoard()
 {
     return board;
 }
+
 LinkedList *GameInit::getBag()
 {
     return bag;
@@ -226,6 +274,7 @@ int GameInit::getBHeight()
 {
     return bHeight;
 }
+
 int GameInit::getBWidth()
 {
     return bWidth;

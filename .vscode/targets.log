@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri May  7 21:23:46 2021
+# Make data base, printed on Sat May  8 10:48:04 2021
 
 # Variables
 
@@ -15,7 +15,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # automatic
 ?F = $(notdir $?)
 # environment
-WSLENV = VSCODE_WSL_EXT_LOCATION/up:VSCODE_SERVER_TAR/up
+WSLENV = VSCODE_WSL_EXT_LOCATION/up
 # default
 .SHELLFLAGS := -c
 # environment
@@ -55,9 +55,7 @@ PATH = /root/.vscode-server/bin/cfa2e218100323074ac1948c885448fdf4de2a7f/bin:/us
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-6647cf93-8ed5-4308-9be7-db532cd6e83c.sock
-# environment
-VSCODE_SERVER_TAR = /mnt/c/Users/tanma/AppData/Local/Temp/vscode-remote-wsl/cfa2e218100323074ac1948c885448fdf4de2a7f/vscode-server-linux-x64.tar.gz
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-bd1f9552-dd74-44ea-8dcb-6acd11107608.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -71,7 +69,7 @@ PWD = /mnt/c/Users/tanma/Google Drive/Synced Desktop/Y2S1/APT Files/Assignments/
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/12_interop
+WSL_INTEROP = /run/WSL/11_interop
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/server/remoteExtensionHostProcess
 # environment
@@ -105,7 +103,7 @@ NAME = DESKTOP-RQSDANH
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
-VSCODE_WSL_EXT_LOCATION = /mnt/c/Users/tanma/.vscode/extensions/ms-vscode-remote.remote-wsl-0.54.6
+VSCODE_WSL_EXT_LOCATION = /mnt/c/Users/tanma/.vscode/extensions/ms-vscode-remote.remote-wsl-0.56.1
 # default
 MAKE_COMMAND := make
 # default
@@ -127,6 +125,8 @@ MAKEFILES :=
 # automatic
 <F = $(notdir $<)
 # environment
+LC_ALL = C
+# environment
 HOSTTYPE = x86_64
 # automatic
 ^F = $(notdir $^)
@@ -139,7 +139,7 @@ VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /root/.vscode-server/bin/cfa2e2181003230
 # default
 .RECIPEPREFIX := 
 # environment
-LANG = C.UTF-8
+LANG = C
 # environment
 TERM = xterm-256color
 # environment
@@ -181,7 +181,7 @@ Tile.cpp:
 # Not a target:
 Board.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2021-05-06 22:31:29.9897962
+#  Last modified 2021-05-07 21:44:34.8088026
 #  File has been updated.
 #  Successfully updated.
 
@@ -207,13 +207,6 @@ LinkedList.cpp:
 #  Successfully updated.
 
 # Not a target:
-Game.cpp:
-#  Implicit rule search has been done.
-#  Last modified 2021-05-06 22:41:16.2198712
-#  File has been updated.
-#  Successfully updated.
-
-# Not a target:
 Makefile:
 #  Implicit rule search has been done.
 #  Last modified 2021-05-06 20:27:55.9474252
@@ -234,13 +227,31 @@ Board.o: Board.cpp
 #  Implicit/static pattern stem: 'Board'
 #  Last modified 2021-05-06 22:31:40.3735043
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := Board.o
+# automatic
+# % := 
+# automatic
+# * := Board
+# automatic
+# + := Board.cpp
+# automatic
+# | := 
+# automatic
+# < := Board.cpp
+# automatic
+# ^ := Board.cpp
+# automatic
+# ? := Board.cpp
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/12=8%
 #  recipe to execute (from 'Makefile', line 12):
 	g++ -Wall -Werror -std=c++14 -g -O -c $^
 
 qwirkle: Tile.o Node.o LinkedList.o Board.o Game.o GameInit.o Player.o qwirkle.o
 #  Implicit rule search has not been done.
-#  Last modified 2021-05-06 22:35:59.1821918
+#  Last modified 2021-05-07 21:26:31.0924662
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
@@ -268,6 +279,7 @@ Node.cpp:
 #  File has not been updated.
 
 LinkedList.o: LinkedList.cpp
+ 
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'LinkedList'
 #  Last modified 2021-05-06 22:31:39.8595026
@@ -276,33 +288,11 @@ LinkedList.o: LinkedList.cpp
 #  recipe to execute (from 'Makefile', line 12):
 	g++ -Wall -Werror -std=c++14 -g -O -c $^
 
- 
-Game.o: Game.cpp
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'Game'
-#  Last modified 2021-05-06 22:35:58.8066729
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := Game.o
-# automatic
-# % := 
-# automatic
-# * := Game
-# automatic
-# + := Game.cpp
-# automatic
-# | := 
-# automatic
-# < := Game.cpp
-# automatic
-# ^ := Game.cpp
-# automatic
-# ? := Game.cpp
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/12=8%
-#  recipe to execute (from 'Makefile', line 12):
-	g++ -Wall -Werror -std=c++14 -g -O -c $^
+# Not a target:
+Game.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 clean:
 #  Implicit rule search has not been done.
@@ -333,19 +323,19 @@ Player.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=20/1024=2%, Rehash=0, Collisions=0/57=0%
+# Load=19/1024=2%, Rehash=0, Collisions=0/53=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 46 / storage = 407 B / avg = 8 B
-# current buf: size = 8162 B / used = 407 B / count = 46 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 45 / storage = 402 B / avg = 8 B
+# current buf: size = 8162 B / used = 402 B / count = 45 / avg = 8 B
 
-# strcache performance: lookups = 76 / hit rate = 39%
+# strcache performance: lookups = 73 / hit rate = 38%
 # hash-table stats:
-# Load=46/8192=1%, Rehash=0, Collisions=1/76=1%
-# Finished Make data base on Fri May  7 21:23:46 2021
+# Load=45/8192=1%, Rehash=0, Collisions=1/73=1%
+# Finished Make data base on Sat May  8 10:48:04 2021
 
  

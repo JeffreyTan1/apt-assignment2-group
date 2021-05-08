@@ -128,3 +128,28 @@ bool Board::rowIsEmpty(int row)
     }
     return tileFound;
 }
+
+std::string Board::getState()
+{
+    std::string stateString = "";
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; ++j)
+        {
+            if (!(board[i][j] == nullptr))
+            {
+                if (!(i == n - 1 && j == m - 1))
+                {
+                    stateString = stateString + board[i][j]->toString() + "@" + init[n] + std::to_string(m) + ", ";
+                }
+                else
+                {
+                    stateString = stateString + board[i][j]->toString() + "@" + init[n] + std::to_string(m);
+                }
+            }
+        }
+    }
+
+    return stateString;
+}
