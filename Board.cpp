@@ -113,13 +113,19 @@ Tile *Board::getTileAt(int row, int col)
     return tile;
 }
 
-bool Board::rowIsEmpty(int row)
+bool Board::lineIsEmpty(int line, bool isRow)
 {
     int i = 0;
     bool tileFound = false;
+    Tile *currentTile = nullptr;
     while (i <= 26 && !tileFound)
     {
-        Tile *currentTile = getTileAt(row, i);
+        if(isRow) {
+            currentTile = getTileAt(line, i);
+        }
+        else {
+            currentTile = getTileAt(i, line);
+        }
         if (currentTile != nullptr)
         {
             tileFound = true;
@@ -129,14 +135,19 @@ bool Board::rowIsEmpty(int row)
     return tileFound;
 }
 
-bool Board::colIsEmpty(int col)
-{
+bool Board::lineContains(Tile *tile, int line, bool isRow) {
     int i = 0;
     bool tileFound = false;
+    Tile *currentTile = nullptr;
     while (i <= 26 && !tileFound)
     {
-        Tile *currentTile = getTileAt(col, i);
-        if (currentTile != nullptr)
+        if(isRow) {
+            currentTile = getTileAt(line, i);
+        }
+        else {
+            currentTile = getTileAt(i, line);
+        }
+        if (currentTile->equals(tile))
         {
             tileFound = true;
         }
