@@ -53,7 +53,6 @@ void Game::executeGameplay()
         //check command is to save game!!!!!
 
         std::string input;
-        cin.ignore();
         getline(cin, command);
         std::vector<string> commandSplit;
         std::istringstream iss(command);
@@ -69,7 +68,7 @@ void Game::executeGameplay()
 void Game::playTurn(vector<string> userInput)
 {
     //or 'lace' lol
-    if (userInput[0] == "place" || userInput[0] == "lace")
+    if (userInput[0] == "place")
     {
         int locationRow = (userInput[3].at(0)) - ASCII_CONVERTER_LETTER;
         int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;

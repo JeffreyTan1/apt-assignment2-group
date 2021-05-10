@@ -28,6 +28,7 @@ GameInit::GameInit()
 
     newPlayer(1);
     newPlayer(2);
+    cin.ignore();
 
     cout << "player 1 name:" << player1->getName() << endl;
 
