@@ -99,7 +99,7 @@ void Game::playTile(Tile *tile, int row, int col)
         if (tile->isValid()&&isValidMove(tile, row, col))
         { //and move is legal
             board->placeTile(tile, row, col);
-
+            updatePoints(row, col);
             //update the score
             if (!bag->isEmpty())
             {
