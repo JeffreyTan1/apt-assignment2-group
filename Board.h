@@ -22,6 +22,7 @@ public:
     bool lineContains(Tile *tile, int line, bool isRow);
     bool rowIsEmpty(int row);
     std::string getState();
+    bool hasTileAt(int row, int col);
 
 private:
     vector<vector<Tile *>>

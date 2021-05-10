@@ -181,3 +181,13 @@ std::string Board::getState()
 
     return stateString;
 }
+
+bool Board::hasTileAt(int row, int col) {
+    bool hasTile = false;
+    if (board[row][col] != nullptr) {
+        hasTile = true;
+    }
+
+    return hasTile; 
+
+}

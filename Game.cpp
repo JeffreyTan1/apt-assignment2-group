@@ -49,6 +49,9 @@ void Game::executeGameplay()
         //print current players hand
         cout << currentPlayer->getHand()->toString() << endl;
         cout << "place tiles where ?" << endl;
+
+        //check command is to save game!!!!!
+
         std::string input;
         cin.ignore();
         getline(cin, command);
@@ -96,6 +99,7 @@ void Game::playTile(Tile *tile, int row, int col)
         if (tile->isValid()&&isValidMove(tile, row, col))
         { //and move is legal
             board->placeTile(tile, row, col);
+
             //update the score
             if (!bag->isEmpty())
             {
@@ -240,6 +244,64 @@ bool Game::checkNeighbours(int row, int col, bool diffShape, Tile* originalTile,
         }
     }
     return returnVal;
+}
+
+void Game::updatePoints(int row, int col) {
+    int pointsToAdd = countNeighbours(row, col);
+    currentPlayer->addPoints(pointsToAdd);
+}
+
+int Game::countNeighbours(int row, int col) {
+    Direction d;
+    int count = 0;
+    if(board->hasTileAt(row + 1, col)) {
+        d = Down;
+        count = count + countLine(row + 1, col, d);
+    }
+    if(board->hasTileAt(row - 1, col)) {
+        d = Up;
+        count = count + countLine(row + 1, col, d);
+    }
+    if(board->hasTileAt(row, col + 1)) {
+        d = Right;
+        count = count + countLine(row + 1, col, d);
+    }
+    if(board->hasTileAt(row, col - 1)) {
+        d = Left;
+        count = count + countLine(row + 1, col, d);
+    }
+
+    return count;
+}
+
+int Game::countLine(int row, int col, Game::Direction direction) {
+    int retVal = 0;
+
+    int y = 0;
+    int x = 0;
+    switch (direction)
+    {
+    case Up: 
+        y = -1;
+        break;
+    case Down: 
+        y = 1;  
+        break;
+    case Left: 
+        y = -1;
+        break;
+    case Right: 
+        y = 1;
+        break;
+    }
+    if(!board->hasTileAt(row + y, col + x)) {
+        retVal = 1;
+    }
+    else {
+        retVal = countLine(row + y, col + x, direction);
+    }
+
+    return retVal;
 }
 
 

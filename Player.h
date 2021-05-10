@@ -21,6 +21,8 @@ public:
 
     bool equals(Player *player);
 
+    void addPoints(int pointsToAdd);
+
 private:
     std::string name;
     int points;
