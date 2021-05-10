@@ -16,19 +16,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="536d92c1-0693-42a8-9c18-e7d95d9f5056" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Board.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Board.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Board.h" beforeDir="false" afterPath="$PROJECT_DIR$/Board.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Board.o" beforeDir="false" afterPath="$PROJECT_DIR$/Board.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game.o" beforeDir="false" afterPath="$PROJECT_DIR$/Game.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameInit.o" beforeDir="false" afterPath="$PROJECT_DIR$/GameInit.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LinkedList.o" beforeDir="false" afterPath="$PROJECT_DIR$/LinkedList.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Node.o" beforeDir="false" afterPath="$PROJECT_DIR$/Node.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Player.o" beforeDir="false" afterPath="$PROJECT_DIR$/Player.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tile.o" beforeDir="false" afterPath="$PROJECT_DIR$/Tile.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qwirkle" beforeDir="false" afterPath="$PROJECT_DIR$/qwirkle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qwirkle.o" beforeDir="false" afterPath="$PROJECT_DIR$/qwirkle.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,20 +58,10 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Makefile" />
     <property name="settings.editor.selected.configurable" value="CMakeSettings" />
   </component>
-  <component name="RunManager" selected="Makefile Target.all">
+  <component name="RunManager" selected="Makefile Application.qwirkle">
     <configuration name="qwirkle" type="CLionNativeAppRunConfigurationType" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="apt-assignment2-group" TARGET_NAME="qwirkle" CONFIG_NAME="qwirkle" version="1" RUN_PATH="$PROJECT_DIR$/qwirkle">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="Unnamed" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" nameIsGenerated="true">
@@ -124,6 +102,7 @@
       <workItem from="1620563865286" duration="322000" />
       <workItem from="1620564223201" duration="307000" />
       <workItem from="1620565515087" duration="859000" />
+      <workItem from="1620567607923" duration="673000" />
     </task>
     <servers />
   </component>
