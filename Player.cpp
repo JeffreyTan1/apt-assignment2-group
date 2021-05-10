@@ -36,3 +36,7 @@ bool Player::equals(Player *player) {
     }
     return retval;
 }
+
+void Player::addPoints(int pointsToAdd) {
+    points = points + pointsToAdd;
+}

@@ -1,5 +1,8 @@
 {
     "files.associations": {
+<<<<<<< HEAD
+        "iostream": "cpp"
+=======
         "ostream": "cpp",
         "iosfwd": "cpp",
         "array": "cpp",
@@ -45,5 +48,6 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp"
+>>>>>>> 3f1fc66b243ec79930e8b5fc049907583c8ffbe7
     }
 }

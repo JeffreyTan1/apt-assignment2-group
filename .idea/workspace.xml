@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+<<<<<<< HEAD
     <generated />
   </component>
   <component name="CMakeSettings">
@@ -13,6 +14,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e51462c-f774-4c25-ae43-afbe158ef6ab" name="Default Changelist" comment="" />
+=======
+    <generated>
+      <config projectName="apt-assignment2-group" targetName="all" />
+      <config projectName="apt-assignment2-group" targetName="qwirkle" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" GENERATION_OPTIONS="-G qwirkle" ENABLED="true" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="536d92c1-0693-42a8-9c18-e7d95d9f5056" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+>>>>>>> 991d3a8f7140245ae2d11d2ebd1d118751c0ceab
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,6 +38,14 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+>>>>>>> 991d3a8f7140245ae2d11d2ebd1d118751c0ceab
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -32,7 +57,12 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+<<<<<<< HEAD
   <component name="ProjectId" id="1sKJzOqvJaWiG4GpZyKZLyex8H2" />
+=======
+  <component name="ProjectId" id="1rqHHeuBhxvLcCDSUacfuCm0NZE" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+>>>>>>> 991d3a8f7140245ae2d11d2ebd1d118751c0ceab
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -44,28 +74,87 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
+<<<<<<< HEAD
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunManager">
     <configuration name="all" type="CLionNativeAppRunConfigurationType" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="apt-assignment2-group" TARGET_NAME="all" CONFIG_NAME="all" version="1" RUN_PATH="$PROJECT_DIR$/qwirkle">
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Makefile" />
+    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
+  </component>
+  <component name="RunManager" selected="Makefile Application.qwirkle">
+    <configuration name="qwirkle" type="CLionNativeAppRunConfigurationType" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="apt-assignment2-group" TARGET_NAME="qwirkle" CONFIG_NAME="qwirkle" version="1" RUN_PATH="$PROJECT_DIR$/qwirkle">
+>>>>>>> 991d3a8f7140245ae2d11d2ebd1d118751c0ceab
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
+=======
+    <configuration name="Unnamed" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" nameIsGenerated="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="all" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="all" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Makefile Application.qwirkle" />
+      <item itemvalue="Makefile Target.Unnamed" />
+      <item itemvalue="Makefile Target.all" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile Target.all" />
+      </list>
+    </recent_temporary>
+>>>>>>> 991d3a8f7140245ae2d11d2ebd1d118751c0ceab
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
       <changelist id="9e51462c-f774-4c25-ae43-afbe158ef6ab" name="Default Changelist" comment="" />
       <created>1620615610465</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1620615610465</updated>
       <workItem from="1620615612780" duration="11096000" />
+=======
+      <changelist id="536d92c1-0693-42a8-9c18-e7d95d9f5056" name="Default Changelist" comment="" />
+      <created>1619696615860</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1619696615860</updated>
+      <workItem from="1619696620151" duration="114000" />
+      <workItem from="1619835140945" duration="4659000" />
+      <workItem from="1619865432582" duration="2158000" />
+      <workItem from="1620563099532" duration="723000" />
+      <workItem from="1620563865286" duration="322000" />
+      <workItem from="1620564223201" duration="307000" />
+      <workItem from="1620565515087" duration="859000" />
+      <workItem from="1620567607923" duration="673000" />
+>>>>>>> 991d3a8f7140245ae2d11d2ebd1d118751c0ceab
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="CLionNativeAppRunConfigurationType">
+        <watch expression="locationCol" language="ObjectiveC" />
+      </configuration>
+    </watches-manager>
+  </component>
+>>>>>>> 991d3a8f7140245ae2d11d2ebd1d118751c0ceab
 </project>

@@ -44,11 +44,14 @@ void Game::executeGameplay()
         cout << currentPlayer->getName() << ", it's your turn" << endl;
         cout << "Score for " << player1->getName() << ": " << player1->getPoints() << endl;
         cout << "Score for " << player2->getName() << ": " << player2->getPoints() << endl;
-        //print  board
+        board->printBoard();
         cout << "Your hand is" << endl;
         //print current players hand
         cout << currentPlayer->getHand()->toString() << endl;
         cout << "place tiles where ?" << endl;
+
+        //check command is to save game!!!!!
+
         std::string input;
         cin.ignore();
         getline(cin, command);
@@ -91,11 +94,12 @@ void Game::playTurn(vector<string> userInput)
 
 void Game::playTile(Tile *tile, int row, int col)
 {
-    if(currentPlayer->getHand()->exists(tile))
+    if(currentPlayer->getHand()->exists(tile)) 
     {
         if (tile->isValid()&&isValidMove(tile, row, col))
         { //and move is legal
             board->placeTile(tile, row, col);
+            updatePoints(row, col);
             //update the score
             if (!bag->isEmpty())
             {
@@ -107,12 +111,12 @@ void Game::playTile(Tile *tile, int row, int col)
                 cout << "QWIRKLE!!!";
             }
         }
-        else
+        else 
         {
             cout << "Invalid move" << endl;
         }
     }
-    else
+    else 
     {
         cout << "That tile is not in your hand" << endl;
     }
@@ -244,3 +248,117 @@ bool Game::checkNeighbours(int row, int col, bool diffShape, Tile* originalTile,
     }
     return returnVal;
 }
+
+void Game::updatePoints(int row, int col) {
+    int pointsToAdd = countNeighbours(row, col);
+    currentPlayer->addPoints(pointsToAdd);
+}
+
+int Game::countNeighbours(int row, int col) {
+    Direction d;
+    int count = 0;
+    if(board->hasTileAt(row + 1, col)) {
+        d = Down;
+        count = count + countLine(row + 1, col, d);
+    }
+    if(board->hasTileAt(row - 1, col)) {
+        d = Up;
+        count = count + countLine(row + 1, col, d);
+    }
+    if(board->hasTileAt(row, col + 1)) {
+        d = Right;
+        count = count + countLine(row + 1, col, d);
+    }
+    if(board->hasTileAt(row, col - 1)) {
+        d = Left;
+        count = count + countLine(row + 1, col, d);
+    }
+
+    return count;
+}
+
+int Game::countLine(int row, int col, Game::Direction direction) {
+    int retVal = 0;
+
+    int y = 0;
+    int x = 0;
+    switch (direction)
+    {
+    case Up: 
+        y = -1;
+        break;
+    case Down: 
+        y = 1;  
+        break;
+    case Left: 
+        y = -1;
+        break;
+    case Right: 
+        y = 1;
+        break;
+    }
+    if(!board->hasTileAt(row + y, col + x)) {
+        retVal = 1;
+    }
+    else {
+        retVal = countLine(row + y, col + x, direction);
+    }
+
+    return retVal;
+}
+
+
+    /*bool diffShape = false;
+    bool returnVal = true;
+    bool tileFound = false;
+    int i = 0;
+    if (board->getTileAt(row, col) == nullptr)
+    {
+        //check the row (increase col)
+        Tile *currentTile = board->getTileAt(row, 0);
+        while (!tileFound && i <= col + 1 && returnVal)
+        {
+            Tile *currentTile = board->getTileAt(row, i);
+            if (currentTile != nullptr)
+            {
+                tileFound = true;
+                if (currentTile->equals(userTile))
+                {
+                    returnVal = false;
+                }
+                else if (currentTile->colour == userTile->colour)
+                {
+                    diffShape = true;
+                }
+            }
+            i++;
+        }
+        if (!tileFound)
+        {
+            returnVal = board->rowIsEmpty(row);
+        }
+        else
+        {
+            Tile *neighbour = currentTile;
+            while (neighbour != nullptr && returnVal)
+            {
+                int increase = 1;
+                returnVal = compareTiles(neighbour, userTile, diffShape);
+                if (col == i)
+                {
+                    increase = 2;
+                }
+                neighbour = board->getTileAt(row, i + increase);
+                i += increase;
+            }
+            if (i < col - 1 && tileFound)
+            {
+                returnVal = false;
+            }
+        }
+    }
+    else
+    {
+        returnVal = false;
+    }
+    return returnVal;*/

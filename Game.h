@@ -26,10 +26,14 @@ public:
     bool isValidMove(Tile *userTile, int row, int col);
     bool compareTiles(Tile *tile, Tile *other, bool diffShape);
     bool checkNeighbours(int row, int col, bool diffShape, Tile* originalTile, bool isRow);
-
-
+    enum Direction {Up, Down, Left, Right};
 
 private:
+    void updatePoints(int row, int col);
+    int countNeighbours(int row, int col);
+    int countLine(int row, int col, Game::Direction direction);
+
+   
     Player *player1;
     Player *player2;
     LinkedList *bag;
