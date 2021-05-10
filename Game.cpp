@@ -91,75 +91,76 @@ void Game::playTurn(vector<string> userInput)
 
 void Game::playTile(Tile *tile, int row, int col)
 {
-    if (tile->isValid())
-    { //and move is legal
-        board->placeTile(tile, row, col);
-        //update the score
-        if (!bag->isEmpty())
+    if(currentPlayer->getHand()->exists(tile))
+    {
+        if (tile->isValid()&&isValidMove(tile, row, col))
+        { //and move is legal
+            board->placeTile(tile, row, col);
+            //update the score
+            if (!bag->isEmpty())
+            {
+                drawCard();
+                currentPlayer->getHand()->removeElement(tile);
+            }
+            if (false)
+            { //qwirkle is scored
+                cout << "QWIRKLE!!!";
+            }
+        }
+        else
         {
-            drawCard();
+            cout << "Invalid move" << endl;
         }
-        if (false)
-        { //qwirkle is scored
-            cout << "QWIRKLE!!!";
-        }
+    }
+    else
+    {
+        cout << "That tile is not in your hand" << endl;
     }
 }
 
 bool Game::isValidMove(Tile *userTile, int row, int col)
 {
-    bool diffShape = false;
     bool returnVal = true;
-    bool tileFound = false;
-    int i = 0;
-    if (board->getTileAt(row, col) == nullptr)
-    {
-        //check the row (increase col)
-        Tile *currentTile = board->getTileAt(row, 0);
-        while (!tileFound && i <= col + 1 && returnVal)
-        {
-            Tile *currentTile = board->getTileAt(row, i);
-            if (currentTile != nullptr)
-            {
-                tileFound = true;
-                if (currentTile->equals(userTile))
-                {
-                    returnVal = false;
-                }
-                else if (currentTile->colour == userTile->colour)
-                {
-                    diffShape = true;
-                }
-            }
-            i++;
-        }
-        if (!tileFound)
-        {
-            returnVal = board->rowIsEmpty(row);
-        }
-        else
-        {
-            Tile *neighbour = currentTile;
-            while (neighbour != nullptr && returnVal)
-            {
-                int increase = 1;
-                returnVal = compareTiles(neighbour, userTile, diffShape);
-                if (col == i)
-                {
-                    increase = 2;
-                }
-                neighbour = board->getTileAt(row, i + increase);
-                i += increase;
-            }
-            if (i < col - 1 && tileFound)
-            {
-                returnVal = false;
-            }
-        }
-    }
-    else
+    bool diffShape = false;
+    bool isRow = true;
+    int newRow = 0;
+    int newCol = 0;
+    if(board->getTileAt(row, col)!=nullptr) //||board->lineContains(userTile, row, true)||board->lineContains(userTile, col, false)
     {
         returnVal = false;
+    }
+    else {
+        for (int j = 0; j < 2; j++) {
+            for (int i = -1; i < 2; i++) {
+                if(j==0) { //check column
+                    newRow = row + i;
+                    newCol = col;
+                    isRow = false;
+                }
+                else { //check row
+                    newRow = row;
+                    newCol = col + i;
+                    isRow = true;
+                }
+                Tile *currentTile = board->getTileAt(newRow, newCol);
+                if (currentTile != nullptr) {
+                    diffShape = false;
+                    //if neither colour nor shape are the same, move is not valid
+                    if (currentTile->shape != userTile->shape && currentTile->colour != userTile->colour) {
+                        returnVal = false;
+                    }
+                    else if (currentTile->colour == userTile->colour) {
+                        //if the colour is the same, all shapes in this line should be different
+                        diffShape = true;
+                        returnVal = checkNeighbours(newRow, newCol, diffShape, currentTile, isRow);
+                    }
+                    else {
+                        //otherwise, the colour should be different ie. diffShape=false as it was initialised
+                        returnVal = checkNeighbours(newRow, newCol, diffShape, currentTile, isRow);
+                    }
+                }
+            }
+        }
     }
     return returnVal;
 }
@@ -207,6 +208,39 @@ bool Game::compareTiles(Tile *tile, Tile *other, bool diffShape)
     else if (!diffShape)
     {
         returnVal = !(tile->colour == other->colour);
+    }
+    return returnVal;
+}
+
+bool Game::checkNeighbours(int row, int col, bool diffShape, Tile* originalTile, bool isRow)
+{
+    bool returnVal = true;
+    Tile* neighbours[2] = {};
+    if(isRow) {
+        neighbours[0] = board->getTileAt(row, col+1);
+        neighbours[1] = board->getTileAt(row, col-1);
+    }
+    else {
+        neighbours[0] = board->getTileAt(row+1, col);
+        neighbours[1] = board->getTileAt(row-1, col);
+    }
+    for(Tile* neighbour:neighbours)
+    {
+        if(neighbour!=nullptr)
+        {
+            cout << "neighbour found" << endl;
+            if(neighbour->equals(originalTile)) {
+                returnVal=true;
+            }
+            //if shape is meant to be different, check it is different
+            else if(diffShape&&(neighbour->shape==originalTile->shape)) {
+                returnVal=false;
+            }
+                //if colour is meant to be different, check it is different
+            else if(!diffShape&&(neighbour->colour==originalTile->colour)) {
+                returnVal=false;
+            }
+        }
     }
     return returnVal;
 }

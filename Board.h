@@ -18,7 +18,8 @@ public:
 
     void placeTile(Tile *tile, int row, int col);
     Tile *getTileAt(int row, int col);
-    bool rowIsEmpty(int row);
+    bool lineIsEmpty(int line, bool isRow);
+    bool lineContains(Tile *tile, int line, bool isRow);
     std::string getState();
 
 private:

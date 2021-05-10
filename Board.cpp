@@ -109,18 +109,49 @@ void Board::placeTile(Tile *tile, int row, int col)
 Tile *Board::getTileAt(int row, int col)
 {
     //TO DO
-    Tile *tile = new Tile('R', 1);
-    return tile;
+    if(row>=0&&col>=0&&row<27&&col<27) {
+        return board[row][col];
+    }
+    else {
+        return nullptr;
+    }
 }
 
-bool Board::rowIsEmpty(int row)
+bool Board::lineIsEmpty(int line, bool isRow)
 {
     int i = 0;
     bool tileFound = false;
+    Tile *currentTile = nullptr;
     while (i <= 26 && !tileFound)
     {
-        Tile *currentTile = getTileAt(row, i);
+        if(isRow) {
+            currentTile = getTileAt(line, i);
+        }
+        else {
+            currentTile = getTileAt(i, line);
+        }
         if (currentTile != nullptr)
+        {
+            tileFound = true;
+        }
+        i++;
+    }
+    return tileFound;
+}
+
+bool Board::lineContains(Tile *tile, int line, bool isRow) {
+    int i = 0;
+    bool tileFound = false;
+    Tile *currentTile = nullptr;
+    while (i <= 26 && !tileFound)
+    {
+        if(isRow) {
+            currentTile = getTileAt(line, i);
+        }
+        else {
+            currentTile = getTileAt(i, line);
+        }
+        if (currentTile->equals(tile))
         {
             tileFound = true;
         }
