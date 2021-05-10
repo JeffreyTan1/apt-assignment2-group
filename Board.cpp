@@ -6,11 +6,12 @@
 using namespace std;
 
 //class Tile;
-int n = 6;
+int n = 26;
 
-int m = 7;
+int m = 27;
 
-string init[6] = {"A", "B", "C", "D", "E", "F"};
+string init[26] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W",
+                   "X", "Y", "Z"}; 
 Tile *testy = new Tile('z', 5);
 //vector<vector<Tile*>> vec(n, vector<Tile*>(m));
 
