@@ -56,9 +56,10 @@ void runMenu(int userChoice, bool *stop)
 {
    if (userChoice == 1)
    {
-      cout << "Choice 1 selected \n \n";
+      cout << "Starting a New Game" << endl
+           << endl;
       GameInit *gameInit = new GameInit();
-      Game *game = new Game(gameInit->getPlayer1(), gameInit->getPlayer2(), gameInit->getBag(), gameInit->getBoard(), gameInit->getPlayer1());
+      Game *game = new Game(gameInit->getPlayer1(), gameInit->getPlayer2(), gameInit->getBag(), gameInit->getBoard(), gameInit->getCurrPlayer());
       game->executeGameplay();
       delete game;
 
@@ -76,7 +77,14 @@ void runMenu(int userChoice, bool *stop)
    else if (userChoice == 2)
    {
       //Load game
-      cout << "Choice 2 selected \n \n";
+      std::string fileName;
+      cout << "Enter the filename from which to load a game" << endl;
+      cin >> fileName;
+      GameInit *gameInit = new GameInit(fileName);
+      cout << "Qwirkle game successfullly loaded" << endl;
+      Game *game = new Game(gameInit->getPlayer1(), gameInit->getPlayer2(), gameInit->getBag(), gameInit->getBoard(), gameInit->getCurrPlayer());
+      game->executeGameplay();
+      delete game;
    }
    else if (userChoice == 3)
    {
