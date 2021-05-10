@@ -37,10 +37,10 @@ Game::~Game()
 
 void Game::executeGameplay()
 {
-    while (!gameOver) //(!gameOver&&!player1->getHand()->isEmpty()&&player2->getHand()->isEmpty()&&!bag->isEmpty())
+    while (!gameOver&&!player1->getHand()->isEmpty()&&!player2->getHand()->isEmpty()&&!bag->isEmpty()) //(!gameOver&&!player1->getHand()->isEmpty()&&player2->getHand()->isEmpty()&&!bag->isEmpty())
     {
         string command;
-
+        bool correctCommand;
         cout << currentPlayer->getName() << ", it's your turn" << endl;
         cout << "Score for " << player1->getName() << ": " << player1->getPoints() << endl;
         cout << "Score for " << player2->getName() << ": " << player2->getPoints() << endl;
@@ -51,49 +51,57 @@ void Game::executeGameplay()
         cout << "place tiles where ?" << endl;
 
         //check command is to save game!!!!!
-
-        std::string input;
-        getline(cin, command);
-        std::vector<string> commandSplit;
-        std::istringstream iss(command);
-        for (string command; iss >> command;)
-        {
-            commandSplit.push_back(command);
-        }
-        playTurn(commandSplit);
+        do {
+            std::string input;
+            getline(cin, command);
+            std::vector<string> commandSplit;
+            std::istringstream iss(command);
+            for (string command; iss >> command;) {
+                commandSplit.push_back(command);
+            }
+            correctCommand = playTurn(commandSplit);
+        } while(!correctCommand);
         switchPlayer();
     }
 }
 
-void Game::playTurn(vector<string> userInput)
+
+bool Game::playTurn(vector<string> userInput)
 {
-    //or 'lace' lol
+    bool returnVal = true;
+    bool success;
     if (userInput[0] == "place")
     {
         int locationRow = (userInput[3].at(0)) - ASCII_CONVERTER_LETTER;
         int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;
         Tile *tile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
-        playTile(tile, locationRow, locationCol + 1);
-        board->printBoard();
+        success = playTile(tile, locationRow, locationCol + 1);
+        returnVal = success;
     }
     else if (userInput[0] == "replace")
     { //user is replacing tile
         Tile *changeTile = new Tile(userInput[1].at(0), (userInput[1].at(0)) - ASCII_CONVERTER_DIGIT);
         replaceTile(changeTile);
     }
-    else if (true)
+    else if (userInput[0] == "save")
     { //user is saving game
         //save the game
     }
-    else if (true)
+    else if (userInput[0] == "quit")
     { //user is quitting game
         gameOver = true;
     }
+    else {
+        cout << "Command not recognised. Please try again: " << endl;
+        returnVal = false;
+    }
+    return returnVal;
 }
 
-void Game::playTile(Tile *tile, int row, int col)
+bool Game::playTile(Tile *tile, int row, int col)
 {
-    if(currentPlayer->getHand()->exists(tile)) 
+    bool returnVal = true;
+    if(currentPlayer->getHand()->exists(tile))
     {
         if (tile->isValid()&&isValidMove(tile, row, col))
         { //and move is legal
@@ -110,15 +118,18 @@ void Game::playTile(Tile *tile, int row, int col)
                 cout << "QWIRKLE!!!";
             }
         }
-        else 
+        else
         {
-            cout << "Invalid move" << endl;
+            cout << "Invalid move. Try again: " << endl;
+            returnVal = false;
         }
     }
-    else 
+    else
     {
-        cout << "That tile is not in your hand" << endl;
+        cout << "That tile is not in your hand. Try again: " << endl;
+        returnVal = false;
     }
+    return returnVal;
 }
 
 bool Game::isValidMove(Tile *userTile, int row, int col)
