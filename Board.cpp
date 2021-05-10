@@ -6,20 +6,24 @@
 using namespace std;
 
 //class Tile;
-int n = 6;
+int n = 26;
 
-int m = 7;
+int m = 27;
 
-string init[6] = {"A", "B", "C", "D", "E", "F"};
+//string init[6] = {"A", "B", "C", "D", "E", "F"};
 Tile* testy= new Tile('z',5);
 //vector<vector<Tile*>> vec(n, vector<Tile*>(m));
+string init[26];
 
 
 
 
 Board::Board()
 {
-    string init[6] = {"A", "B", "C", "D", "E", "F"};
+
+    for (int ch = 'a'; ch <= 'z'; ch++) {
+        init[ch-'a'] = toupper(ch);
+}
     vector<vector<Tile*>> vec(n, vector<Tile*>(m));
     this->board=vec;
 }
@@ -40,9 +44,11 @@ void Board::toString()
             {
                 cout << "   " << j << "  ";
             }
-            else if (i == 0)
+            else if (i == 0 && j<10)
             {
                 cout << j << "  ";
+            }else if (i==0 && j>9){
+                cout << j<<" " ;
             }
             else if (i == 1 && j == 0)
             {

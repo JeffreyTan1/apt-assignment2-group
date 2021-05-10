@@ -60,13 +60,25 @@ void Game::executeGameplay()
     }
 
 }
-
+    
 void Game::playTurn(vector<string> userInput) {
     if(userInput[0]=="place" || userInput[0]=="lace") {
             int locationRow = (userInput[3].at(0))-ASCII_CONVERTER_LETTER;
-            int locationCol = (userInput[3].at(1))-ASCII_CONVERTER_DIGIT;
+            std::string colVal= userInput[3];
+            
             Tile *tile = new Tile(userInput[1].at(0), (userInput[1].at(1))-ASCII_CONVERTER_DIGIT);
-            playTile(tile, locationRow, locationCol+1);
+            
+            if(colVal.length()>2){  
+                char temp[2]= {colVal[1],colVal[2]};
+                std::string apple=temp;
+                int value= std::stoi(apple);
+                playTile(tile, locationRow, value + 1);
+
+            }else{
+                int locationCol = (userInput[3].at(1))-ASCII_CONVERTER_DIGIT;
+                playTile(tile, locationRow, locationCol + 1);
+            }
+            //playTile(tile, locationRow, locationCol+1);
             board->toString();
         }
         else if(userInput[0]=="replace") { //user is replacing tile
