@@ -128,7 +128,7 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
     {
         returnVal = true;
     }
-    else if(board->getTileAt(row, col)==nullptr||board->lineContains(userTile, row, true)||board->lineContains(userTile, col, false)) 
+    else if(board->getTileAt(row, col)!=nullptr||board->lineContains(userTile, row, true)||board->lineContains(userTile, col, false)) 
     {
         returnVal = false;
     }
