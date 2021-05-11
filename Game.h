@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 
-
 class LinkedList;
 class Tile;
 class Board;
@@ -13,11 +12,17 @@ class Player;
 class Game
 {
 public:
-    Game(Player *player1, Player *player2, LinkedList *bag, Board *board, Player* currentPlayer);
+    Game(Player *player1, Player *player2, LinkedList *bag, Board *board, Player *currentPlayer);
 
     ~Game();
     void executeGameplay();
-    enum Direction {Up, Down, Left, Right};
+    enum Direction
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    };
 
 private:
     bool playTurn(std::vector<std::string> userInput);
@@ -27,17 +32,16 @@ private:
     void drawCard();
     bool isValidMove(Tile *userTile, int row, int col);
     bool compareTiles(Tile *tile, Tile *other, bool diffShape);
-    bool checkNeighbours(int row, int col, bool diffShape, Tile* originalTile, bool isRow);
+    bool checkNeighbours(int row, int col, bool diffShape, Tile *originalTile, bool isRow);
     void updatePoints(int row, int col);
     int countNeighbours(int row, int col);
     int countLine(int row, int col, Game::Direction direction);
 
-   
     Player *player1;
     Player *player2;
     LinkedList *bag;
     Board *board;
-    Player* currentPlayer;
+    Player *currentPlayer;
     bool gameOver;
 };
 

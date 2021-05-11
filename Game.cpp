@@ -37,7 +37,7 @@ Game::~Game()
 
 void Game::executeGameplay()
 {
-    while (!gameOver&&!player1->getHand()->isEmpty()&&!player2->getHand()->isEmpty()&&!bag->isEmpty()) //(!gameOver&&!player1->getHand()->isEmpty()&&player2->getHand()->isEmpty()&&!bag->isEmpty())
+    while (!gameOver && !player1->getHand()->isEmpty() && !player2->getHand()->isEmpty() && !bag->isEmpty()) //(!gameOver&&!player1->getHand()->isEmpty()&&player2->getHand()->isEmpty()&&!bag->isEmpty())
     {
         string command;
         bool correctCommand;
@@ -51,20 +51,21 @@ void Game::executeGameplay()
         cout << "place tiles where ?" << endl;
 
         //check command is to save game!!!!!
-        do {
+        do
+        {
             std::string input;
             getline(cin, command);
             std::vector<string> commandSplit;
             std::istringstream iss(command);
-            for (string command; iss >> command;) {
+            for (string command; iss >> command;)
+            {
                 commandSplit.push_back(command);
             }
             correctCommand = playTurn(commandSplit);
-        } while(!correctCommand);
+        } while (!correctCommand);
         switchPlayer();
     }
 }
-
 
 bool Game::playTurn(vector<string> userInput)
 {
@@ -91,7 +92,8 @@ bool Game::playTurn(vector<string> userInput)
     { //user is quitting game
         gameOver = true;
     }
-    else {
+    else
+    {
         cout << "Command not recognised. Please try again: " << endl;
         returnVal = false;
     }
@@ -101,10 +103,11 @@ bool Game::playTurn(vector<string> userInput)
 bool Game::playTile(Tile *tile, int row, int col)
 {
     bool returnVal = true;
-    if(currentPlayer->getHand()->exists(tile))
+    if (currentPlayer->getHand()->exists(tile))
     {
-        if (tile->isValid()&&isValidMove(tile, row, col))
+        if (tile->isValid() && isValidMove(tile, row, col))
         { //and move is legal
+
             board->placeTile(tile, row, col);
             updatePoints(row, col);
             //update the score
@@ -139,36 +142,45 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
     bool isRow = true;
     int newRow = 0;
     int newCol = 0;
-    if(board->getTileAt(row, col)!=nullptr) //||board->lineContains(userTile, row, true)||board->lineContains(userTile, col, false)
+    if (board->getTileAt(row, col) != nullptr) //||board->lineContains(userTile, row, true)||board->lineContains(userTile, col, false)
     {
         returnVal = false;
     }
-    else {
-        for (int j = 0; j < 2; j++) {
-            for (int i = -1; i < 2; i++) {
-                if(j==0) { //check column
+    else
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            for (int i = -1; i < 2; i++)
+            {
+                if (j == 0)
+                { //check column
                     newRow = row + i;
                     newCol = col;
                     isRow = false;
                 }
-                else { //check row
+                else
+                { //check row
                     newRow = row;
                     newCol = col + i;
                     isRow = true;
                 }
                 Tile *currentTile = board->getTileAt(newRow, newCol);
-                if (currentTile != nullptr) {
+                if (currentTile != nullptr)
+                {
                     diffShape = false;
                     //if neither colour nor shape are the same, move is not valid
-                    if (currentTile->shape != userTile->shape && currentTile->colour != userTile->colour) {
+                    if (currentTile->shape != userTile->shape && currentTile->colour != userTile->colour)
+                    {
                         returnVal = false;
                     }
-                    else if (currentTile->colour == userTile->colour) {
+                    else if (currentTile->colour == userTile->colour)
+                    {
                         //if the colour is the same, all shapes in this line should be different
                         diffShape = true;
                         returnVal = checkNeighbours(newRow, newCol, diffShape, currentTile, isRow);
                     }
-                    else {
+                    else
+                    {
                         //otherwise, the colour should be different ie. diffShape=false as it was initialised
                         returnVal = checkNeighbours(newRow, newCol, diffShape, currentTile, isRow);
                     }
@@ -226,100 +238,159 @@ bool Game::compareTiles(Tile *tile, Tile *other, bool diffShape)
     return returnVal;
 }
 
-bool Game::checkNeighbours(int row, int col, bool diffShape, Tile* originalTile, bool isRow)
+bool Game::checkNeighbours(int row, int col, bool diffShape, Tile *originalTile, bool isRow)
 {
     bool returnVal = true;
-    Tile* neighbours[2] = {};
-    if(isRow) {
-        neighbours[0] = board->getTileAt(row, col+1);
-        neighbours[1] = board->getTileAt(row, col-1);
-    }
-    else {
-        neighbours[0] = board->getTileAt(row+1, col);
-        neighbours[1] = board->getTileAt(row-1, col);
-    }
-    for(Tile* neighbour:neighbours)
+    Tile *neighbours[2] = {};
+    if (isRow)
     {
-        if(neighbour!=nullptr)
+        neighbours[0] = board->getTileAt(row, col + 1);
+        neighbours[1] = board->getTileAt(row, col - 1);
+    }
+    else
+    {
+        neighbours[0] = board->getTileAt(row + 1, col);
+        neighbours[1] = board->getTileAt(row - 1, col);
+    }
+    for (Tile *neighbour : neighbours)
+    {
+        if (neighbour != nullptr)
         {
             cout << "neighbour found" << endl;
-            if(neighbour->equals(originalTile)) {
-                returnVal=true;
+            if (neighbour->equals(originalTile))
+            {
+                returnVal = true;
             }
             //if shape is meant to be different, check it is different
-            else if(diffShape&&(neighbour->shape==originalTile->shape)) {
-                returnVal=false;
+            else if (diffShape && (neighbour->shape == originalTile->shape))
+            {
+                returnVal = false;
             }
-                //if colour is meant to be different, check it is different
-            else if(!diffShape&&(neighbour->colour==originalTile->colour)) {
-                returnVal=false;
+            //if colour is meant to be different, check it is different
+            else if (!diffShape && (neighbour->colour == originalTile->colour))
+            {
+                returnVal = false;
             }
         }
     }
     return returnVal;
 }
 
-void Game::updatePoints(int row, int col) {
+void Game::updatePoints(int row, int col)
+{
     int pointsToAdd = countNeighbours(row, col);
     currentPlayer->addPoints(pointsToAdd);
 }
 
-int Game::countNeighbours(int row, int col) {
+int Game::countNeighbours(int row, int col)
+{
+    bool upEmpty = true;
+    bool downEmpty = true;
+    bool leftEmpty = true;
+    bool rightEmpty = true;
+
     Direction d;
     int count = 0;
-    if(board->hasTileAt(row + 1, col)) {
-        d = Down;
-        count = count + countLine(row + 1, col, d);
+
+    if (row < 25)
+    {
+        if (board->hasTileAt(row + 1, col))
+        {
+            d = Down;
+            count = count + countLine(row + 1, col, d) + 1;
+            downEmpty = false;
+        }
     }
-    if(board->hasTileAt(row - 1, col)) {
-        d = Up;
-        count = count + countLine(row + 1, col, d);
+    if (row > 0)
+    {
+        if (board->hasTileAt(row - 1, col))
+        {
+            d = Up;
+            count = count + countLine(row - 1, col, d) + 1;
+            upEmpty = false;
+        }
     }
-    if(board->hasTileAt(row, col + 1)) {
-        d = Right;
-        count = count + countLine(row + 1, col, d);
+    //Due to implementation of columns, we are operating with cols 1 to 26 for indexing
+    if (col < 26)
+    {
+        if (board->hasTileAt(row, col + 1))
+        {
+            d = Right;
+            count = count + countLine(row, col + 1, d) + 1;
+            rightEmpty = false;
+        }
     }
-    if(board->hasTileAt(row, col - 1)) {
-        d = Left;
-        count = count + countLine(row + 1, col, d);
+    if (col > 1)
+    {
+        if (board->hasTileAt(row, col - 1))
+        {
+            d = Left;
+            count = count + countLine(row, col - 1, d) + 1;
+            leftEmpty = false;
+        }
+    }
+
+    if (upEmpty && downEmpty && leftEmpty && rightEmpty)
+    {
+        count = 1;
+    }
+
+    //eliminate the double count of the placed tile if the tile creates a line which extends both ways
+    if (!upEmpty && !downEmpty)
+    {
+        count = count - 1;
+    }
+
+    if (!leftEmpty && !rightEmpty)
+    {
+        count = count - 1;
     }
 
     return count;
 }
 
-int Game::countLine(int row, int col, Game::Direction direction) {
-    cout << "recursive call " << direction << endl;
+int Game::countLine(int row, int col, Game::Direction direction)
+{
     int retVal = 0;
 
     int y = 0;
     int x = 0;
     switch (direction)
     {
-    case Up: 
+    case Up:
         y = -1;
         break;
-    case Down: 
-        y = 1;  
-        break;
-    case Left: 
-        y = -1;
-        break;
-    case Right: 
+    case Down:
         y = 1;
         break;
+    case Left:
+        x = -1;
+        break;
+    case Right:
+        x = 1;
+        break;
     }
-    if(!board->hasTileAt(row + y, col + x)) {
+
+    if (row + y >= 0 && row + y <= 25 && col + x >= 1 && col + x <= 26)
+    {
+        if (!board->hasTileAt(row + y, col + x))
+        {
+            retVal = 1;
+        }
+        else
+        {
+            retVal = countLine(row + y, col + x, direction) + 1;
+        }
+    }
+    else
+    {
         retVal = 1;
-    }
-    else {
-        retVal = countLine(row + y, col + x, direction);
     }
 
     return retVal;
 }
 
-
-    /*bool diffShape = false;
+/*bool diffShape = false;
     bool returnVal = true;
     bool tileFound = false;
     int i = 0;

@@ -81,19 +81,19 @@ void Board::printBoard()
     }
 }
 
-//place g5 at c4
-void Board::addTile(Tile *tile, string posX, int posY)
-{
-    int position = 0;
-    for (int i = 0; i < 6; ++i)
-    {
-        if (posX == init[i])
-        {
-            position = i;
-        }
-    }
-    board[position][posY] = tile;
-}
+// //place g5 at c4
+// void Board::addTile(Tile *tile, string posX, int posY)
+// {
+//     int position = 0;
+//     for (int i = 0; i < 6; ++i)
+//     {
+//         if (posX == init[i])
+//         {
+//             position = i;
+//         }
+//     }
+//     board[position][posY] = tile;
+// }
 
 void Board::placeTile(Tile *tile, int row, int col)
 {
@@ -109,11 +109,12 @@ void Board::placeTile(Tile *tile, int row, int col)
 
 Tile *Board::getTileAt(int row, int col)
 {
-    //TO DO
-    if(row>=0&&col>=0&&row<27&&col<27) {
+    if (row >= 0 && col >= 1 && row < 25 && col < 26)
+    {
         return board[row][col];
     }
-    else {
+    else
+    {
         return nullptr;
     }
 }
@@ -197,5 +198,6 @@ bool Board::hasTileAt(int row, int col)
     {
         hasTile = true;
     }
+
     return hasTile;
 }
