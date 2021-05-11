@@ -74,14 +74,25 @@ bool Game::playTurn(vector<string> userInput)
     if (userInput[0] == "place")
     {
         int locationRow = (userInput[3].at(0)) - ASCII_CONVERTER_LETTER;
-        int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;
+        //int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;
+        std::string colVal= userInput[3];
+
         Tile *tile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
-        success = playTile(tile, locationRow, locationCol + 1);
+            if(colVal.length()>2){  
+                char temp[2]= {colVal[1],colVal[2]};
+                std::string apple=temp;
+                int value= std::stoi(apple);
+                success= playTile(tile, locationRow, value + 1);
+
+            }else{
+                int locationCol = (userInput[3].at(1))-ASCII_CONVERTER_DIGIT;
+                success= playTile(tile, locationRow, locationCol + 1);
+            }
         returnVal = success;
     }
     else if (userInput[0] == "replace")
     { //user is replacing tile
-        Tile *changeTile = new Tile(userInput[1].at(0), (userInput[1].at(0)) - ASCII_CONVERTER_DIGIT);
+        Tile *changeTile = new Tile(userInput[1].at(0   ), (userInput[1].at(0)) - ASCII_CONVERTER_DIGIT);
         replaceTile(changeTile);
     }
     else if (userInput[0] == "save")

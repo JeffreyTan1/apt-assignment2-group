@@ -10,16 +10,18 @@ int n = 26;
 
 int m = 27;
 
-string init[26] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W",
-                   "X", "Y", "Z"};
-Tile *testy = new Tile('z', 5);
+string init[26];    
+//Tile *testy = new Tile('z', 5);
 //vector<vector<Tile*>> vec(n, vector<Tile*>(m));
 
 Board::Board()
 {
-    string init[6] = {"A", "B", "C", "D", "E", "F"};
-    vector<vector<Tile *>> vec(n, vector<Tile *>(m));
-    this->board = vec;
+    for (int ch = 'a'; ch <= 'z'; ch++) {
+        init[ch-'a'] = toupper(ch);
+}
+    vector<vector<Tile*>> vec(n, vector<Tile*>(m));
+    this->board=vec;
+
 }
 
 vector<vector<Tile *>> Board::getBoard()
@@ -37,9 +39,11 @@ void Board::printBoard()
             {
                 cout << "   " << j << "  ";
             }
-            else if (i == 0)
+            else if (i == 0 && j<10)
             {
                 cout << j << "  ";
+            }else if (i==0 && j>9){
+                cout << j<<" " ;
             }
             else if (i == 1 && j == 0)
             {
