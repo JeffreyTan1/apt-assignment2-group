@@ -110,8 +110,12 @@ void Board::placeTile(Tile *tile, int row, int col)
 Tile *Board::getTileAt(int row, int col)
 {
     //TO DO
-    Tile *tile = new Tile('R', 1);
-    return tile;
+    if(row>=0&&col>=0&&row<27&&col<27) {
+        return board[row][col];
+    }
+    else {
+        return nullptr;
+    }
 }
 
 bool Board::lineIsEmpty(int line, bool isRow)
