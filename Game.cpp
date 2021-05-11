@@ -275,6 +275,7 @@ int Game::countNeighbours(int row, int col) {
 }
 
 int Game::countLine(int row, int col, Game::Direction direction) {
+    cout << "recursive call " << direction << endl;
     int retVal = 0;
 
     int y = 0;

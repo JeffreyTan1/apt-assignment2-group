@@ -11,7 +11,7 @@ int n = 26;
 int m = 27;
 
 string init[26] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W",
-                   "X", "Y", "Z"}; 
+                   "X", "Y", "Z"};
 Tile *testy = new Tile('z', 5);
 //vector<vector<Tile*>> vec(n, vector<Tile*>(m));
 
@@ -121,10 +121,12 @@ bool Board::lineIsEmpty(int line, bool isRow)
     Tile *currentTile = nullptr;
     while (i <= 26 && !tileFound)
     {
-        if(isRow) {
+        if (isRow)
+        {
             currentTile = getTileAt(line, i);
         }
-        else {
+        else
+        {
             currentTile = getTileAt(i, line);
         }
         if (currentTile != nullptr)
@@ -136,16 +138,19 @@ bool Board::lineIsEmpty(int line, bool isRow)
     return tileFound;
 }
 
-bool Board::lineContains(Tile *tile, int line, bool isRow) {
+bool Board::lineContains(Tile *tile, int line, bool isRow)
+{
     int i = 0;
     bool tileFound = false;
     Tile *currentTile = nullptr;
     while (i <= 26 && !tileFound)
     {
-        if(isRow) {
+        if (isRow)
+        {
             currentTile = getTileAt(line, i);
         }
-        else {
+        else
+        {
             currentTile = getTileAt(i, line);
         }
         if (currentTile->equals(tile))
@@ -155,7 +160,6 @@ bool Board::lineContains(Tile *tile, int line, bool isRow) {
         i++;
     }
     return tileFound;
-
 }
 std::string Board::getState()
 {
@@ -182,12 +186,12 @@ std::string Board::getState()
     return stateString;
 }
 
-bool Board::hasTileAt(int row, int col) {
+bool Board::hasTileAt(int row, int col)
+{
     bool hasTile = false;
-    if (board[row][col] != nullptr) {
+    if (board[row][col] != nullptr)
+    {
         hasTile = true;
     }
-
-    return hasTile; 
-
+    return hasTile;
 }
