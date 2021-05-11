@@ -119,53 +119,6 @@ Tile *Board::getTileAt(int row, int col)
     }
 }
 
-bool Board::lineIsEmpty(int line, bool isRow)
-{
-    int i = 0;
-    bool tileFound = false;
-    Tile *currentTile = nullptr;
-    while (i <= 26 && !tileFound)
-    {
-        if (isRow)
-        {
-            currentTile = getTileAt(line, i);
-        }
-        else
-        {
-            currentTile = getTileAt(i, line);
-        }
-        if (currentTile != nullptr)
-        {
-            tileFound = true;
-        }
-        i++;
-    }
-    return tileFound;
-}
-
-bool Board::lineContains(Tile *tile, int line, bool isRow)
-{
-    int i = 0;
-    bool tileFound = false;
-    Tile *currentTile = nullptr;
-    while (i <= 26 && !tileFound)
-    {
-        if (isRow)
-        {
-            currentTile = getTileAt(line, i);
-        }
-        else
-        {
-            currentTile = getTileAt(i, line);
-        }
-        if (currentTile->equals(tile))
-        {
-            tileFound = true;
-        }
-        i++;
-    }
-    return tileFound;
-}
 std::string Board::getState()
 {
     std::string stateString = "";

@@ -36,6 +36,8 @@ private:
     void updatePoints(int row, int col);
     int countNeighbours(int row, int col);
     int countLine(int row, int col, Game::Direction direction);
+    bool neighboursContains(Tile* tile, int row, int col);
+    bool checkLine(int row, int col, Game::Direction direction, Tile* searchTile);
 
     Player *player1;
     Player *player2;

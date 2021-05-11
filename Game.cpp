@@ -142,8 +142,11 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
     bool isRow = true;
     int newRow = 0;
     int newCol = 0;
-    if (board->getTileAt(row, col) != nullptr) //||board->lineContains(userTile, row, true)||board->lineContains(userTile, col, false)
+    if(board->getTileAt(row, col)!=nullptr)
     {
+        returnVal = false;
+    }
+    else if(neighboursContains(userTile, row, col)) {
         returnVal = false;
     }
     else
@@ -390,57 +393,81 @@ int Game::countLine(int row, int col, Game::Direction direction)
     return retVal;
 }
 
-/*bool diffShape = false;
-    bool returnVal = true;
+bool Game::neighboursContains(Tile* tile, int row, int col) {
+    Direction d;
     bool tileFound = false;
-    int i = 0;
-    if (board->getTileAt(row, col) == nullptr)
-    {
-        //check the row (increase col)
-        Tile *currentTile = board->getTileAt(row, 0);
-        while (!tileFound && i <= col + 1 && returnVal)
+    if (row < 25) 
+    {  
+        if(board->hasTileAt(row + 1, col)) 
         {
-            Tile *currentTile = board->getTileAt(row, i);
-            if (currentTile != nullptr)
-            {
-                tileFound = true;
-                if (currentTile->equals(userTile))
-                {
-                    returnVal = false;
-                }
-                else if (currentTile->colour == userTile->colour)
-                {
-                    diffShape = true;
-                }
-            }
-            i++;
-        }
-        if (!tileFound)
-        {
-            returnVal = board->rowIsEmpty(row);
-        }
-        else
-        {
-            Tile *neighbour = currentTile;
-            while (neighbour != nullptr && returnVal)
-            {
-                int increase = 1;
-                returnVal = compareTiles(neighbour, userTile, diffShape);
-                if (col == i)
-                {
-                    increase = 2;
-                }
-                neighbour = board->getTileAt(row, i + increase);
-                i += increase;
-            }
-            if (i < col - 1 && tileFound)
-            {
-                returnVal = false;
-            }
+            d = Down;
+            tileFound = checkLine(row + 1, col, d, tile);
         }
     }
-    else
+    if (row > 0) 
     {
-        returnVal = false;
+        if(board->hasTileAt(row - 1, col)&&!tileFound) 
+        {
+            d = Up;
+            tileFound = checkLine(row - 1, col, d, tile);
+        }
     }
-    return returnVal;*/
+    if (col < 26) 
+    {  
+        if(board->hasTileAt(row, col + 1)&&!tileFound) 
+        {
+            d = Right;
+            tileFound = checkLine(row, col+1, d, tile);
+        }
+    }
+    if (col > 1) {
+        if(board->hasTileAt(row, col - 1)&&!tileFound) 
+        {
+            d = Left;
+            tileFound = checkLine(row, col-1, d, tile);
+        }
+    }
+
+    return tileFound;
+}
+
+bool Game::checkLine(int row, int col, Game::Direction direction, Tile* searchTile) {
+    bool retVal = false;
+
+    int y = 0;
+    int x = 0;
+    
+    if(direction==Up) 
+    {
+        y = -1;
+    }
+    else if(direction==Down) 
+    {
+        y = 1;
+    }
+    else if(direction==Left) 
+    {
+        x = -1;
+    }
+    else 
+    {
+        x = 1;
+    }
+    
+    if(board->getTileAt(row, col)->equals(searchTile))
+    {
+        retVal = true;
+    }
+    else if (row + y >= 0 && row + y <= 25 && col + x >= 1 && col + x <= 26) 
+    {
+        if(!board->hasTileAt(row + y, col + x)) 
+        {
+            retVal = false;
+        }
+        else 
+        {
+            retVal = checkLine(row + y, col + x, direction, searchTile);
+        }
+    }
+    return retVal;
+}
