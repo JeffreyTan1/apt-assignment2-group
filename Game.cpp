@@ -6,6 +6,7 @@
 #include "GameInit.h"
 #include "GameSaver.h"
 
+#include <algorithm>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -54,8 +55,11 @@ void Game::executeGameplay()
         //check command is to save game!!!!!
         do
         {
-            std::string input;
             getline(cin, command);
+
+            //Make string uppercase to reduce invalid inputs
+            std::transform(command.begin(), command.end(), command.begin(), ::toupper);
+
             std::vector<string> commandSplit;
             std::istringstream iss(command);
             for (string command; iss >> command;)
@@ -72,7 +76,7 @@ bool Game::playTurn(vector<string> userInput)
 {
     bool returnVal = true;
     bool success;
-    if (userInput[0] == "place")
+    if (userInput[0] == "PLACE" && userInput[1] != "" && userInput[2] == "AT" && userInput[3] != "")
     {
         int locationRow = (userInput[3].at(0)) - ASCII_CONVERTER_LETTER;
         //int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;
@@ -93,19 +97,19 @@ bool Game::playTurn(vector<string> userInput)
         }
         returnVal = success;
     }
-    else if (userInput[0] == "replace")
+    else if (userInput[0] == "REPLACE" && userInput[1] != "")
     { //user is replacing tile
         Tile *changeTile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
         returnVal = replaceTile(changeTile);
     }
-    else if (userInput[0] == "save" && userInput[1] != "")
+    else if (userInput[0] == "SAVE" && userInput[1] != "")
     { //user is saving game
         std::string outputFileName = userInput[1];
         GameSaver *gs = new GameSaver(player1, player2, board, bag, currentPlayer, outputFileName);
         delete gs;
         cout << "Game successfully saved" << endl;
     }
-    else if (userInput[0] == "quit")
+    else if (userInput[0] == "QUIT")
     { //user is quitting game
         gameOver = true;
     }
@@ -136,6 +140,7 @@ bool Game::playTile(Tile *tile, int row, int col)
             }
             if (false)
             { //qwirkle is scored
+
                 cout << "QWIRKLE!!!";
             }
         }
@@ -317,6 +322,10 @@ int Game::countNeighbours(int row, int col)
     bool downEmpty = true;
     bool leftEmpty = true;
     bool rightEmpty = true;
+    int downVal = 0;
+    int upVal = 0;
+    int rightVal = 0;
+    int leftVal = 0;
 
     Direction d;
     int count = 0;
@@ -326,7 +335,7 @@ int Game::countNeighbours(int row, int col)
         if (board->hasTileAt(row + 1, col))
         {
             d = Down;
-            count = count + countLine(row + 1, col, d) + 1;
+            downVal = countLine(row + 1, col, d) + 1;
             downEmpty = false;
         }
     }
@@ -335,7 +344,7 @@ int Game::countNeighbours(int row, int col)
         if (board->hasTileAt(row - 1, col))
         {
             d = Up;
-            count = count + countLine(row - 1, col, d) + 1;
+            upVal = countLine(row - 1, col, d) + 1;
             upEmpty = false;
         }
     }
@@ -345,7 +354,7 @@ int Game::countNeighbours(int row, int col)
         if (board->hasTileAt(row, col + 1))
         {
             d = Right;
-            count = count + countLine(row, col + 1, d) + 1;
+            rightVal = countLine(row, col + 1, d) + 1;
             rightEmpty = false;
         }
     }
@@ -354,24 +363,43 @@ int Game::countNeighbours(int row, int col)
         if (board->hasTileAt(row, col - 1))
         {
             d = Left;
-            count = count + countLine(row, col - 1, d) + 1;
+            leftVal = countLine(row, col - 1, d) + 1;
             leftEmpty = false;
         }
     }
+
+    count = downVal + upVal + rightVal + leftVal;
 
     if (upEmpty && downEmpty && leftEmpty && rightEmpty)
     {
         count = 1;
     }
 
+    // Check for any qwirkles created by adding a tile to the end of the line of tiles
+    if (downVal == 6 || upVal == 6 || rightVal == 6 || leftVal == 6)
+    {
+        cout << "QWIRKLE!!!" << endl;
+    }
+
     //eliminate the double count of the placed tile if the tile creates a line which extends both ways
     if (!upEmpty && !downEmpty)
     {
         count = count - 1;
+
+        //checks for qwirkles when tile is placed between two lines connecting them vertically
+        if (downVal + upVal - 1 == 6)
+        {
+            cout << "QWIRKLE!!!" << endl;
+        }
     }
 
     if (!leftEmpty && !rightEmpty)
     {
+        //checks for qwirkles when tile is placed between two lines connecting them horizontally
+        if (leftVal + rightVal - 1 == 6)
+        {
+            cout << "QWIRKLE!!!" << endl;
+        }
         count = count - 1;
     }
 
