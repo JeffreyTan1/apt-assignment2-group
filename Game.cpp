@@ -4,6 +4,7 @@
 #include "Board.h"
 #include "Tile.h"
 #include "GameInit.h"
+#include "GameSaver.h"
 
 #include <iostream>
 #include <sstream>
@@ -75,19 +76,21 @@ bool Game::playTurn(vector<string> userInput)
     {
         int locationRow = (userInput[3].at(0)) - ASCII_CONVERTER_LETTER;
         //int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;
-        std::string colVal= userInput[3];
+        std::string colVal = userInput[3];
 
         Tile *tile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
-            if(colVal.length()>2){  
-                char temp[2]= {colVal[1],colVal[2]};
-                std::string apple=temp;
-                int value= std::stoi(apple);
-                success= playTile(tile, locationRow, value + 1);
-
-            }else{
-                int locationCol = (userInput[3].at(1))-ASCII_CONVERTER_DIGIT;
-                success= playTile(tile, locationRow, locationCol + 1);
-            }
+        if (colVal.length() > 2)
+        {
+            char temp[2] = {colVal[1], colVal[2]};
+            std::string apple = temp;
+            int value = std::stoi(apple);
+            success = playTile(tile, locationRow, value + 1);
+        }
+        else
+        {
+            int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;
+            success = playTile(tile, locationRow, locationCol + 1);
+        }
         returnVal = success;
     }
     else if (userInput[0] == "replace")
@@ -95,9 +98,12 @@ bool Game::playTurn(vector<string> userInput)
         Tile *changeTile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
         returnVal = replaceTile(changeTile);
     }
-    else if (userInput[0] == "save")
+    else if (userInput[0] == "save" && userInput[1] != "")
     { //user is saving game
-        //save the game
+        std::string outputFileName = userInput[1];
+        GameSaver *gs = new GameSaver(player1, player2, board, bag, currentPlayer, outputFileName);
+        delete gs;
+        cout << "Game successfully saved" << endl;
     }
     else if (userInput[0] == "quit")
     { //user is quitting game
@@ -105,7 +111,8 @@ bool Game::playTurn(vector<string> userInput)
     }
     else
     {
-        cout << "Command not recognised. Please try again: " << endl << endl;
+        cout << "Command not recognised. Please try again: " << endl
+             << endl;
         returnVal = false;
     }
     return returnVal;
@@ -153,11 +160,12 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
     bool isRow = true;
     int newRow = 0;
     int newCol = 0;
-    if(board->getTileAt(row, col)!=nullptr)
+    if (board->getTileAt(row, col) != nullptr)
     {
         returnVal = false;
     }
-    else if(neighboursContains(userTile, row, col)) {
+    else if (neighboursContains(userTile, row, col))
+    {
         returnVal = false;
     }
     else
@@ -411,78 +419,81 @@ int Game::countLine(int row, int col, Game::Direction direction)
     return retVal;
 }
 
-bool Game::neighboursContains(Tile* tile, int row, int col) {
+bool Game::neighboursContains(Tile *tile, int row, int col)
+{
     Direction d;
     bool tileFound = false;
-    if (row < 25) 
-    {  
-        if(board->hasTileAt(row + 1, col)) 
+    if (row < 25)
+    {
+        if (board->hasTileAt(row + 1, col))
         {
             d = Down;
             tileFound = checkLine(row + 1, col, d, tile);
         }
     }
-    if (row > 0) 
+    if (row > 0)
     {
-        if(board->hasTileAt(row - 1, col)&&!tileFound) 
+        if (board->hasTileAt(row - 1, col) && !tileFound)
         {
             d = Up;
             tileFound = checkLine(row - 1, col, d, tile);
         }
     }
-    if (col < 26) 
-    {  
-        if(board->hasTileAt(row, col + 1)&&!tileFound) 
+    if (col < 26)
+    {
+        if (board->hasTileAt(row, col + 1) && !tileFound)
         {
             d = Right;
-            tileFound = checkLine(row, col+1, d, tile);
+            tileFound = checkLine(row, col + 1, d, tile);
         }
     }
-    if (col > 1) {
-        if(board->hasTileAt(row, col - 1)&&!tileFound) 
+    if (col > 1)
+    {
+        if (board->hasTileAt(row, col - 1) && !tileFound)
         {
             d = Left;
-            tileFound = checkLine(row, col-1, d, tile);
+            tileFound = checkLine(row, col - 1, d, tile);
         }
     }
 
     return tileFound;
 }
 
-bool Game::checkLine(int row, int col, Game::Direction direction, Tile* searchTile) {
+bool Game::checkLine(int row, int col, Game::Direction direction, Tile *searchTile)
+{
     bool retVal = false;
 
     int y = 0;
     int x = 0;
-    
-    if(direction==Up) 
+
+    if (direction == Up)
     {
         y = -1;
     }
-    else if(direction==Down) 
+    else if (direction == Down)
     {
         y = 1;
     }
-    else if(direction==Left) 
+    else if (direction == Left)
     {
         x = -1;
     }
-    else 
+    else
     {
         x = 1;
     }
-    
-    if(board->getTileAt(row, col)->equals(searchTile))
+
+    if (board->getTileAt(row, col)->equals(searchTile))
     {
         retVal = true;
     }
-    else if (row + y >= 0 && row + y <= 25 && col + x >= 1 && col + x <= 26) 
+    else if (row + y >= 0 && row + y <= 25 && col + x >= 1 && col + x <= 26)
     {
-        if(!board->hasTileAt(row + y, col + x)) 
+        if (!board->hasTileAt(row + y, col + x))
         {
             retVal = false;
         }
-        else 
+        else
         {
             retVal = checkLine(row + y, col + x, direction, searchTile);
         }

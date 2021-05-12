@@ -5,14 +5,14 @@
 #include "LinkedList.h"
 using std::endl;
 
-GameSaver::GameSaver(Player *player1, Player *player2, Board *board, LinkedList *bag, Player *currentPlayer)
+GameSaver::GameSaver(Player *player1, Player *player2, Board *board, LinkedList *bag, Player *currentPlayer, std::string outputFileName)
 {
-    outFile.open("output.txt");
+    outFile.open(outputFileName + ".txt");
 
     outputPlayer(player1);
     outputPlayer(player2);
 
-    outFile << "26, 26" << endl;
+    outFile << "26,26" << endl;
 
     outFile << board->getState() << endl;
 

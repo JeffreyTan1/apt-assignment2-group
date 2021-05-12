@@ -9,7 +9,7 @@ class LinkedList;
 class GameSaver
 {
 public:
-    GameSaver(Player *player1, Player *player2, Board *board, LinkedList *bag, Player *currentPlayer);
+    GameSaver(Player *player1, Player *player2, Board *board, LinkedList *bag, Player *currentPlayer, std::string outputFileName);
 
 private:
     void outputPlayer(Player *player);
