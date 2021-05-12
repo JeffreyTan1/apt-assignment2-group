@@ -113,7 +113,7 @@ void Board::placeTile(Tile *tile, int row, int col)
 
 Tile *Board::getTileAt(int row, int col)
 {
-    if (row >= 0 && col >= 1 && row < 25 && col < 26)
+    if (row >= 0 && col >= 1 && row <= 25 && col <= 26)
     {
         return board[row][col];
     }
