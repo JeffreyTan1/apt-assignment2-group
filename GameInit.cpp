@@ -20,6 +20,10 @@ using std::getline;
 using std::ifstream;
 using std::stoi;
 
+GameInit::~GameInit()
+{
+}
+
 GameInit::GameInit()
 {
     board = new Board();
@@ -61,8 +65,8 @@ void GameInit::newRandomBag()
     }
 
     //shuffle the vector
-    //std::default_random_engine engine(10);
-    //std::shuffle(allTiles.begin(), allTiles.end(), engine);
+    std::default_random_engine engine(10);
+    std::shuffle(allTiles.begin(), allTiles.end(), engine);
     //add tiles to bag
     for (int i = 0; i < 72; i++)
     {
@@ -73,6 +77,8 @@ void GameInit::newRandomBag()
 void GameInit::newPlayer(int pNum)
 {
     //Create player 1 data structures
+    //Should not have the same named people. The game loader won't be able to tell which person should have the current turn.
+    //The game will choose the player1 as the current player.
     cout << "Enter a name for player " << pNum << " (uppercase characters only)" << endl;
     std::string name;
     cin >> name;
@@ -99,7 +105,7 @@ GameInit::GameInit(std::string filename)
     board = new Board();
     bag = new LinkedList();
 
-    ifstream saveFile("s.txt");
+    ifstream saveFile(filename + ".txt");
 
     std::string line1;
     std::string line2;
@@ -108,36 +114,32 @@ GameInit::GameInit(std::string filename)
     for (int i = 0; i < 2; i++)
     {
         std::getline(saveFile, line1);
-        line1.pop_back();
         std::getline(saveFile, line2);
-        line2.pop_back();
         std::getline(saveFile, line3);
-        line3.pop_back();
         loadPlayer(line1, line2, line3, i + 1);
     }
 
     std::string line4;
     std::getline(saveFile, line4);
-    line4.pop_back();
     loadBoardSize(line4);
 
     std::string line5;
     std::getline(saveFile, line5);
-    line5.pop_back();
     loadBoardState(line5);
 
     std::string line6;
     std::getline(saveFile, line6);
-    line6.pop_back();
     loadBagState(line6);
 
     std::string line7;
     std::getline(saveFile, line7);
-    line7.pop_back();
     loadCurrPlayer(line7);
 
     saveFile.close();
     //End of initialiser
+
+    cout << "bag : " << bag->toString() << "p1 hand  : " << player1->getHand()->toString() << endl;
+    cout << "p2 hand  : " << player2->getHand()->toString() << endl;
 }
 
 void GameInit::loadPlayer(std::string line1, std::string line2, std::string line3, int pNum)
@@ -188,38 +190,41 @@ void GameInit::loadBoardSize(std::string line4)
 
 void GameInit::loadBoardState(std::string line5)
 {
-    std::stringstream ss(line5);
-    int iter = 0;
-    while (ss.good())
+    if (line5 != "")
     {
-        char tileChar;
-        int tileShape;
-        int boardRow;
-        int boardCol;
-
-        std::string substr;
-        std::getline(ss, substr, ',');
-
-        if (iter == 0)
+        std::stringstream ss(line5);
+        int iter = 0;
+        while (ss.good())
         {
-            tileChar = substr.at(0);
-            tileShape = (int)substr.at(1) - ASCII_CONVERTER_DIGIT;
-            boardRow = (int)substr.at(3) - ASCII_CONVERTER_LETTER;
-            boardCol = (int)substr.at(4) - ASCII_CONVERTER_DIGIT;
+            char tileChar;
+            int tileShape;
+            int boardRow;
+            int boardCol;
+
+            std::string substr;
+            std::getline(ss, substr, ',');
+
+            if (iter == 0)
+            {
+                tileChar = substr.at(0);
+                tileShape = (int)substr.at(1) - ASCII_CONVERTER_DIGIT;
+                boardRow = (int)substr.at(3) - ASCII_CONVERTER_LETTER;
+                boardCol = (int)substr.at(4) - ASCII_CONVERTER_DIGIT;
+            }
+            else
+            {
+                tileChar = substr.at(1);
+                tileShape = (int)substr.at(2) - ASCII_CONVERTER_DIGIT;
+                boardRow = (int)substr.at(4) - ASCII_CONVERTER_LETTER;
+                boardCol = (int)substr.at(5) - ASCII_CONVERTER_DIGIT;
+            }
+
+            Tile *newTile = new Tile(tileChar, tileShape);
+
+            board->placeTile(newTile, boardRow, boardCol);
+
+            iter++;
         }
-        else
-        {
-            tileChar = substr.at(1);
-            tileShape = (int)substr.at(2) - ASCII_CONVERTER_DIGIT;
-            boardRow = (int)substr.at(4) - ASCII_CONVERTER_LETTER;
-            boardCol = (int)substr.at(5) - ASCII_CONVERTER_DIGIT;
-        }
-
-        Tile *newTile = new Tile(tileChar, tileShape);
-
-        board->placeTile(newTile, boardRow, boardCol);
-
-        iter++;
     }
 }
 
@@ -232,7 +237,7 @@ void GameInit::loadBagState(std::string line6)
         std::string substr;
         std::getline(ss, substr, ',');
         char colour = substr.at(0);
-        int shape = (int)substr.at(1);
+        int shape = substr.at(1) - ASCII_CONVERTER_DIGIT;
 
         Tile *newTile = new Tile(colour, shape);
         bag->addBack(newTile);
@@ -241,11 +246,11 @@ void GameInit::loadBagState(std::string line6)
 
 void GameInit::loadCurrPlayer(std::string line7)
 {
-    if (player1->getName().compare(line7))
+    if (player1->getName() == line7)
     {
         currPlayer = player1;
     }
-    else if (player2->getName().compare(line7))
+    else if (player2->getName() == line7)
     {
         currPlayer = player2;
     }

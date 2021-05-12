@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Board.h"
 #include "LinkedList.h"
+#include <iostream>
 using std::endl;
 
 GameSaver::GameSaver(Player *player1, Player *player2, Board *board, LinkedList *bag, Player *currentPlayer, std::string outputFileName)
@@ -15,7 +16,6 @@ GameSaver::GameSaver(Player *player1, Player *player2, Board *board, LinkedList 
     outFile << "26,26" << endl;
 
     outFile << board->getState() << endl;
-
     outFile << bag->toString() << endl;
     outFile << currentPlayer->getName();
 }

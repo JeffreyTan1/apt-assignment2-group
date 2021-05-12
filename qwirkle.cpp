@@ -60,7 +60,7 @@ void runMenu(int userChoice, bool *stop)
            << endl;
       GameInit *gameInit = new GameInit();
       Game *game = new Game(gameInit->getPlayer1(), gameInit->getPlayer2(), gameInit->getBag(), gameInit->getBoard(), gameInit->getCurrPlayer());
-      game->executeGameplay();
+      game->executeGameplay(false);
       delete game;
 
       //New game
@@ -81,9 +81,10 @@ void runMenu(int userChoice, bool *stop)
       cout << "Enter the filename from which to load a game" << endl;
       cin >> fileName;
       GameInit *gameInit = new GameInit(fileName);
-      cout << "Qwirkle game successfullly loaded" << endl;
+      cout << "Qwirkle game successfully loaded" << endl;
       Game *game = new Game(gameInit->getPlayer1(), gameInit->getPlayer2(), gameInit->getBag(), gameInit->getBoard(), gameInit->getCurrPlayer());
-      game->executeGameplay();
+      delete gameInit;
+      game->executeGameplay(true);
       delete game;
    }
    else if (userChoice == 3)

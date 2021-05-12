@@ -10,18 +10,18 @@ int n = 26;
 
 int m = 27;
 
-string init[26];    
+string init[26];
 //Tile *testy = new Tile('z', 5);
 //vector<vector<Tile*>> vec(n, vector<Tile*>(m));
 
 Board::Board()
 {
-    for (int ch = 'a'; ch <= 'z'; ch++) {
-        init[ch-'a'] = toupper(ch);
-}
-    vector<vector<Tile*>> vec(n, vector<Tile*>(m));
-    this->board=vec;
-
+    for (int ch = 'a'; ch <= 'z'; ch++)
+    {
+        init[ch - 'a'] = toupper(ch);
+    }
+    vector<vector<Tile *>> vec(n, vector<Tile *>(m));
+    this->board = vec;
 }
 
 vector<vector<Tile *>> Board::getBoard()
@@ -39,11 +39,13 @@ void Board::printBoard()
             {
                 cout << "   " << j << "  ";
             }
-            else if (i == 0 && j<10)
+            else if (i == 0 && j < 10)
             {
                 cout << j << "  ";
-            }else if (i==0 && j>9){
-                cout << j<<" " ;
+            }
+            else if (i == 0 && j > 9)
+            {
+                cout << j << " ";
             }
             else if (i == 1 && j == 0)
             {
@@ -133,16 +135,17 @@ std::string Board::getState()
         {
             if (!(board[i][j] == nullptr))
             {
-                if (!(i == n - 1 && j == m - 1))
-                {
-                    stateString = stateString + board[i][j]->toString() + "@" + init[n] + std::to_string(m) + ", ";
-                }
-                else
-                {
-                    stateString = stateString + board[i][j]->toString() + "@" + init[n] + std::to_string(m);
-                }
+
+                stateString = stateString + board[i][j]->toString() + "@" + init[i] + std::to_string(j) + ", ";
             }
         }
+    }
+
+    //get rid of last space and comma
+    if (stateString.length() > 5)
+    {
+        stateString.pop_back();
+        stateString.pop_back();
     }
 
     return stateString;

@@ -34,10 +34,11 @@ Game::~Game()
     delete player1;
     delete player2;
     delete bag;
+    //TODO: Implement descructors for board and all other adts
     //delete board;
 }
 
-void Game::executeGameplay()
+void Game::executeGameplay(bool isLoadedGame)
 {
     while (!gameOver && !player1->getHand()->isEmpty() && !player2->getHand()->isEmpty() && !bag->isEmpty()) //(!gameOver&&!player1->getHand()->isEmpty()&&player2->getHand()->isEmpty()&&!bag->isEmpty())
     {
@@ -51,6 +52,12 @@ void Game::executeGameplay()
         //print current players hand
         cout << currentPlayer->getHand()->toString() << endl;
         cout << "place tiles where ?" << endl;
+
+        if (isLoadedGame)
+        { //This getline is required to clear the buffer for load game.
+            getline(cin, command);
+            isLoadedGame = false;
+        }
 
         //check command is to save game!!!!!
         do
@@ -107,6 +114,8 @@ bool Game::playTurn(vector<string> userInput)
         std::string outputFileName = userInput[1];
         GameSaver *gs = new GameSaver(player1, player2, board, bag, currentPlayer, outputFileName);
         delete gs;
+        //Don't switch player turn when saving
+        returnVal = false;
         cout << "Game successfully saved" << endl;
     }
     else if (userInput[0] == "QUIT")
