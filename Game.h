@@ -28,7 +28,7 @@ private:
     bool playTurn(std::vector<std::string> userInput);
     void switchPlayer();
     bool playTile(Tile *tile, int row, int col);
-    void replaceTile(Tile *tile);
+    bool replaceTile(Tile *tile);
     void drawCard();
     bool isValidMove(Tile *userTile, int row, int col);
     bool compareTiles(Tile *tile, Tile *other, bool diffShape);

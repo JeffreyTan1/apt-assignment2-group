@@ -92,8 +92,8 @@ bool Game::playTurn(vector<string> userInput)
     }
     else if (userInput[0] == "replace")
     { //user is replacing tile
-        Tile *changeTile = new Tile(userInput[1].at(0   ), (userInput[1].at(0)) - ASCII_CONVERTER_DIGIT);
-        replaceTile(changeTile);
+        Tile *changeTile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
+        returnVal = replaceTile(changeTile);
     }
     else if (userInput[0] == "save")
     { //user is saving game
@@ -105,7 +105,7 @@ bool Game::playTurn(vector<string> userInput)
     }
     else
     {
-        cout << "Command not recognised. Please try again: " << endl;
+        cout << "Command not recognised. Please try again: " << endl << endl;
         returnVal = false;
     }
     return returnVal;
@@ -205,14 +205,21 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
     return returnVal;
 }
 
-void Game::replaceTile(Tile *tile)
+bool Game::replaceTile(Tile *tile)
 {
+    bool returnVal = true;
     if (currentPlayer->getHand()->exists(tile))
     {
         currentPlayer->getHand()->removeElement(tile);
         bag->addBack(tile);
         drawCard();
     }
+    else
+    {
+        cout << "That tile is not in your hand, please try again: ";
+        returnVal = false;
+    }
+    return returnVal;
 }
 
 void Game::drawCard()
