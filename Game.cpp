@@ -40,7 +40,7 @@ Game::~Game()
 
 void Game::executeGameplay(bool isLoadedGame)
 {
-    while (!gameOver && !player1->getHand()->isEmpty() && !player2->getHand()->isEmpty() && !bag->isEmpty()) //(!gameOver&&!player1->getHand()->isEmpty()&&player2->getHand()->isEmpty()&&!bag->isEmpty())
+    while (!gameOver && (!bag->isEmpty()) && (!player1->getHand()->isEmpty() || !player2->getHand()->isEmpty()))
     {
         string command;
         bool correctCommand;
