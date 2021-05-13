@@ -56,8 +56,10 @@ void runMenu(int userChoice, bool *stop)
 {
    if (userChoice == 1)
    {
-      cout << "Starting a New Game" << endl
+      cout << endl
+           << "Starting a New Game" << endl
            << endl;
+
       GameInit *gameInit = new GameInit();
       Game *game = new Game(gameInit->getPlayer1(), gameInit->getPlayer2(), gameInit->getBag(), gameInit->getBoard(), gameInit->getCurrPlayer());
       game->executeGameplay(false);
@@ -78,7 +80,8 @@ void runMenu(int userChoice, bool *stop)
    {
       //Load game
       std::string fileName;
-      cout << "Enter the filename from which to load a game" << endl;
+      cout << endl
+           << "Enter the filename from which to load a game" << endl;
       cin >> fileName;
       try
       {
@@ -97,7 +100,6 @@ void runMenu(int userChoice, bool *stop)
    else if (userChoice == 3)
    {
       //Credits
-      cout << "Choice 3 selected \n \n";
       std::string names[4] = {"Jeffrey Tan", "Mohammad Mahir Haque", "Sharshwot Karki", "Sidhra Fernando-Plant"};
       std::string studentIds[4] = {"S3851781",
                                    "S3815004",
@@ -109,7 +111,8 @@ void runMenu(int userChoice, bool *stop)
                                studentIds[2] + emailExt,
                                studentIds[3] + emailExt};
 
-      cout << "---------------------------------------" << endl;
+      cout << endl
+           << "---------------------------------------" << endl;
       for (int i = 0; i < 4; i++)
       {
          cout << "Name: " << names[i] << endl;
@@ -122,7 +125,8 @@ void runMenu(int userChoice, bool *stop)
    else if (userChoice == 4)
    {
       //Quit
-      cout << "Goodbye" << endl;
+      cout << endl
+           << "Goodbye" << endl;
       *stop = true;
    }
 }

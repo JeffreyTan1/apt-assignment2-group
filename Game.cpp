@@ -26,6 +26,7 @@ Game::Game(Player *player1, Player *player2, LinkedList *bag, Board *board, Play
     this->bag = bag;
     this->board = board;
     this->currentPlayer = currentPlayer;
+    this->terminateGame = false;
     this->gameOver = false;
 }
 
@@ -40,18 +41,22 @@ Game::~Game()
 
 void Game::executeGameplay(bool isLoadedGame)
 {
-    while (!gameOver && (!bag->isEmpty()) && (!player1->getHand()->isEmpty() || !player2->getHand()->isEmpty()))
+    cout << endl
+         << "Let's Play!" << endl
+         << endl;
+    while (!terminateGame && (!bag->isEmpty()) && (!player1->getHand()->isEmpty() || !player2->getHand()->isEmpty()))
     {
         string command;
         bool correctCommand;
-        cout << currentPlayer->getName() << ", it's your turn" << endl;
+        cout << endl
+             << currentPlayer->getName() << ", it's your turn" << endl;
         cout << "Score for " << player1->getName() << ": " << player1->getPoints() << endl;
         cout << "Score for " << player2->getName() << ": " << player2->getPoints() << endl;
         board->printBoard();
         cout << "Your hand is" << endl;
         //print current players hand
-        cout << currentPlayer->getHand()->toString() << endl;
-        cout << "place tiles where ?" << endl;
+        cout << currentPlayer->getHand()->toString() << endl
+             << endl;
 
         if (isLoadedGame)
         { //This getline is required to clear the buffer for load game.
@@ -76,6 +81,35 @@ void Game::executeGameplay(bool isLoadedGame)
             correctCommand = playTurn(commandSplit);
         } while (!correctCommand);
         switchPlayer();
+
+        if (bag->isEmpty() && (player1->getHand()->isEmpty() || player2->getHand()->isEmpty()))
+        {
+            gameOver == true;
+        }
+
+        cout << endl
+             << "Goodbye" << endl;
+    }
+
+    if (gameOver == true)
+    {
+        cout << endl
+             << "Game over" << endl;
+        cout << "Score for " << player1->getName() << ": " << player1->getPoints() << endl;
+        cout << "Score for " << player2->getName() << ": " << player2->getPoints() << endl;
+
+        if (player1->getPoints() > player2->getPoints())
+        {
+            cout << "Player " << player1->getName() << "won!" << endl;
+        }
+        else if (player2->getPoints() > player1->getPoints())
+        {
+            cout << "Player " << player2->getName() << "won!" << endl;
+        }
+        else if (player2->getPoints() == player1->getPoints())
+        {
+            cout << "The game was a draw!" << endl;
+        }
     }
 }
 
@@ -116,11 +150,13 @@ bool Game::playTurn(vector<string> userInput)
         delete gs;
         //Don't switch player turn when saving
         returnVal = false;
-        cout << "Game successfully saved" << endl;
+        cout << endl
+             << "Game successfully saved" << endl
+             << endl;
     }
     else if (userInput[0] == "QUIT")
     { //user is quitting game
-        gameOver = true;
+        terminateGame = true;
     }
     else
     {
@@ -146,11 +182,6 @@ bool Game::playTile(Tile *tile, int row, int col)
             {
                 drawCard();
                 currentPlayer->getHand()->removeElement(tile);
-            }
-            if (false)
-            { //qwirkle is scored
-
-                cout << "QWIRKLE!!!";
             }
         }
         else
@@ -387,7 +418,9 @@ int Game::countNeighbours(int row, int col)
     // Check for any qwirkles created by adding a tile to the end of the line of tiles
     if (downVal == 6 || upVal == 6 || rightVal == 6 || leftVal == 6)
     {
-        cout << "QWIRKLE!!!" << endl;
+        cout << endl
+             << "QWIRKLE!!!" << endl
+             << endl;
     }
 
     //eliminate the double count of the placed tile if the tile creates a line which extends both ways

@@ -31,14 +31,11 @@ GameInit::GameInit()
     newRandomBag();
 
     newPlayer(1);
+    cout << endl;
     newPlayer(2);
     cin.ignore();
 
-    cout << "player 1 name:" << player1->getName() << endl;
-
     currPlayer = player1;
-
-    cout << "current player name:" << currPlayer->getName() << endl;
 
     //End of initialiser
 }
@@ -82,6 +79,9 @@ void GameInit::newPlayer(int pNum)
     cout << "Enter a name for player " << pNum << " (uppercase characters only)" << endl;
     std::string name;
     cin >> name;
+
+    std::transform(name.begin(), name.end(), name.begin(), ::toupper);
+
     LinkedList *hand = new LinkedList();
     for (int i = 0; i < 6; i++)
     {
@@ -137,9 +137,6 @@ GameInit::GameInit(std::string filename)
 
     saveFile.close();
     //End of initialiser
-
-    cout << "bag : " << bag->toString() << "p1 hand  : " << player1->getHand()->toString() << endl;
-    cout << "p2 hand  : " << player2->getHand()->toString() << endl;
 }
 
 void GameInit::loadPlayer(std::string line1, std::string line2, std::string line3, int pNum)

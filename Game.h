@@ -44,6 +44,7 @@ private:
     LinkedList *bag;
     Board *board;
     Player *currentPlayer;
+    bool terminateGame;
     bool gameOver;
 };
 
