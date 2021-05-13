@@ -80,17 +80,44 @@ void runMenu(int userChoice, bool *stop)
       std::string fileName;
       cout << "Enter the filename from which to load a game" << endl;
       cin >> fileName;
-      GameInit *gameInit = new GameInit(fileName);
-      cout << "Qwirkle game successfully loaded" << endl;
-      Game *game = new Game(gameInit->getPlayer1(), gameInit->getPlayer2(), gameInit->getBag(), gameInit->getBoard(), gameInit->getCurrPlayer());
-      delete gameInit;
-      game->executeGameplay(true);
-      delete game;
+      try
+      {
+         GameInit *gameInit = new GameInit(fileName);
+         cout << "Qwirkle game successfully loaded" << endl;
+         Game *game = new Game(gameInit->getPlayer1(), gameInit->getPlayer2(), gameInit->getBag(), gameInit->getBoard(), gameInit->getCurrPlayer());
+         delete gameInit;
+         game->executeGameplay(true);
+         delete game;
+      }
+      catch (const std::invalid_argument &e)
+      {
+         cout << "File not found!" << endl;
+      }
    }
    else if (userChoice == 3)
    {
       //Credits
       cout << "Choice 3 selected \n \n";
+      std::string names[4] = {"Jeffrey Tan", "Mohammad Mahir Haque", "Sharshwot Karki", "Sidhra Fernando-Plant"};
+      std::string studentIds[4] = {"S3851781",
+                                   "S3815004",
+                                   "S3841123",
+                                   "S3873756"};
+      std::string emailExt = "@student.rmit.edu.au";
+      std::string emails[4] = {studentIds[0] + emailExt,
+                               studentIds[1] + emailExt,
+                               studentIds[2] + emailExt,
+                               studentIds[3] + emailExt};
+
+      cout << "---------------------------------------" << endl;
+      for (int i = 0; i < 4; i++)
+      {
+         cout << "Name: " << names[i] << endl;
+         cout << "Student ID: " << studentIds[i] << endl;
+         cout << "Email: " << emails[i] << endl
+              << endl;
+      }
+      cout << "---------------------------------------" << endl;
    }
    else if (userChoice == 4)
    {
