@@ -228,7 +228,13 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
     bool isRow = true;
     int newRow = 0;
     int newCol = 0;
-    if (board->getTileAt(row, col) != nullptr)
+
+    //First check if the row and col are within the board
+    if (!(row >= 0 && col >= 1 && row <= 25 && col <= 26))
+    {
+        returnVal = false;
+    }
+    else if (board->getTileAt(row, col) != nullptr)
     {
         returnVal = false;
     }

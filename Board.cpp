@@ -87,20 +87,6 @@ void Board::printBoard()
     }
 }
 
-// //place g5 at c4
-// void Board::addTile(Tile *tile, string posX, int posY)
-// {
-//     int position = 0;
-//     for (int i = 0; i < 6; ++i)
-//     {
-//         if (posX == init[i])
-//         {
-//             position = i;
-//         }
-//     }
-//     board[position][posY] = tile;
-// }
-
 void Board::placeTile(Tile *tile, int row, int col)
 {
     if (col > m)
