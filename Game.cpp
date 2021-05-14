@@ -5,11 +5,13 @@
 #include "Tile.h"
 #include "GameInit.h"
 #include "GameSaver.h"
-
+#include <limits>
 #include <algorithm>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <ios>
+#include <limits>
 #define ASCII_CONVERTER_DIGIT 48
 #define ASCII_CONVERTER_LETTER 65
 
@@ -44,7 +46,7 @@ void Game::executeGameplay(bool isLoadedGame)
     cout << endl
          << "Let's Play!" << endl
          << endl;
-    while (!terminateGame && (!bag->isEmpty()) && (!player1->getHand()->isEmpty() || !player2->getHand()->isEmpty()))
+    while (!terminateGame && !gameOver)
     {
         string command;
         bool correctCommand = false;
@@ -104,6 +106,7 @@ void Game::executeGameplay(bool isLoadedGame)
 
     if (gameOver == true)
     {
+        cin.ignore(std::numeric_limits<char>::max(), '\n');
         cout << endl
              << "Game over" << endl;
         cout << "Score for " << player1->getName() << ": " << player1->getPoints() << endl;
@@ -111,11 +114,11 @@ void Game::executeGameplay(bool isLoadedGame)
 
         if (player1->getPoints() > player2->getPoints())
         {
-            cout << "Player " << player1->getName() << "won!" << endl;
+            cout << "Player " << player1->getName() << " won!" << endl;
         }
         else if (player2->getPoints() > player1->getPoints())
         {
-            cout << "Player " << player2->getName() << "won!" << endl;
+            cout << "Player " << player2->getName() << " won!" << endl;
         }
         else if (player2->getPoints() == player1->getPoints())
         {
@@ -159,9 +162,18 @@ bool Game::playTurn(vector<string> userInput)
             Tile *changeTile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
             returnVal = replaceTile(changeTile);
         }
-        else if (userInput[0] == "SAVE" && userInput[1] != "")
+        else if (userInput[0] == "SAVE")
         { //user is saving game
-            std::string outputFileName = userInput[1];
+            std::string outputFileName;
+            if (userInput.size() > 1)
+            {
+                outputFileName = userInput[1];
+            }
+            else
+            {
+                outputFileName = "defaultSave";
+            }
+
             GameSaver *gs = new GameSaver(player1, player2, board, bag, currentPlayer, outputFileName);
             delete gs;
             //Don't switch player turn when saving
@@ -204,8 +216,8 @@ bool Game::playTile(Tile *tile, int row, int col)
             if (!bag->isEmpty())
             {
                 drawCard();
-                currentPlayer->getHand()->removeElement(tile);
             }
+            currentPlayer->getHand()->removeElement(tile);
         }
         else
         {

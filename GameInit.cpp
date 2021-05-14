@@ -67,7 +67,7 @@ void GameInit::newRandomBag()
     }
 
     //shuffle the vector
-    std::default_random_engine engine(10);
+    std::default_random_engine engine(11);
     std::shuffle(allTiles.begin(), allTiles.end(), engine);
     //add tiles to bag
     for (int i = 0; i < 72; i++)

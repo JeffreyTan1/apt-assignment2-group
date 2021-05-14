@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri May 14 12:45:36 2021
+# Make data base, printed on Fri May 14 16:53:12 2021
 
 # Variables
 
@@ -15,7 +15,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # automatic
 ?F = $(notdir $?)
 # environment
-WSLENV = VSCODE_WSL_EXT_LOCATION/up
+WSLENV = VSCODE_WSL_EXT_LOCATION/up:VSCODE_SERVER_TAR/up
 # default
 .SHELLFLAGS := -c
 # environment
@@ -35,7 +35,7 @@ SHELL = /bin/sh
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
 # environment
-_ = /root/.vscode-server/bin/e713fe9b05fc24facbec8f34fb1017133858842b/node
+_ = /root/.vscode-server/bin/054a9295330880ed74ceaedda236253b4f39a335/node
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # 'override' directive
@@ -51,11 +51,13 @@ VSCODE_CWD = /mnt/c/Users/tanma/AppData/Local/Programs/Microsoft VS Code
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /root/.vscode-server/bin/e713fe9b05fc24facbec8f34fb1017133858842b/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/WINDOWS/System32:/mnt/c/Ruby30-x64/bin:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38-32/Scripts/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38-32/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python36/Scripts/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python36/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38/Scripts/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38/:/mnt/c/Users/tanma/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/Intel/WiFi/bin/:/mnt/c/Program Files/Common Files/Intel/WirelessCommon/:/mnt/c/Users/tanma/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/tanma/go/bin:/mnt/c/Users/tanma/AppData/Local/Programs/IPFS Desktop/resources/app.asar.unpacked/src/ipfs-on-path/scripts/bin-win:/mnt/c/Users/tanma/AppData/Local/GitHubDesktop/bin:/mnt/c/Users/tanma/AppData/Local/Microsoft/WindowsApps:/mnt/c/apache-maven-3.6.3/bin:/mnt/c/Program Files/Java/jdk-11.0.10/bin:/mnt/c/Program Files/JetBrains/IntelliJ IDEA Community Edition 2021.1/bin:/mnt/c/Program Files/heroku/bin:/snap/bin
+PATH = /root/.vscode-server/bin/054a9295330880ed74ceaedda236253b4f39a335/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Ruby30-x64/bin:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38-32/Scripts/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38-32/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python36/Scripts/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python36/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38/Scripts/:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38/:/mnt/c/Users/tanma/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/Intel/WiFi/bin/:/mnt/c/Program Files/Common Files/Intel/WirelessCommon/:/mnt/c/Users/tanma/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/tanma/go/bin:/mnt/c/Users/tanma/AppData/Local/Programs/IPFS Desktop/resources/app.asar.unpacked/src/ipfs-on-path/scripts/bin-win:/mnt/c/Users/tanma/AppData/Local/GitHubDesktop/bin:/mnt/c/Users/tanma/AppData/Local/Microsoft/WindowsApps:/mnt/c/apache-maven-3.6.3/bin:/mnt/c/Program Files/Java/jdk-11.0.10/bin:/mnt/c/Program Files/JetBrains/IntelliJ IDEA Community Edition 2021.1/bin:/mnt/c/Program Files/heroku/bin:/snap/bin
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-c40ab456-bc34-420d-832d-e6ecd8d71a2a.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-1cd8c416-26b9-470d-ab77-ab65da0e8dce.sock
+# environment
+VSCODE_SERVER_TAR = /mnt/c/Users/tanma/AppData/Local/Temp/vscode-remote-wsl/054a9295330880ed74ceaedda236253b4f39a335/vscode-server-stable-linux-x64.tar.gz
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -69,7 +71,7 @@ PWD = /mnt/c/Users/tanma/Google Drive/Synced Desktop/Y2S1/APT Files/Assignments/
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/11_interop
+WSL_INTEROP = /run/WSL/2938_interop
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/server/remoteExtensionHostProcess
 # environment
@@ -135,7 +137,7 @@ SUFFIXES :=
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
-VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /root/.vscode-server/bin/e713fe9b05fc24facbec8f34fb1017133858842b/remote/node_modules
+VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /root/.vscode-server/bin/054a9295330880ed74ceaedda236253b4f39a335/remote/node_modules
 # default
 .RECIPEPREFIX := 
 # environment
@@ -146,10 +148,8 @@ TERM = xterm-256color
 VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
 WSL_DISTRO_NAME = Ubuntu
-# environment
-MOTD_SHOWN = update-motd
 # variable set hash-table stats:
-# Load=69/1024=7%, Rehash=0, Collisions=4/97=4%
+# Load=69/1024=7%, Rehash=0, Collisions=4/94=4%
 
 # Pattern-specific Variable Values
 
@@ -157,9 +157,9 @@ MOTD_SHOWN = update-motd
 
 # Directories
 
-# . (device 43, inode 17169973579352634): 42 files, no impossibilities.
+# . (device 43, inode 17169973579352634): 43 files, no impossibilities.
 
-# 42 files, no impossibilities in 1 directories.
+# 43 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -181,7 +181,14 @@ Tile.cpp:
 # Not a target:
 Board.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2021-05-12 23:35:20.0961275
+#  Last modified 2021-05-14 14:41:38.7926043
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+qwirkle.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-05-14 14:16:32.6320747
 #  File has been updated.
 #  Successfully updated.
 
@@ -190,9 +197,7 @@ all: qwirkle
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
+#  Successfully updated.
 
 .default: all
 #  Implicit rule search has not been done.
@@ -209,7 +214,7 @@ LinkedList.cpp:
 # Not a target:
 Game.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2021-05-13 22:26:34.4627366
+#  Last modified 2021-05-14 16:48:33.6869904
 #  File has been updated.
 #  Successfully updated.
 
@@ -220,10 +225,24 @@ Makefile:
 #  File has been updated.
 #  Successfully updated.
 
+# Not a target:
+GameSaver.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-05-12 23:24:07.32806
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+GameInit.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-05-14 16:23:03.8506629
+#  File has been updated.
+#  Successfully updated.
+
 Tile.o: Tile.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'Tile'
-#  Last modified 2021-05-13 20:27:17.1391577
+#  Last modified 2021-05-14 14:46:16.6181283
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 12):
@@ -232,7 +251,7 @@ Tile.o: Tile.cpp
 Board.o: Board.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'Board'
-#  Last modified 2021-05-13 20:27:18.3793025
+#  Last modified 2021-05-14 14:46:17.3762129
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 12):
@@ -240,24 +259,33 @@ Board.o: Board.cpp
 
 qwirkle: Tile.o Node.o LinkedList.o Board.o Game.o GameInit.o Player.o qwirkle.o GameSaver.o
 #  Implicit rule search has not been done.
-#  Last modified 2021-05-13 22:10:42.3098248
+#  Last modified 2021-05-14 16:48:46.2904348
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
+#  Successfully updated.
 #  recipe to execute (from 'Makefile', line 9):
 	g++ -Wall -Werror -std=c++14 -g -O -o $@ $^
 
-# Not a target:
-qwirkle.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+qwirkle.o: qwirkle.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'qwirkle'
+#  Last modified 2021-05-14 14:46:19.3294109
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 12):
+	g++ -Wall -Werror -std=c++14 -g -O -c $^
 
 # Not a target:
 Node.cpp:
+ 
 #  Implicit rule search has been done.
 #  Last modified 2021-05-06 20:22:23.635992
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+Player.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-05-11 18:08:00.3532929
 #  File has been updated.
 #  Successfully updated.
 
@@ -270,37 +298,18 @@ Node.cpp:
 LinkedList.o: LinkedList.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'LinkedList'
-#  Last modified 2021-05-13 20:27:17.5301869
+#  Last modified 2021-05-14 14:46:16.8776434
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 12):
 	g++ -Wall -Werror -std=c++14 -g -O -c $^
 
- 
 Game.o: Game.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'Game'
-#  Last modified 2021-05-13 22:10:41.9517288
+#  Last modified 2021-05-14 16:48:45.9222095
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := Game.o
-# automatic
-# % := 
-# automatic
-# * := Game
-# automatic
-# + := Game.cpp
-# automatic
-# | := 
-# automatic
-# < := Game.cpp
-# automatic
-# ^ := Game.cpp
-# automatic
-# ? := Game.cpp
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/12=8%
+#  Successfully updated.
 #  recipe to execute (from 'Makefile', line 12):
 	g++ -Wall -Werror -std=c++14 -g -O -c $^
 
@@ -311,47 +320,56 @@ clean:
 #  recipe to execute (from 'Makefile', line 6):
 	rm -rf qwirkle *.o *.dSYM
 
-# Not a target:
-GameSaver.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-GameInit.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-Node.o: Node.cpp
+GameSaver.o: GameSaver.cpp
 #  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'Node'
-#  Last modified 2021-05-13 20:27:17.1771581
+#  Implicit/static pattern stem: 'GameSaver'
+#  Last modified 2021-05-14 14:46:19.640516
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 12):
 	g++ -Wall -Werror -std=c++14 -g -O -c $^
 
-# Not a target:
-Player.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+GameInit.o: GameInit.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'GameInit'
+#  Last modified 2021-05-14 16:23:10.9144902
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 12):
+	g++ -Wall -Werror -std=c++14 -g -O -c $^
+
+Node.o: Node.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'Node'
+#  Last modified 2021-05-14 14:46:16.647133
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 12):
+	g++ -Wall -Werror -std=c++14 -g -O -c $^
+
+Player.o: Player.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'Player'
+#  Last modified 2021-05-14 14:46:18.9305457
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 12):
+	g++ -Wall -Werror -std=c++14 -g -O -c $^
 
 # files hash-table stats:
-# Load=21/1024=2%, Rehash=0, Collisions=0/59=0%
+# Load=25/1024=2%, Rehash=0, Collisions=0/75=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 56 / storage = 508 B / avg = 9 B
-# current buf: size = 8162 B / used = 508 B / count = 56 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 60 / storage = 547 B / avg = 9 B
+# current buf: size = 8162 B / used = 547 B / count = 60 / avg = 9 B
 
-# strcache performance: lookups = 87 / hit rate = 35%
+# strcache performance: lookups = 100 / hit rate = 40%
 # hash-table stats:
-# Load=56/8192=1%, Rehash=0, Collisions=2/87=2%
-# Finished Make data base on Fri May 14 12:45:36 2021
+# Load=60/8192=1%, Rehash=0, Collisions=2/100=2%
+# Finished Make data base on Fri May 14 16:53:12 2021
 
  
