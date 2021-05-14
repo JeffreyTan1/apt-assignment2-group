@@ -18,6 +18,7 @@ using std::cout;
 using std::endl;
 
 void runMenu(int userChoice, bool *stop);
+void closeProgMsg();
 
 int main(void)
 {
@@ -40,14 +41,26 @@ int main(void)
       cout << "4. Quit" << endl;
       cout << "> ";
       cin >> userChoice;
-      while (cin.fail() || userChoice < 1 || userChoice > 4)
+      while ((cin.fail() || userChoice < 1 || userChoice > 4) && !stop)
       {
-         cout << "Invalid input, please try again \n> ";
-         cin.clear();
-         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-         cin >> userChoice;
+         if (cin.eof())
+         {
+            closeProgMsg();
+            stop = true;
+         }
+         else
+         {
+            cout << "Invalid input, please try again \n> ";
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cin >> userChoice;
+         }
       }
-      runMenu(userChoice, stopPtr);
+
+      if (!stop)
+      {
+         runMenu(userChoice, stopPtr);
+      }
    }
    return EXIT_SUCCESS;
 }
@@ -59,22 +72,21 @@ void runMenu(int userChoice, bool *stop)
       cout << endl
            << "Starting a New Game" << endl
            << endl;
-
       GameInit *gameInit = new GameInit();
       Game *game = new Game(gameInit->getPlayer1(), gameInit->getPlayer2(), gameInit->getBag(), gameInit->getBoard(), gameInit->getCurrPlayer());
-      game->executeGameplay(false);
+
+      if (!gameInit->getEofInput())
+      {
+         game->executeGameplay(false);
+      }
+      else
+      {
+         closeProgMsg();
+      }
+
       delete game;
 
-      //New game
-      //why no ** ???
-      // cout << "Choice 1 selected \n \n";
-      // Board* board= new Board();
-      // board->setBoard();
-      // Tile* vent= new Tile('G',5);
-      // Tile* vent2= new Tile('R',5);
-      // board->addTile(vent,"A",3);
-      // board->addTile(vent2,"B",4);
-      // board->toString();
+      *stop = true;
    }
    else if (userChoice == 2)
    {
@@ -91,12 +103,13 @@ void runMenu(int userChoice, bool *stop)
          delete gameInit;
          game->executeGameplay(true);
          delete game;
+         *stop = true;
       }
       catch (const std::invalid_argument &e)
       {
          cout << "File not found!" << endl;
       }
-   }
+      }
    else if (userChoice == 3)
    {
       //Credits
@@ -125,8 +138,12 @@ void runMenu(int userChoice, bool *stop)
    else if (userChoice == 4)
    {
       //Quit
-      cout << endl
-           << "Goodbye" << endl;
+      closeProgMsg();
       *stop = true;
    }
+}
+
+void closeProgMsg()
+{
+   cout << "Goodbye" << endl;
 }

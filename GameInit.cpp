@@ -32,8 +32,13 @@ GameInit::GameInit()
 
     newPlayer(1);
     cout << endl;
-    newPlayer(2);
-    cin.ignore();
+
+    //in case the user does EOF character before entering player 2 name
+    if (!eofInput)
+    {
+        newPlayer(2);
+        cin.ignore();
+    }
 
     currPlayer = player1;
 
@@ -78,7 +83,13 @@ void GameInit::newPlayer(int pNum)
     //The game will choose the player1 as the current player.
     cout << "Enter a name for player " << pNum << " (uppercase characters only)" << endl;
     std::string name;
+    cout << "> ";
     cin >> name;
+
+    if (cin.eof())
+    {
+        eofInput = true;
+    }
 
     std::transform(name.begin(), name.end(), name.begin(), ::toupper);
 
@@ -286,4 +297,9 @@ int GameInit::getBWidth()
 Player *GameInit::getCurrPlayer()
 {
     return currPlayer;
+}
+
+bool GameInit::getEofInput()
+{
+    return eofInput;
 }

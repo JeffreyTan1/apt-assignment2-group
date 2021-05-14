@@ -47,7 +47,7 @@ void Game::executeGameplay(bool isLoadedGame)
     while (!terminateGame && (!bag->isEmpty()) && (!player1->getHand()->isEmpty() || !player2->getHand()->isEmpty()))
     {
         string command;
-        bool correctCommand;
+        bool correctCommand = false;
         cout << endl
              << currentPlayer->getName() << ", it's your turn" << endl;
         cout << "Score for " << player1->getName() << ": " << player1->getPoints() << endl;
@@ -64,31 +64,42 @@ void Game::executeGameplay(bool isLoadedGame)
             isLoadedGame = false;
         }
 
-        //check command is to save game!!!!!
         do
         {
+            cout << "> ";
             getline(cin, command);
 
-            //Make string uppercase to reduce invalid inputs
-            std::transform(command.begin(), command.end(), command.begin(), ::toupper);
-
-            std::vector<string> commandSplit;
-            std::istringstream iss(command);
-            for (string command; iss >> command;)
+            if (!cin.eof())
             {
-                commandSplit.push_back(command);
+                //Make string uppercase to reduce invalid inputs
+                std::transform(command.begin(), command.end(), command.begin(), ::toupper);
+
+                std::vector<string> commandSplit;
+                std::istringstream iss(command);
+                for (string command; iss >> command;)
+                {
+                    commandSplit.push_back(command);
+                }
+                correctCommand = playTurn(commandSplit);
             }
-            correctCommand = playTurn(commandSplit);
-        } while (!correctCommand);
-        switchPlayer();
+            //check for EOF character
+            else
+            {
+                terminateGame = true;
+            }
 
-        if (bag->isEmpty() && (player1->getHand()->isEmpty() || player2->getHand()->isEmpty()))
+        } while (!correctCommand && !terminateGame);
+
+        //only if EOF is not done
+        if (!terminateGame)
         {
-            gameOver == true;
-        }
+            switchPlayer();
 
-        cout << endl
-             << "Goodbye" << endl;
+            if (bag->isEmpty() && (player1->getHand()->isEmpty() || player2->getHand()->isEmpty()))
+            {
+                gameOver = true;
+            }
+        }
     }
 
     if (gameOver == true)
@@ -111,52 +122,64 @@ void Game::executeGameplay(bool isLoadedGame)
             cout << "The game was a draw!" << endl;
         }
     }
+
+    cout << endl
+         << "Goodbye" << endl;
 }
 
 bool Game::playTurn(vector<string> userInput)
 {
     bool returnVal = true;
     bool success;
-    if (userInput[0] == "PLACE" && userInput[1] != "" && userInput[2] == "AT" && userInput[3] != "")
+    if (userInput.size() > 0 && userInput.size() < 5)
     {
-        int locationRow = (userInput[3].at(0)) - ASCII_CONVERTER_LETTER;
-        //int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;
-        std::string colVal = userInput[3];
-
-        Tile *tile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
-        if (colVal.length() > 2)
+        if (userInput[0] == "PLACE" && userInput[1] != "" && userInput[2] == "AT" && userInput[3] != "")
         {
-            char temp[2] = {colVal[1], colVal[2]};
-            std::string apple = temp;
-            int value = std::stoi(apple);
-            success = playTile(tile, locationRow, value + 1);
+            int locationRow = (userInput[3].at(0)) - ASCII_CONVERTER_LETTER;
+            //int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;
+            std::string colVal = userInput[3];
+
+            Tile *tile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
+            if (colVal.length() > 2)
+            {
+                char temp[2] = {colVal[1], colVal[2]};
+                std::string apple = temp;
+                int value = std::stoi(apple);
+                success = playTile(tile, locationRow, value + 1);
+            }
+            else
+            {
+                int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;
+                success = playTile(tile, locationRow, locationCol + 1);
+            }
+            returnVal = success;
+        }
+        else if (userInput[0] == "REPLACE" && userInput[1] != "")
+        { //user is replacing tile
+            Tile *changeTile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
+            returnVal = replaceTile(changeTile);
+        }
+        else if (userInput[0] == "SAVE" && userInput[1] != "")
+        { //user is saving game
+            std::string outputFileName = userInput[1];
+            GameSaver *gs = new GameSaver(player1, player2, board, bag, currentPlayer, outputFileName);
+            delete gs;
+            //Don't switch player turn when saving
+            returnVal = false;
+            cout << endl
+                 << "Game successfully saved" << endl
+                 << endl;
+        }
+        else if (userInput[0] == "QUIT")
+        { //user is quitting game
+            terminateGame = true;
         }
         else
         {
-            int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;
-            success = playTile(tile, locationRow, locationCol + 1);
+            cout << "Command not recognised. Please try again: " << endl
+                 << endl;
+            returnVal = false;
         }
-        returnVal = success;
-    }
-    else if (userInput[0] == "REPLACE" && userInput[1] != "")
-    { //user is replacing tile
-        Tile *changeTile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
-        returnVal = replaceTile(changeTile);
-    }
-    else if (userInput[0] == "SAVE" && userInput[1] != "")
-    { //user is saving game
-        std::string outputFileName = userInput[1];
-        GameSaver *gs = new GameSaver(player1, player2, board, bag, currentPlayer, outputFileName);
-        delete gs;
-        //Don't switch player turn when saving
-        returnVal = false;
-        cout << endl
-             << "Game successfully saved" << endl
-             << endl;
-    }
-    else if (userInput[0] == "QUIT")
-    { //user is quitting game
-        terminateGame = true;
     }
     else
     {
@@ -330,7 +353,7 @@ bool Game::checkNeighbours(int row, int col, bool diffShape, Tile *originalTile,
     {
         if (neighbour != nullptr)
         {
-            cout << "neighbour found" << endl;
+            //cout << "neighbour found" << endl;
             if (neighbour->equals(originalTile))
             {
                 returnVal = true;

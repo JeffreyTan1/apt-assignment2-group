@@ -24,9 +24,11 @@ public:
    int getBHeight();
    int getBWidth();
    Player *getCurrPlayer();
+   bool getEofInput();
 
 private:
-   void newRandomBag();
+   void
+   newRandomBag();
 
    void newPlayer(int pNum);
    void loadPlayer(std::string line1, std::string line2, std::string line3, int pNum);
@@ -42,6 +44,8 @@ private:
    LinkedList *bag;
    int bHeight;
    int bWidth;
+
+   bool eofInput = false;
 
    std::ifstream saveFile;
 };
