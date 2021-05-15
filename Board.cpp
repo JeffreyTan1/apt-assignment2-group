@@ -2,6 +2,11 @@
 #include "Tile.h"
 #include "Board.h"
 
+#define COLUMN_MAX 26
+#define COLUMN_MIN 1
+#define ROW_MAX 25
+#define ROW_MIN 0
+
 using std::cout;
 using std::endl;
 using std::string;
@@ -9,15 +14,15 @@ using std::string;
 //class Tile;
 
 //contains uppercase letters A to Z
-string init[COLS - 1];
+string init[COLUMN_MAX];
 
 Board::Board()
 {
     for (int ch = 'a'; ch <= 'z'; ch++)
     {
-        init[ch - 'a'] = toupper(ch);
+        init[ch - 'a'] = ::toupper(ch);
     }
-    vector<vector<Tile *>> vec(ROWS, vector<Tile *>(COLS));
+    vector<vector<Tile *>> vec(ROW_MAX+1, vector<Tile *>(COLUMN_MAX+1));
     this->board = vec;
 }
 
@@ -44,7 +49,7 @@ void Board::printBoard()
 {
     for (int i = 0; i < 2; i++)
     {
-        for (int j = 0; j < COLS - 1; j++)
+        for (int j = 0; j < COLUMN_MAX; j++)
         {
             if (i == 0 && j == 0)
             {
@@ -63,7 +68,7 @@ void Board::printBoard()
                 cout << "  -"
                      << "--";
             }
-            else if (i == 1 && j == COLS - 2)
+            else if (i == 1 && j == COLUMN_MAX - 1)
             {
                 cout << "----";
             }
@@ -100,7 +105,7 @@ void Board::printBoard()
 
 void Board::placeTile(Tile *tile, int row, int col)
 {
-    if (col > COLS)
+    if (col > COLUMN_MAX+1)
     {
         board[row][col - 1] = tile;
     }
@@ -113,7 +118,7 @@ void Board::placeTile(Tile *tile, int row, int col)
 Tile *Board::getTileAt(int row, int col)
 {
 
-    if (row >= 0 && col >= 1 && row <= ROWS - 1 && col <= COLS - 1)
+    if (row >= ROW_MIN && col >= COLUMN_MIN && row <= ROW_MAX && col <= COLUMN_MAX)
     {
         return board[row][col];
     }
@@ -127,9 +132,13 @@ std::string Board::getState()
 {
     std::string stateString = "";
 
-    for (int i = 0; i < ROWS; i++)
+    for (int i = 0; i < ROW_MAX+1; i++)
     {
+<<<<<<< HEAD
         for (int j = 1; j < COLS; ++j)
+=======
+        for (int j = 0; j < COLUMN_MAX+1; ++j)
+>>>>>>> ad9a1ebcb7a1f339dac78c8b311f5a81e2a04bed
         {
             if (!(board[i][j] == nullptr))
             {

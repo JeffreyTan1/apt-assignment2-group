@@ -10,6 +10,15 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <ios>
+#include <limits>
+#define ASCII_CONVERTER_DIGIT 48
+#define ASCII_CONVERTER_LETTER 65
+//Due to implementation of columns, we are operating with cols 1 to 26 for indexing
+#define COLUMN_MAX 26
+#define COLUMN_MIN 1
+#define ROW_MAX 25
+#define ROW_MIN 0
 
 using std::cin;
 using std::cout;
@@ -36,7 +45,7 @@ Game::~Game()
     delete board;
 }
 
-void Game::executeGameplay(bool isLoadedGame)
+void Game::executeGameplay()
 {
     cout << endl
          << "Let's Play!" << endl
@@ -45,37 +54,14 @@ void Game::executeGameplay(bool isLoadedGame)
     {
         string command = "";
         bool correctCommand = false;
-        cout << endl
-             << currentPlayer->getName() << ", it's your turn" << endl;
-        cout << "Score for " << player1->getName() << ": " << player1->getPoints() << endl;
-        cout << "Score for " << player2->getName() << ": " << player2->getPoints() << endl;
-        board->printBoard();
-        cout << "Your hand is" << endl;
-        //print current players hand
-        cout << currentPlayer->getHand()->toString() << endl
-             << endl;
-
-        if (isLoadedGame)
-        { //This getline is required to clear the buffer for load game.
-            getline(cin, command);
-            isLoadedGame = false;
-        }
-
+        printGameStatus();
         do
         {
             cout << "> ";
             if (!cin.eof())
             {
                 getline(cin, command);
-                //Make string uppercase to reduce invalid inputs
-                std::transform(command.begin(), command.end(), command.begin(), ::toupper);
-
-                std::vector<string> commandSplit;
-                std::istringstream iss(command);
-                for (string command; iss >> command;)
-                {
-                    commandSplit.push_back(command);
-                }
+                std::vector<string> commandSplit = processCommand(command);
                 correctCommand = playTurn(commandSplit);
             }
             //check for EOF character
@@ -97,7 +83,6 @@ void Game::executeGameplay(bool isLoadedGame)
             }
         }
     }
-
     if (gameOver == true)
     {
         cin.ignore(std::numeric_limits<char>::max(), '\n');
@@ -119,7 +104,6 @@ void Game::executeGameplay(bool isLoadedGame)
             cout << "The game was a draw!" << endl;
         }
     }
-
     cout << endl
          << "Goodbye" << endl;
 }
@@ -127,7 +111,6 @@ void Game::executeGameplay(bool isLoadedGame)
 bool Game::playTurn(vector<string> userInput)
 {
     bool returnVal = true;
-    bool success = false;
 
     if (userInput.size() > 0 && userInput.size() < INPUT_SIZE_MAX)
     {
@@ -149,7 +132,7 @@ bool Game::playTurn(vector<string> userInput)
                     try
                     {
                         int value = std::stoi(tempStr);
-                        success = playTile(tile, locationRow, value + 1);
+                        returnVal = playTile(tile, locationRow, value + 1);
                     }
                     catch (std::invalid_argument &e)
                     {
@@ -160,7 +143,6 @@ bool Game::playTurn(vector<string> userInput)
                 {
                     cout << "Enter a valid location" << endl;
                 }
-                returnVal = success;
             }
             else
             {
@@ -233,6 +215,7 @@ bool Game::playTile(Tile *tile, int row, int col)
         updatePoints(row, col);
         //update the score
         if (!bag->isEmpty())
+
         {
             drawCard();
         }
@@ -241,6 +224,7 @@ bool Game::playTile(Tile *tile, int row, int col)
     else
     {
         cout << "Invalid move. Try again: " << endl;
+
         returnVal = false;
     }
 
@@ -254,9 +238,8 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
     bool isRow = true;
     int newRow = 0;
     int newCol = 0;
-
     //First check if the row and col are within the board
-    if (!(row >= 0 && col >= 1 && row <= 25 && col <= 26))
+    if (!(row >= ROW_MIN && col >= COLUMN_MIN && row <= ROW_MAX && col <= COLUMN_MAX))
     {
         returnVal = false;
     }
@@ -275,13 +258,13 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
             for (int i = -1; i < 2; i++)
             {
                 if (j == 0)
-                { //check column
+                { //first check column
                     newRow = row + i;
                     newCol = col;
                     isRow = false;
                 }
                 else
-                { //check row
+                { //then check row
                     newRow = row;
                     newCol = col + i;
                     isRow = true;
@@ -357,13 +340,15 @@ bool Game::checkNeighbours(int row, int col, bool diffShape, Tile *originalTile,
     {
         if (neighbour != nullptr)
         {
+
             //cout << "neighbour found" << endl;
             if (neighbour->equals(originalTile->colour, originalTile->shape))
             {
                 returnVal = true;
             }
+
             //if shape is meant to be different, check it is different
-            else if (diffShape && (neighbour->shape == originalTile->shape))
+            if (diffShape && (neighbour->shape == originalTile->shape))
             {
                 returnVal = false;
             }
@@ -397,7 +382,7 @@ int Game::countNeighbours(int row, int col)
     Direction d;
     int count = 0;
 
-    if (row < 25)
+    if (row < ROW_MAX)
     {
         if (board->hasTileAt(row + 1, col))
         {
@@ -406,7 +391,7 @@ int Game::countNeighbours(int row, int col)
             downEmpty = false;
         }
     }
-    if (row > 0)
+    if (row > ROW_MIN)
     {
         if (board->hasTileAt(row - 1, col))
         {
@@ -415,8 +400,8 @@ int Game::countNeighbours(int row, int col)
             upEmpty = false;
         }
     }
-    //Due to implementation of columns, we are operating with cols 1 to 26 for indexing
-    if (col < 26)
+
+    if (col < COLUMN_MAX)
     {
         if (board->hasTileAt(row, col + 1))
         {
@@ -425,7 +410,7 @@ int Game::countNeighbours(int row, int col)
             rightEmpty = false;
         }
     }
-    if (col > 1)
+    if (col > COLUMN_MIN)
     {
         if (board->hasTileAt(row, col - 1))
         {
@@ -481,23 +466,24 @@ int Game::countLine(int row, int col, Game::Direction direction)
 
     int y = 0;
     int x = 0;
-    switch (direction)
+    if (direction == Up)
     {
-    case Up:
         y = -1;
-        break;
-    case Down:
+    }
+    if (direction == Down)
+    {
         y = 1;
-        break;
-    case Left:
+    }
+    if (direction == Left)
+    {
         x = -1;
-        break;
-    case Right:
+    }
+    else
+    {
         x = 1;
-        break;
     }
 
-    if (row + y >= 0 && row + y <= 25 && col + x >= 1 && col + x <= 26)
+    if (row + y >= ROW_MIN && row + y <= ROW_MAX && col + x >= COLUMN_MIN && col + x <= COLUMN_MAX)
     {
         if (!board->hasTileAt(row + y, col + x))
         {
@@ -520,7 +506,7 @@ bool Game::neighboursContains(Tile *tile, int row, int col)
 {
     Direction d;
     bool tileFound = false;
-    if (row < 25)
+    if (row < ROW_MAX)
     {
         if (board->hasTileAt(row + 1, col))
         {
@@ -528,7 +514,7 @@ bool Game::neighboursContains(Tile *tile, int row, int col)
             tileFound = checkLine(row + 1, col, d, tile);
         }
     }
-    if (row > 0)
+    if (row > ROW_MIN)
     {
         if (board->hasTileAt(row - 1, col) && !tileFound)
         {
@@ -536,7 +522,7 @@ bool Game::neighboursContains(Tile *tile, int row, int col)
             tileFound = checkLine(row - 1, col, d, tile);
         }
     }
-    if (col < 26)
+    if (col < COLUMN_MAX)
     {
         if (board->hasTileAt(row, col + 1) && !tileFound)
         {
@@ -544,7 +530,7 @@ bool Game::neighboursContains(Tile *tile, int row, int col)
             tileFound = checkLine(row, col + 1, d, tile);
         }
     }
-    if (col > 1)
+    if (col > COLUMN_MIN)
     {
         if (board->hasTileAt(row, col - 1) && !tileFound)
         {
@@ -584,7 +570,7 @@ bool Game::checkLine(int row, int col, Game::Direction direction, Tile *searchTi
     {
         retVal = true;
     }
-    else if (row + y >= 0 && row + y <= 25 && col + x >= 1 && col + x <= 26)
+    else if (row + y >= ROW_MIN && row + y <= ROW_MAX && col + x >= COLUMN_MIN && col + x <= COLUMN_MAX)
     {
         if (!board->hasTileAt(row + y, col + x))
         {
@@ -596,4 +582,29 @@ bool Game::checkLine(int row, int col, Game::Direction direction, Tile *searchTi
         }
     }
     return retVal;
+}
+
+void Game::printGameStatus()
+{
+    cout << endl
+         << currentPlayer->getName() << ", it's your turn" << endl;
+    cout << "Score for " << player1->getName() << ": " << player1->getPoints() << endl;
+    cout << "Score for " << player2->getName() << ": " << player2->getPoints() << endl;
+    board->printBoard();
+    cout << "Your hand is" << endl;
+    cout << currentPlayer->getHand()->toString() << endl
+         << endl;
+}
+
+std::vector<std::string> Game::processCommand(std::string inputString)
+{
+    //Make string uppercase to reduce invalid inputs
+    std::transform(inputString.begin(), inputString.end(), inputString.begin(), ::toupper);
+    std::vector<string> commandSplit;
+    std::istringstream iss(inputString);
+    for (string inputString; iss >> inputString;)
+    {
+        commandSplit.push_back(inputString);
+    }
+    return commandSplit;
 }

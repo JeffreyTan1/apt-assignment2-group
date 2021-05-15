@@ -79,7 +79,7 @@ void runMenu(int userChoice, bool *stop)
 
       if (!gameInit->getEofInput())
       {
-         game->executeGameplay(false);
+         game->executeGameplay();
       }
       else
       {
@@ -103,7 +103,8 @@ void runMenu(int userChoice, bool *stop)
          cout << "Qwirkle game successfully loaded" << endl;
          Game *game = new Game(gameInit->getPlayer1(), gameInit->getPlayer2(), gameInit->getBag(), gameInit->getBoard(), gameInit->getCurrPlayer());
          delete gameInit;
-         game->executeGameplay(true);
+         cin.ignore();
+         game->executeGameplay();
          delete game;
          *stop = true;
       }

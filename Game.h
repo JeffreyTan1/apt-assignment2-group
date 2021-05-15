@@ -23,7 +23,7 @@ public:
     Game(Player *player1, Player *player2, LinkedList *bag, Board *board, Player *currentPlayer);
 
     ~Game();
-    void executeGameplay(bool isLoadedGame);
+    void executeGameplay();
     enum Direction
     {
         Up,
@@ -39,13 +39,15 @@ private:
     void replaceTile(Tile *tile);
     void drawCard();
     bool isValidMove(Tile *userTile, int row, int col);
-    bool compareTiles(Tile *tile, Tile *other, bool diffShape);
     bool checkNeighbours(int row, int col, bool diffShape, Tile *originalTile, bool isRow);
     void updatePoints(int row, int col);
     int countNeighbours(int row, int col);
     int countLine(int row, int col, Game::Direction direction);
     bool neighboursContains(Tile *tile, int row, int col);
     bool checkLine(int row, int col, Game::Direction direction, Tile *searchTile);
+    bool playRound();
+    void printGameStatus();
+    std::vector<std::string> processCommand(std::string inputString);
 
     Player *player1;
     Player *player2;
