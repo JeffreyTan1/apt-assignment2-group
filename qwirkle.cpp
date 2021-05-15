@@ -29,8 +29,6 @@ int main(void)
    cout << "Welcome to Qwirkle!" << endl;
    cout << "-------------------" << endl;
 
-   LinkedList *list = new LinkedList();
-   delete list;
    bool stop = false;
    bool *stopPtr = &stop;
    int userChoice;

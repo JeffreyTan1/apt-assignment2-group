@@ -1,5 +1,6 @@
 
 #include "Node.h"
+#include "Tile.h"
 #include <iostream>
 
 Node::Node(Tile *tile, Node *next)
@@ -21,6 +22,14 @@ Node::Node(Node &other)
 }
 
 Node::~Node()
+{
+   if (tile != nullptr)
+   {
+      delete tile;
+   }
+}
+
+void Node::clearNodeList()
 {
    if (next != nullptr)
    {

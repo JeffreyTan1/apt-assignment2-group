@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat May 15 09:50:20 2021
+# Make data base, printed on Sat May 15 14:03:05 2021
 
 # Variables
 
@@ -55,7 +55,7 @@ PATH = /root/.vscode-server/bin/054a9295330880ed74ceaedda236253b4f39a335/bin:/us
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-437b3428-de4c-491a-be15-339d96499d28.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-32dd52d3-b224-4af3-9c47-db98781d326a.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -146,10 +146,8 @@ TERM = xterm-256color
 VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
 WSL_DISTRO_NAME = Ubuntu
-# environment
-MOTD_SHOWN = update-motd
 # variable set hash-table stats:
-# Load=69/1024=7%, Rehash=0, Collisions=4/97=4%
+# Load=68/1024=7%, Rehash=0, Collisions=4/96=4%
 
 # Pattern-specific Variable Values
 
@@ -157,9 +155,9 @@ MOTD_SHOWN = update-motd
 
 # Directories
 
-# . (device 43, inode 17169973579352634): 39 files, no impossibilities.
+# . (device 43, inode 17169973579352634): 38 files, no impossibilities.
 
-# 39 files, no impossibilities in 1 directories.
+# 38 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -174,14 +172,14 @@ MOTD_SHOWN = update-motd
 # Not a target:
 Tile.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2021-05-11 19:15:51.7985302
+#  Last modified 2021-05-15 10:57:01.2071816
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 Board.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2021-05-14 14:41:38.7926043
+#  Last modified 2021-05-15 10:36:55.8971833
 #  File has been updated.
 #  Successfully updated.
 
@@ -202,14 +200,14 @@ all: qwirkle
 # Not a target:
 LinkedList.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2021-05-11 18:08:00.3502925
+#  Last modified 2021-05-15 10:55:16.9600646
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 Game.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2021-05-14 19:27:46.4511354
+#  Last modified 2021-05-15 12:39:48.3990248
 #  File has been updated.
 #  Successfully updated.
 
@@ -220,17 +218,10 @@ Makefile:
 #  File has been updated.
 #  Successfully updated.
 
-# Not a target:
-GameInit.cpp:
-#  Implicit rule search has been done.
-#  Last modified 2021-05-14 19:44:16.0449607
-#  File has been updated.
-#  Successfully updated.
-
 Tile.o: Tile.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'Tile'
-#  Last modified 2021-05-14 14:46:16.6181283
+#  Last modified 2021-05-15 11:01:47.4573139
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 12):
@@ -239,7 +230,7 @@ Tile.o: Tile.cpp
 Board.o: Board.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'Board'
-#  Last modified 2021-05-14 14:46:17.3762129
+#  Last modified 2021-05-15 10:38:06.3493345
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 12):
@@ -247,7 +238,7 @@ Board.o: Board.cpp
 
 qwirkle: Tile.o Node.o LinkedList.o Board.o Game.o GameInit.o Player.o qwirkle.o GameSaver.o
 #  Implicit rule search has not been done.
-#  Last modified 2021-05-14 19:27:54.4391997
+#  Last modified 2021-05-15 12:22:08.7332656
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
@@ -264,7 +255,7 @@ qwirkle.o:
 # Not a target:
 Node.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2021-05-06 20:22:23.635992
+#  Last modified 2021-05-15 10:53:43.26517
 #  File has been updated.
 #  Successfully updated.
 
@@ -276,9 +267,8 @@ Node.cpp:
 
 LinkedList.o: LinkedList.cpp
 #  Implicit rule search has been done.
- 
 #  Implicit/static pattern stem: 'LinkedList'
-#  Last modified 2021-05-14 14:46:16.8776434
+#  Last modified 2021-05-15 11:01:47.6868806
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 12):
@@ -286,10 +276,29 @@ LinkedList.o: LinkedList.cpp
 
 Game.o: Game.cpp
 #  Implicit rule search has been done.
+ 
 #  Implicit/static pattern stem: 'Game'
-#  Last modified 2021-05-14 19:27:53.9573697
+#  Last modified 2021-05-15 12:22:08.3762546
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := Game.o
+# automatic
+# % := 
+# automatic
+# * := Game
+# automatic
+# + := Game.cpp
+# automatic
+# | := 
+# automatic
+# < := Game.cpp
+# automatic
+# ^ := Game.cpp
+# automatic
+# ? := Game.cpp
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/12=8%
 #  recipe to execute (from 'Makefile', line 12):
 	g++ -Wall -Werror -std=c++14 -g -O -c $^
 
@@ -306,37 +315,16 @@ GameSaver.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-GameInit.o: GameInit.cpp
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'GameInit'
-#  Last modified 2021-05-14 16:23:10.9144902
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := GameInit.o
-# automatic
-# % := 
-# automatic
-# * := GameInit
-# automatic
-# + := GameInit.cpp
-# automatic
-# | := 
-# automatic
-# < := GameInit.cpp
-# automatic
-# ^ := GameInit.cpp
-# automatic
-# ? := GameInit.cpp
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/12=8%
-#  recipe to execute (from 'Makefile', line 12):
-	g++ -Wall -Werror -std=c++14 -g -O -c $^
+# Not a target:
+GameInit.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 Node.o: Node.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'Node'
-#  Last modified 2021-05-14 14:46:16.647133
+#  Last modified 2021-05-15 10:53:45.2748671
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 12):
@@ -349,19 +337,19 @@ Player.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=22/1024=2%, Rehash=0, Collisions=0/63=0%
+# Load=21/1024=2%, Rehash=0, Collisions=0/59=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 54 / storage = 492 B / avg = 9 B
-# current buf: size = 8162 B / used = 492 B / count = 54 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 52 / storage = 467 B / avg = 8 B
+# current buf: size = 8162 B / used = 467 B / count = 52 / avg = 8 B
 
-# strcache performance: lookups = 87 / hit rate = 37%
+# strcache performance: lookups = 83 / hit rate = 37%
 # hash-table stats:
-# Load=54/8192=1%, Rehash=0, Collisions=1/87=1%
-# Finished Make data base on Sat May 15 09:50:20 2021
+# Load=52/8192=1%, Rehash=0, Collisions=1/83=1%
+# Finished Make data base on Sat May 15 14:03:05 2021
 
  

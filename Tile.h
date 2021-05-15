@@ -16,8 +16,9 @@ class Tile
 public:
    Tile(char colour, int shape);
    Tile();
+   ~Tile();
    std::string toString();
-   bool equals(Tile *tile);
+   bool equals(char colour, int shape);
 
    Colour colour;
    Shape shape;

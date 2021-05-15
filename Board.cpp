@@ -23,7 +23,16 @@ Board::Board()
 
 Board::~Board()
 {
-    //delete board;
+    for (int i = 0; i < ROWS; i++)
+    {
+        for (int j = 1; j < COLS; ++j)
+        {
+            if (!(board[i][j] == nullptr))
+            {
+                delete board[i][j];
+            }
+        }
+    }
 }
 
 vector<vector<Tile *>> Board::getBoard()
@@ -120,7 +129,7 @@ std::string Board::getState()
 
     for (int i = 0; i < ROWS; i++)
     {
-        for (int j = 0; j < COLS; ++j)
+        for (int j = 1; j < COLS; ++j)
         {
             if (!(board[i][j] == nullptr))
             {

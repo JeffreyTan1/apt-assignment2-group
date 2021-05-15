@@ -94,8 +94,8 @@ void GameInit::newPlayer(int pNum)
     LinkedList *hand = new LinkedList();
     for (int i = 0; i < INIT_HAND_SIZE; i++)
     {
-
         hand->addBack(bag->get(0));
+
         bag->removeFront();
     }
 
