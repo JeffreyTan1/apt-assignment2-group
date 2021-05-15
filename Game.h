@@ -23,7 +23,7 @@ public:
     Game(Player *player1, Player *player2, LinkedList *bag, Board *board, Player *currentPlayer);
 
     ~Game();
-    void executeGameplay(bool isLoadedGame);
+    void executeGameplay();
     enum Direction
     {
         Up,

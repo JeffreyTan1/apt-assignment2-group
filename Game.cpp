@@ -45,7 +45,7 @@ Game::~Game()
     delete board;
 }
 
-void Game::executeGameplay(bool isLoadedGame)
+void Game::executeGameplay()
 {
     cout << endl
          << "Let's Play!" << endl
@@ -55,11 +55,6 @@ void Game::executeGameplay(bool isLoadedGame)
         string command = "";
         bool correctCommand = false;
         printGameStatus();
-        if (isLoadedGame)
-        { //This getline is required to clear the buffer for load game.
-            getline(cin, command);
-            isLoadedGame = false;
-        }
         do
         {
             cout << "> ";
