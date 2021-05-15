@@ -215,14 +215,30 @@ void GameInit::loadBoardState(std::string line5)
                 tileChar = substr.at(0);
                 tileShape = (int)substr.at(1) - ASCII_CONVERTER_DIGIT;
                 boardRow = (int)substr.at(3) - ASCII_CONVERTER_LETTER;
-                boardCol = (int)substr.at(4) - ASCII_CONVERTER_DIGIT;
+                if (substr.length() > 4)
+                {
+
+                    boardCol = stoi((substr.substr(4, 5)));
+                }
+                else
+                {
+                    boardCol = (int)substr.at(4) - ASCII_CONVERTER_DIGIT;
+                }
             }
             else
             {
                 tileChar = substr.at(1);
                 tileShape = (int)substr.at(2) - ASCII_CONVERTER_DIGIT;
                 boardRow = (int)substr.at(4) - ASCII_CONVERTER_LETTER;
-                boardCol = (int)substr.at(5) - ASCII_CONVERTER_DIGIT;
+                if (substr.length() > 5)
+                {
+
+                    boardCol = stoi((substr.substr(5, 6)));
+                }
+                else
+                {
+                    boardCol = (int)substr.at(5) - ASCII_CONVERTER_DIGIT;
+                }
             }
 
             Tile *newTile = new Tile(tileChar, tileShape);

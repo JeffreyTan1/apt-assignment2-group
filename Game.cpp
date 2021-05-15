@@ -111,7 +111,7 @@ void Game::executeGameplay()
 
 bool Game::playTurn(vector<string> userInput)
 {
-    bool returnVal = true;
+    bool returnVal = false;
 
     if (userInput.size() > 0 && userInput.size() < INPUT_SIZE_MAX)
     {
@@ -137,7 +137,7 @@ bool Game::playTurn(vector<string> userInput)
                     }
                     catch (std::invalid_argument &e)
                     {
-                        cout << "Location code is invalid!";
+                        cout << "Location code is invalid!" << endl;
                     }
                 }
                 else
