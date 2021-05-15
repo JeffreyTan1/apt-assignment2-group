@@ -5,8 +5,6 @@
 #include "Player.h"
 #include <iostream>
 #include <sstream>
-#include <string>
-#include <fstream>
 #include <cstring>
 #include <algorithm>
 #include <random>
@@ -50,15 +48,15 @@ void GameInit::newRandomBag()
     //create a vector containing all tiles
     std::vector<Tile *> allTiles;
 
-    char colours[6] = {'R', 'O', 'Y', 'G', 'B', 'P'};
+    char colours[COLOUR_NUM] = {'R', 'O', 'Y', 'G', 'B', 'P'};
 
-    int shapes[6] = {1, 2, 3, 4, 5, 6};
+    int shapes[SHAPE_NUM] = {1, 2, 3, 4, 5, 6};
 
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < TILES_COPIES; i++)
     {
-        for (int j = 0; j < 6; j++)
+        for (int j = 0; j < COLOUR_NUM; j++)
         {
-            for (int k = 0; k < 6; k++)
+            for (int k = 0; k < SHAPE_NUM; k++)
             {
                 Tile *newTile = new Tile(colours[j], shapes[k]);
                 allTiles.push_back(newTile);
@@ -67,10 +65,10 @@ void GameInit::newRandomBag()
     }
 
     //shuffle the vector
-    std::default_random_engine engine(11);
+    std::default_random_engine engine(SEED);
     std::shuffle(allTiles.begin(), allTiles.end(), engine);
     //add tiles to bag
-    for (int i = 0; i < 72; i++)
+    for (int i = 0; i < COLOUR_NUM * SHAPE_NUM * TILES_COPIES; i++)
     {
         bag->addBack(allTiles.at(i));
     }
@@ -94,7 +92,7 @@ void GameInit::newPlayer(int pNum)
     std::transform(name.begin(), name.end(), name.begin(), ::toupper);
 
     LinkedList *hand = new LinkedList();
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < INIT_HAND_SIZE; i++)
     {
 
         hand->addBack(bag->get(0));
@@ -103,11 +101,11 @@ void GameInit::newPlayer(int pNum)
 
     if (pNum == 1)
     {
-        player1 = new Player(name, 0, hand);
+        player1 = new Player(name, NEW_PLAYER_POINTS, hand);
     }
     else if (pNum == 2)
     {
-        player2 = new Player(name, 0, hand);
+        player2 = new Player(name, NEW_PLAYER_POINTS, hand);
     }
 }
 

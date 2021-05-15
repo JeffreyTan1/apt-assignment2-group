@@ -4,6 +4,14 @@
 #include <string>
 #include <vector>
 
+#define INPUT_SIZE_MAX 5
+#define ASCII_CONVERTER_DIGIT 48
+#define ASCII_CONVERTER_LETTER 65
+#define INPUT_POS_1 0
+#define INPUT_POS_2 1
+#define INPUT_POS_3 2
+#define INPUT_POS_4 3
+
 class LinkedList;
 class Tile;
 class Board;

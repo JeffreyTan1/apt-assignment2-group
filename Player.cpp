@@ -29,14 +29,17 @@ LinkedList *Player::getHand()
     return hand;
 }
 
-bool Player::equals(Player *player) {
-    bool retval= false;
-    if(this==player){
-        return true;
+bool Player::equals(Player *player)
+{
+    bool retval = false;
+    if (this == player)
+    {
+        retval = true;
     }
     return retval;
 }
 
-void Player::addPoints(int pointsToAdd) {
+void Player::addPoints(int pointsToAdd)
+{
     points = points + pointsToAdd;
 }
