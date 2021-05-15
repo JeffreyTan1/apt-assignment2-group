@@ -3,22 +3,27 @@
 #include "Board.h"
 #include <vector>
 
-using namespace std;
+#define COLUMN_MAX 26
+#define COLUMN_MIN 1
+#define ROW_MAX 25
+#define ROW_MIN 0
 
-//class Tile;
+using std::string;
+using std::cout;
+using std::endl;
+
+
 int n = 26;
 
 int m = 27;
 
 string init[26];
-//Tile *testy = new Tile('z', 5);
-//vector<vector<Tile*>> vec(n, vector<Tile*>(m));
 
 Board::Board()
 {
     for (int ch = 'a'; ch <= 'z'; ch++)
     {
-        init[ch - 'a'] = toupper(ch);
+        init[ch - 'a'] = ::toupper(ch);
     }
     vector<vector<Tile *>> vec(n, vector<Tile *>(m));
     this->board = vec;
@@ -101,7 +106,7 @@ void Board::placeTile(Tile *tile, int row, int col)
 
 Tile *Board::getTileAt(int row, int col)
 {
-    if (row >= 0 && col >= 1 && row <= 25 && col <= 26)
+    if (row >= ROW_MIN && col >= COLUMN_MIN && row <= ROW_MAX && col <= COLUMN_MAX)
     {
         return board[row][col];
     }
