@@ -5,16 +5,20 @@ Tile::Tile()
 {
 }
 
+Tile::~Tile()
+{
+}
+
 Tile::Tile(char colour, int shape)
 {
     this->colour = colour;
     this->shape = shape;
 }
 
-bool Tile::equals(Tile *tile)
+bool Tile::equals(char colour, int shape)
 {
     bool equal = false;
-    if (this->colour == tile->colour && this->shape == tile->shape)
+    if (this->colour == colour && this->shape == shape)
     {
         equal = true;
     }

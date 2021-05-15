@@ -22,13 +22,21 @@ Board::Board()
     {
         init[ch - 'a'] = ::toupper(ch);
     }
-    vector<vector<Tile *>> vec(ROW_MAX+1, vector<Tile *>(COLUMN_MAX+1));
+    vector<vector<Tile *>> vec(ROW_MAX + 1, vector<Tile *>(COLUMN_MAX + 1));
     this->board = vec;
 }
-
 Board::~Board()
 {
-    //delete board;
+    for (int i = 0; i < ROW_MAX + 1; i++)
+    {
+        for (int j = 0; j < COLUMN_MAX + 1; ++j)
+        {
+            if (!(board[i][j] == nullptr))
+            {
+                delete board[i][j];
+            }
+        }
+    }
 }
 
 vector<vector<Tile *>> Board::getBoard()
@@ -96,7 +104,7 @@ void Board::printBoard()
 
 void Board::placeTile(Tile *tile, int row, int col)
 {
-    if (col > COLUMN_MAX+1)
+    if (col > COLUMN_MAX + 1)
     {
         board[row][col - 1] = tile;
     }
@@ -108,32 +116,21 @@ void Board::placeTile(Tile *tile, int row, int col)
 
 Tile *Board::getTileAt(int row, int col)
 {
-
+    Tile *tile = nullptr;
     if (row >= ROW_MIN && col >= COLUMN_MIN && row <= ROW_MAX && col <= COLUMN_MAX)
     {
-        return board[row][col];
+        tile = board[row][col];
     }
-    else
-    {
-        return nullptr;
-    }
+    return tile;
 }
 
 std::string Board::getState()
 {
     std::string stateString = "";
 
-    for (int i = 0; i < ROW_MAX+1; i++)
+    for (int i = 0; i < ROW_MAX + 1; i++)
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        for (int j = 1; j < COLS; ++j)
-=======
-        for (int j = 0; j < COLUMN_MAX+1; ++j)
->>>>>>> ad9a1ebcb7a1f339dac78c8b311f5a81e2a04bed
-=======
-        for (int j = 0; j < COLS; ++j)
->>>>>>> parent of b501adb (refactor for tiles to belong to one class at a time)
+        for (int j = 0; j < COLUMN_MAX + 1; ++j)
         {
             if (!(board[i][j] == nullptr))
             {

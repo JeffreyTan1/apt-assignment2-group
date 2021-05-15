@@ -51,7 +51,7 @@ public:
    /**
     * Checks if a tile exists in a Linked List
     */
-   bool exists(Tile *tile);
+   int existsAt(char colour, int shape);
 
    /**
     * Checks if LinkedList is empty

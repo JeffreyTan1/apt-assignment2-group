@@ -119,8 +119,10 @@ bool Game::playTurn(vector<string> userInput)
             int locationRow = (userInput[INPUT_POS_4].at(0)) - ASCII_CONVERTER_LETTER;
             std::string colVal = userInput[INPUT_POS_4];
 
-            Tile *tile = new Tile(userInput[INPUT_POS_2].at(0), (userInput[INPUT_POS_2].at(1)) - ASCII_CONVERTER_DIGIT);
-            if (colVal.length() > 2)
+            int tileIndex = currentPlayer->getHand()->existsAt(userInput[INPUT_POS_2].at(0), (userInput[INPUT_POS_2].at(1)) - ASCII_CONVERTER_DIGIT);
+
+            //If the LinkedList returns a index for the found tile
+            if (tileIndex > -1)
             {
                 Tile *tile = currentPlayer->getHand()->get(tileIndex);
                 if (colVal.length() >= 2)
@@ -144,15 +146,23 @@ bool Game::playTurn(vector<string> userInput)
             }
             else
             {
-                int locationCol = (userInput[INPUT_POS_4].at(1)) - ASCII_CONVERTER_DIGIT;
-                returnVal = playTile(tile, locationRow, locationCol + 1);
+                cout << "That tile is not in your hand. Try again: " << endl;
             }
-           
         }
         else if (userInput[INPUT_POS_1] == "REPLACE" && userInput[INPUT_POS_2] != "")
         { //user is replacing tile
-            Tile *changeTile = new Tile(userInput[INPUT_POS_2].at(0), (userInput[INPUT_POS_2].at(1)) - ASCII_CONVERTER_DIGIT);
-            returnVal = replaceTile(changeTile);
+            int tileIndex = currentPlayer->getHand()->existsAt(userInput[INPUT_POS_2].at(0), (userInput[INPUT_POS_2].at(1)) - ASCII_CONVERTER_DIGIT);
+            //If the LinkedList returns a index for the found tile
+            if (tileIndex > -1)
+            {
+                Tile *tile = currentPlayer->getHand()->get(tileIndex);
+                replaceTile(tile);
+                returnVal = true;
+            }
+            else
+            {
+                cout << "That tile is not in your hand. Try again: " << endl;
+            }
         }
         else if (userInput[INPUT_POS_1] == "SAVE")
         { //user is saving game
@@ -197,31 +207,27 @@ bool Game::playTurn(vector<string> userInput)
 bool Game::playTile(Tile *tile, int row, int col)
 {
     bool returnVal = true;
-    if (currentPlayer->getHand()->exists(tile))
-    {
-        if (isValidMove(tile, row, col))
-        { //and move is legal
 
-            board->placeTile(tile, row, col);
-            updatePoints(row, col);
-            //update the score
-            if (!bag->isEmpty())
-            {
-                drawCard();
-            }
-            currentPlayer->getHand()->removeElement(tile);
-        }
-        else
+    if (isValidMove(tile, row, col))
+    { //and move is legal
+
+        board->placeTile(tile, row, col);
+        updatePoints(row, col);
+        //update the score
+        if (!bag->isEmpty())
+
         {
-            cout << "Invalid move. Try again: " << endl;
-            returnVal = false;
+            drawCard();
         }
+        currentPlayer->getHand()->removeElement(tile);
     }
     else
     {
-        cout << "That tile is not in your hand. Try again: " << endl;
+        cout << "Invalid move. Try again: " << endl;
+
         returnVal = false;
     }
+
     return returnVal;
 }
 
@@ -290,21 +296,11 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
     return returnVal;
 }
 
-bool Game::replaceTile(Tile *tile)
+void Game::replaceTile(Tile *tile)
 {
-    bool returnVal = true;
-    if (currentPlayer->getHand()->exists(tile))
-    {
-        currentPlayer->getHand()->removeElement(tile);
-        bag->addBack(tile);
-        drawCard();
-    }
-    else
-    {
-        cout << "That tile is not in your hand, please try again: ";
-        returnVal = false;
-    }
-    return returnVal;
+    currentPlayer->getHand()->removeElement(tile);
+    bag->addBack(tile);
+    drawCard();
 }
 
 void Game::drawCard()
@@ -346,7 +342,7 @@ bool Game::checkNeighbours(int row, int col, bool diffShape, Tile *originalTile,
         {
 
             //cout << "neighbour found" << endl;
-            if (neighbour->equals(originalTile))
+            if (neighbour->equals(originalTile->colour, originalTile->shape))
             {
                 returnVal = true;
             }
@@ -470,19 +466,20 @@ int Game::countLine(int row, int col, Game::Direction direction)
 
     int y = 0;
     int x = 0;
+
     if (direction == Up)
     {
         y = -1;
     }
-    if (direction == Down)
+    else if (direction == Down)
     {
         y = 1;
     }
-    if (direction == Left)
+    else if (direction == Left)
     {
         x = -1;
     }
-    else
+    else if (direction == Right)
     {
         x = 1;
     }
@@ -565,12 +562,12 @@ bool Game::checkLine(int row, int col, Game::Direction direction, Tile *searchTi
     {
         x = -1;
     }
-    else
+    else if (direction == Right)
     {
         x = 1;
     }
 
-    if (board->getTileAt(row, col)->equals(searchTile))
+    if (board->getTileAt(row, col)->equals(searchTile->colour, searchTile->shape))
     {
         retVal = true;
     }

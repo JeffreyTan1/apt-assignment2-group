@@ -36,7 +36,7 @@ private:
     bool playTurn(std::vector<std::string> userInput);
     void switchPlayer();
     bool playTile(Tile *tile, int row, int col);
-    bool replaceTile(Tile *tile);
+    void replaceTile(Tile *tile);
     void drawCard();
     bool isValidMove(Tile *userTile, int row, int col);
     bool checkNeighbours(int row, int col, bool diffShape, Tile *originalTile, bool isRow);
