@@ -113,7 +113,7 @@ bool Game::playTurn(vector<string> userInput)
 {
     bool returnVal = false;
 
-    if (userInput.size() > 0 && userInput.size() < INPUT_SIZE_MAX)
+    if (userInput.size() > 0 && userInput.size() < INPUT_SIZE_MAX && !(userInput[INPUT_POS_2].length() > 2))
     {
         if (userInput[INPUT_POS_1] == "PLACE" && userInput[INPUT_POS_2] != "" && userInput[INPUT_POS_3] == "AT" && userInput[INPUT_POS_4] != "")
         {
@@ -142,7 +142,7 @@ bool Game::playTurn(vector<string> userInput)
                 }
                 else
                 {
-                    cout << "Enter a valid location" << endl;
+                    cout << "Location code is invalid!" << endl;
                 }
             }
             else
@@ -150,7 +150,7 @@ bool Game::playTurn(vector<string> userInput)
                 cout << "That tile is not in your hand. Try again: " << endl;
             }
         }
-        else if (userInput[INPUT_POS_1] == "REPLACE" && userInput[INPUT_POS_2] != "")
+        else if (userInput[INPUT_POS_1] == "REPLACE" && userInput[INPUT_POS_2] != "" && userInput[INPUT_POS_3] == "")
         { //user is replacing tile
             int tileIndex = currentPlayer->getHand()->existsAt(userInput[INPUT_POS_2].at(0), (userInput[INPUT_POS_2].at(1)) - ASCII_CONVERTER_DIGIT);
             //If the LinkedList returns a index for the found tile
