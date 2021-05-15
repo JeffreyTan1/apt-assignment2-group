@@ -81,6 +81,7 @@ void runMenu(int userChoice, bool *stop)
       {
          game->executeGameplay();
       }
+
       else
       {
          closeProgMsg();

@@ -52,6 +52,7 @@ void Game::executeGameplay()
          << endl;
     while (!terminateGame && !gameOver)
     {
+        turnNum++;
         string command = "";
         bool correctCommand = false;
         printGameStatus();
@@ -208,7 +209,7 @@ bool Game::playTile(Tile *tile, int row, int col)
 {
     bool returnVal = true;
 
-    if (isValidMove(tile, row, col))
+    if (isValidMove(tile, row, col) && (hasAdjoiningTile(row, col) || turnNum == 1))
     { //and move is legal
 
         board->placeTile(tile, row, col);
@@ -294,6 +295,43 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
         }
     }
     return returnVal;
+}
+
+bool Game::hasAdjoiningTile(int row, int col)
+{
+    bool hasAdjoining = false;
+
+    if (row < ROW_MAX)
+    {
+        if (board->hasTileAt(row + 1, col))
+        {
+            hasAdjoining = true;
+        }
+    }
+    if (row > ROW_MIN)
+    {
+        if (board->hasTileAt(row - 1, col))
+        {
+            hasAdjoining = true;
+        }
+    }
+
+    if (col < COLUMN_MAX)
+    {
+        if (board->hasTileAt(row, col + 1))
+        {
+            hasAdjoining = true;
+        }
+    }
+    if (col > COLUMN_MIN)
+    {
+        if (board->hasTileAt(row, col - 1))
+        {
+            hasAdjoining = true;
+        }
+    }
+
+    return hasAdjoining;
 }
 
 void Game::replaceTile(Tile *tile)

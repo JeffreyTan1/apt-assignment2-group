@@ -39,6 +39,7 @@ private:
     void replaceTile(Tile *tile);
     void drawCard();
     bool isValidMove(Tile *userTile, int row, int col);
+    bool hasAdjoiningTile(int row, int col);
     bool checkNeighbours(int row, int col, bool diffShape, Tile *originalTile, bool isRow);
     void updatePoints(int row, int col);
     int countNeighbours(int row, int col);
@@ -47,6 +48,7 @@ private:
     bool checkLine(int row, int col, Game::Direction direction, Tile *searchTile);
     bool playRound();
     void printGameStatus();
+
     std::vector<std::string> processCommand(std::string inputString);
 
     Player *player1;
@@ -56,6 +58,7 @@ private:
     Player *currentPlayer;
     bool terminateGame;
     bool gameOver;
+    int turnNum = 0;
 };
 
 #endif // ASSIGN2_GAME_H
