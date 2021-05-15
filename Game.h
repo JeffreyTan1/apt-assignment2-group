@@ -45,6 +45,9 @@ private:
     int countLine(int row, int col, Game::Direction direction);
     bool neighboursContains(Tile *tile, int row, int col);
     bool checkLine(int row, int col, Game::Direction direction, Tile *searchTile);
+    bool playRound();
+    void printGameStatus();
+    std::vector<std::string> processCommand(std::string inputString);
 
     Player *player1;
     Player *player2;

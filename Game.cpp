@@ -54,15 +54,7 @@ void Game::executeGameplay(bool isLoadedGame)
     {
         string command = "";
         bool correctCommand = false;
-        cout << endl
-             << currentPlayer->getName() << ", it's your turn" << endl;
-        cout << "Score for " << player1->getName() << ": " << player1->getPoints() << endl;
-        cout << "Score for " << player2->getName() << ": " << player2->getPoints() << endl;
-        board->printBoard();
-        cout << "Your hand is" << endl;
-        cout << currentPlayer->getHand()->toString() << endl
-             << endl;
-
+        printGameStatus();
         if (isLoadedGame)
         { //This getline is required to clear the buffer for load game.
             getline(cin, command);
@@ -74,15 +66,7 @@ void Game::executeGameplay(bool isLoadedGame)
             if (!cin.eof())
             {
                 getline(cin, command);
-                //Make string uppercase to reduce invalid inputs
-                std::transform(command.begin(), command.end(), command.begin(), ::toupper);
-
-                std::vector<string> commandSplit;
-                std::istringstream iss(command);
-                for (string command; iss >> command;)
-                {
-                    commandSplit.push_back(command);
-                }
+                std::vector<string> commandSplit = processCommand(command);
                 correctCommand = playTurn(commandSplit);
             }
             //check for EOF character
@@ -104,7 +88,6 @@ void Game::executeGameplay(bool isLoadedGame)
             }
         }
     }
-
     if (gameOver == true)
     {
         cin.ignore(std::numeric_limits<char>::max(), '\n');
@@ -126,7 +109,6 @@ void Game::executeGameplay(bool isLoadedGame)
             cout << "The game was a draw!" << endl;
         }
     }
-
     cout << endl
          << "Goodbye" << endl;
 }
@@ -134,7 +116,6 @@ void Game::executeGameplay(bool isLoadedGame)
 bool Game::playTurn(vector<string> userInput)
 {
     bool returnVal = true;
-    bool success = false;
 
     if (userInput.size() > 0 && userInput.size() < INPUT_SIZE_MAX)
     {
@@ -154,7 +135,7 @@ bool Game::playTurn(vector<string> userInput)
             else
             {
                 int locationCol = (userInput[INPUT_POS_4].at(1)) - ASCII_CONVERTER_DIGIT;
-                success = playTile(tile, locationRow, locationCol + 1);
+                returnVal = playTile(tile, locationRow, locationCol + 1);
             }
         }
         else if (userInput[INPUT_POS_1] == "REPLACE" && userInput[INPUT_POS_2] != "")
@@ -585,4 +566,28 @@ bool Game::checkLine(int row, int col, Game::Direction direction, Tile *searchTi
         }
     }
     return retVal;
+}
+
+void Game::printGameStatus() {
+    cout << endl
+        << currentPlayer->getName() << ", it's your turn" << endl;
+    cout << "Score for " << player1->getName() << ": " << player1->getPoints() << endl;
+    cout << "Score for " << player2->getName() << ": " << player2->getPoints() << endl;
+    board->printBoard();
+    cout << "Your hand is" << endl;
+    cout << currentPlayer->getHand()->toString() << endl
+        << endl;
+
+}
+
+std::vector<std::string> Game::processCommand(std::string inputString) {
+    //Make string uppercase to reduce invalid inputs
+    std::transform(inputString.begin(), inputString.end(), inputString.begin(), ::toupper);
+    std::vector<string> commandSplit;
+    std::istringstream iss(inputString);
+    for (string inputString; iss >> inputString;)
+    {
+        commandSplit.push_back(inputString);
+    }
+    return commandSplit;
 }
