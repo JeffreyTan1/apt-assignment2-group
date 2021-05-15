@@ -28,16 +28,7 @@ Board::Board()
 
 Board::~Board()
 {
-    for (int i = 0; i < ROWS; i++)
-    {
-        for (int j = 1; j < COLS; ++j)
-        {
-            if (!(board[i][j] == nullptr))
-            {
-                delete board[i][j];
-            }
-        }
-    }
+    //delete board;
 }
 
 vector<vector<Tile *>> Board::getBoard()
@@ -135,10 +126,14 @@ std::string Board::getState()
     for (int i = 0; i < ROW_MAX+1; i++)
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         for (int j = 1; j < COLS; ++j)
 =======
         for (int j = 0; j < COLUMN_MAX+1; ++j)
 >>>>>>> ad9a1ebcb7a1f339dac78c8b311f5a81e2a04bed
+=======
+        for (int j = 0; j < COLS; ++j)
+>>>>>>> parent of b501adb (refactor for tiles to belong to one class at a time)
         {
             if (!(board[i][j] == nullptr))
             {

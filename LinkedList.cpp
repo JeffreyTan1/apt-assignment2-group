@@ -1,7 +1,6 @@
 #include "LinkedList.h"
 #include "Node.h"
 #include "Tile.h"
-#define NOT_FOUND -1
 
 LinkedList::LinkedList()
 {
@@ -27,10 +26,7 @@ LinkedList::LinkedList(LinkedList &other)
 
 LinkedList::~LinkedList()
 {
-   if (head != nullptr)
-   {
-      head->clearNodeList();
-   }
+   delete head;
 }
 
 int LinkedList::size()
@@ -122,41 +118,46 @@ void LinkedList::removeBack()
          }
       }
       previousNode->setNextNullptr();
+      delete currentNode;
       currentNode = nullptr;
    }
 }
 
 void LinkedList::removeFront()
 {
-   //We do not delete the node, we trust that the node will be taken care of by the hand
    if (head != nullptr)
    {
       if (head->getNext() != nullptr)
       {
+         Node *removeNode = head;
          head = head->getNext();
+         delete removeNode;
       }
       else
       {
+         delete head;
          head = nullptr;
       }
    }
 }
 
-int LinkedList::existsAt(char colour, int shape)
+void LinkedList::clear()
 {
-   int index = NOT_FOUND;
-   int count = 0;
+   delete head;
+}
 
+bool LinkedList::exists(Tile *tile)
+{
+   bool exists = false;
    if (head != nullptr)
    {
       Node *currentNode = head;
       bool cont = true;
       while (cont)
       {
-         if ((currentNode->getTile())->equals(colour, shape))
+         if ((currentNode->getTile())->equals(tile))
          {
-            index = count;
-            cont = false;
+            exists = true;
             // use break; here! but it's against the style guide
          }
          if (currentNode->getNext() != nullptr)
@@ -167,11 +168,10 @@ int LinkedList::existsAt(char colour, int shape)
          {
             cont = false;
          }
-         count++;
       }
    }
 
-   return index;
+   return exists;
 }
 
 bool LinkedList::isEmpty()
@@ -222,7 +222,7 @@ void LinkedList::removeElement(Tile *tile)
       while (cont)
       {
          //If the tile is identified
-         if (currentNode->getTile()->equals(tile->colour, tile->shape))
+         if (currentNode->getTile()->equals(tile))
          {
             //check for if current node has a next node
             if (currentNode->getNext() != nullptr)
@@ -233,11 +233,13 @@ void LinkedList::removeElement(Tile *tile)
                if (previousNode != nullptr)
                {
                   previousNode->setNext(currentNode->getNext());
+                  delete currentNode;
                }
                // else node which contians tile is at the head of LL which has other nodes
                else
                {
                   head = currentNode->getNext();
+                  delete currentNode;
                }
             }
             else
@@ -253,7 +255,7 @@ void LinkedList::removeElement(Tile *tile)
                else
                {
                   //node is head of a LL which just has the one node
-
+                  delete head;
                   head = nullptr;
                }
             }
