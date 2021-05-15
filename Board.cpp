@@ -1,18 +1,15 @@
 #include <iostream>
 #include "Tile.h"
 #include "Board.h"
-#include <vector>
 
-using namespace std;
+using std::cout;
+using std::endl;
+using std::string;
 
 //class Tile;
-int n = 26;
 
-int m = 27;
-
-string init[26];
-//Tile *testy = new Tile('z', 5);
-//vector<vector<Tile*>> vec(n, vector<Tile*>(m));
+//contains uppercase letters A to Z
+string init[COLS - 1];
 
 Board::Board()
 {
@@ -20,8 +17,13 @@ Board::Board()
     {
         init[ch - 'a'] = toupper(ch);
     }
-    vector<vector<Tile *>> vec(n, vector<Tile *>(m));
+    vector<vector<Tile *>> vec(ROWS, vector<Tile *>(COLS));
     this->board = vec;
+}
+
+Board::~Board()
+{
+    //delete board;
 }
 
 vector<vector<Tile *>> Board::getBoard()
@@ -33,7 +35,7 @@ void Board::printBoard()
 {
     for (int i = 0; i < 2; i++)
     {
-        for (int j = 0; j < m - 1; j++)
+        for (int j = 0; j < COLS - 1; j++)
         {
             if (i == 0 && j == 0)
             {
@@ -52,7 +54,7 @@ void Board::printBoard()
                 cout << "  -"
                      << "--";
             }
-            else if (i == 1 && j == m - 2)
+            else if (i == 1 && j == COLS - 2)
             {
                 cout << "----";
             }
@@ -64,10 +66,10 @@ void Board::printBoard()
         cout << endl;
     }
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < ROWS; i++)
     {
         cout << init[i] << " ";
-        for (int j = 0; j < m; ++j)
+        for (int j = 0; j < COLS; ++j)
         {
             if (!(board[i][j] == nullptr))
             {
@@ -89,7 +91,7 @@ void Board::printBoard()
 
 void Board::placeTile(Tile *tile, int row, int col)
 {
-    if (col > m)
+    if (col > COLS)
     {
         board[row][col - 1] = tile;
     }
@@ -101,7 +103,8 @@ void Board::placeTile(Tile *tile, int row, int col)
 
 Tile *Board::getTileAt(int row, int col)
 {
-    if (row >= 0 && col >= 1 && row <= 25 && col <= 26)
+
+    if (row >= 0 && col >= 1 && row <= ROWS - 1 && col <= COLS - 1)
     {
         return board[row][col];
     }
@@ -115,9 +118,9 @@ std::string Board::getState()
 {
     std::string stateString = "";
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < ROWS; i++)
     {
-        for (int j = 0; j < m; ++j)
+        for (int j = 0; j < COLS; ++j)
         {
             if (!(board[i][j] == nullptr))
             {
@@ -128,7 +131,7 @@ std::string Board::getState()
     }
 
     //get rid of last space and comma
-    if (stateString.length() > 5)
+    if (stateString.length() > STATE_TOKEN_LEN)
     {
         stateString.pop_back();
         stateString.pop_back();

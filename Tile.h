@@ -18,7 +18,6 @@ public:
    Tile();
    std::string toString();
    bool equals(Tile *tile);
-   bool isValid();
 
    Colour colour;
    Shape shape;

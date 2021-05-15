@@ -158,7 +158,7 @@ bool LinkedList::exists(Tile *tile)
          if ((currentNode->getTile())->equals(tile))
          {
             exists = true;
-            break;
+            // use break; here! but it's against the style guide
          }
          if (currentNode->getNext() != nullptr)
          {

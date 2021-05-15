@@ -5,15 +5,11 @@
 #include "Tile.h"
 #include "GameInit.h"
 #include "GameSaver.h"
-#include <limits>
+
 #include <algorithm>
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <ios>
-#include <limits>
-#define ASCII_CONVERTER_DIGIT 48
-#define ASCII_CONVERTER_LETTER 65
 
 using std::cin;
 using std::cout;
@@ -37,8 +33,7 @@ Game::~Game()
     delete player1;
     delete player2;
     delete bag;
-    //TODO: Implement descructors for board and all other adts
-    //delete board;
+    delete board;
 }
 
 void Game::executeGameplay(bool isLoadedGame)
@@ -48,7 +43,7 @@ void Game::executeGameplay(bool isLoadedGame)
          << endl;
     while (!terminateGame && !gameOver)
     {
-        string command;
+        string command = "";
         bool correctCommand = false;
         cout << endl
              << currentPlayer->getName() << ", it's your turn" << endl;
@@ -69,10 +64,9 @@ void Game::executeGameplay(bool isLoadedGame)
         do
         {
             cout << "> ";
-            getline(cin, command);
-
             if (!cin.eof())
             {
+                getline(cin, command);
                 //Make string uppercase to reduce invalid inputs
                 std::transform(command.begin(), command.end(), command.begin(), ::toupper);
 
@@ -133,16 +127,16 @@ void Game::executeGameplay(bool isLoadedGame)
 bool Game::playTurn(vector<string> userInput)
 {
     bool returnVal = true;
-    bool success;
-    if (userInput.size() > 0 && userInput.size() < 5)
-    {
-        if (userInput[0] == "PLACE" && userInput[1] != "" && userInput[2] == "AT" && userInput[3] != "")
-        {
-            int locationRow = (userInput[3].at(0)) - ASCII_CONVERTER_LETTER;
-            //int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;
-            std::string colVal = userInput[3];
+    bool success = false;
 
-            Tile *tile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
+    if (userInput.size() > 0 && userInput.size() < INPUT_SIZE_MAX)
+    {
+        if (userInput[INPUT_POS_1] == "PLACE" && userInput[INPUT_POS_2] != "" && userInput[INPUT_POS_3] == "AT" && userInput[INPUT_POS_4] != "")
+        {
+            int locationRow = (userInput[INPUT_POS_4].at(0)) - ASCII_CONVERTER_LETTER;
+            std::string colVal = userInput[INPUT_POS_4];
+
+            Tile *tile = new Tile(userInput[INPUT_POS_2].at(0), (userInput[INPUT_POS_2].at(1)) - ASCII_CONVERTER_DIGIT);
             if (colVal.length() > 2)
             {
                 char temp[2] = {colVal[1], colVal[2]};
@@ -152,22 +146,22 @@ bool Game::playTurn(vector<string> userInput)
             }
             else
             {
-                int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;
+                int locationCol = (userInput[INPUT_POS_4].at(1)) - ASCII_CONVERTER_DIGIT;
                 success = playTile(tile, locationRow, locationCol + 1);
             }
             returnVal = success;
         }
-        else if (userInput[0] == "REPLACE" && userInput[1] != "")
+        else if (userInput[INPUT_POS_1] == "REPLACE" && userInput[INPUT_POS_2] != "")
         { //user is replacing tile
-            Tile *changeTile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
+            Tile *changeTile = new Tile(userInput[INPUT_POS_2].at(0), (userInput[INPUT_POS_2].at(1)) - ASCII_CONVERTER_DIGIT);
             returnVal = replaceTile(changeTile);
         }
-        else if (userInput[0] == "SAVE")
+        else if (userInput[INPUT_POS_1] == "SAVE")
         { //user is saving game
             std::string outputFileName;
             if (userInput.size() > 1)
             {
-                outputFileName = userInput[1];
+                outputFileName = userInput[INPUT_POS_2];
             }
             else
             {
@@ -182,7 +176,7 @@ bool Game::playTurn(vector<string> userInput)
                  << "Game successfully saved" << endl
                  << endl;
         }
-        else if (userInput[0] == "QUIT")
+        else if (userInput[INPUT_POS_1] == "QUIT")
         { //user is quitting game
             terminateGame = true;
         }
@@ -207,7 +201,7 @@ bool Game::playTile(Tile *tile, int row, int col)
     bool returnVal = true;
     if (currentPlayer->getHand()->exists(tile))
     {
-        if (tile->isValid() && isValidMove(tile, row, col))
+        if (isValidMove(tile, row, col))
         { //and move is legal
 
             board->placeTile(tile, row, col);

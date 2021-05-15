@@ -3,6 +3,12 @@
 #define ASSIGN2_GAMEINIT_H
 #include <fstream>
 #include <string>
+#define COLOUR_NUM 6
+#define SHAPE_NUM 6
+#define TILES_COPIES 2
+#define SEED 11
+#define INIT_HAND_SIZE 6
+#define NEW_PLAYER_POINTS 0
 
 class Node;
 class Tile;

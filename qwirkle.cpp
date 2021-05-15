@@ -12,6 +12,10 @@
 #include "Game.h"
 
 #define EXIT_SUCCESS 0
+#define CHOICE_1 1
+#define CHOICE_2 2
+#define CHOICE_3 3
+#define CHOICE_4 4
 
 using std::cin;
 using std::cout;
@@ -41,7 +45,7 @@ int main(void)
       cout << "4. Quit" << endl;
       cout << "> ";
       cin >> userChoice;
-      while ((cin.fail() || userChoice < 1 || userChoice > 4) && !stop)
+      while ((cin.fail() || userChoice < CHOICE_1 || userChoice > CHOICE_4) && !stop)
       {
          if (cin.eof())
          {
@@ -67,7 +71,7 @@ int main(void)
 
 void runMenu(int userChoice, bool *stop)
 {
-   if (userChoice == 1)
+   if (userChoice == CHOICE_1)
    {
       cout << endl
            << "Starting a New Game" << endl
@@ -88,7 +92,7 @@ void runMenu(int userChoice, bool *stop)
 
       *stop = true;
    }
-   else if (userChoice == 2)
+   else if (userChoice == CHOICE_2)
    {
       //Load game
       std::string fileName;
@@ -109,8 +113,8 @@ void runMenu(int userChoice, bool *stop)
       {
          cout << "File not found!" << endl;
       }
-      }
-   else if (userChoice == 3)
+   }
+   else if (userChoice == CHOICE_3)
    {
       //Credits
       std::string names[4] = {"Jeffrey Tan", "Mohammad Mahir Haque", "Sharshwot Karki", "Sidhra Fernando-Plant"};
@@ -135,7 +139,7 @@ void runMenu(int userChoice, bool *stop)
       }
       cout << "---------------------------------------" << endl;
    }
-   else if (userChoice == 4)
+   else if (userChoice == CHOICE_4)
    {
       //Quit
       closeProgMsg();
