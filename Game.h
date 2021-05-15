@@ -31,7 +31,6 @@ private:
     bool replaceTile(Tile *tile);
     void drawCard();
     bool isValidMove(Tile *userTile, int row, int col);
-    bool compareTiles(Tile *tile, Tile *other, bool diffShape);
     bool checkNeighbours(int row, int col, bool diffShape, Tile *originalTile, bool isRow);
     void updatePoints(int row, int col);
     int countNeighbours(int row, int col);

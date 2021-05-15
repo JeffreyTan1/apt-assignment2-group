@@ -1,4 +1,5 @@
 #include "Tile.h"
+#include "TileCodes.h"
 
 Tile::Tile()
 {
@@ -24,9 +25,4 @@ std::string Tile::toString()
 {
     std::string retval = colour + std::to_string(shape);
     return retval;
-}
-
-bool Tile::isValid()
-{
-    return true;
 }

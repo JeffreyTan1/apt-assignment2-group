@@ -14,6 +14,11 @@
 #include <limits>
 #define ASCII_CONVERTER_DIGIT 48
 #define ASCII_CONVERTER_LETTER 65
+//Due to implementation of columns, we are operating with cols 1 to 26 for indexing
+#define COLUMN_MAX 26
+#define COLUMN_MIN 1
+#define ROW_MAX 25
+#define ROW_MIN 0
 
 using std::cin;
 using std::cout;
@@ -56,7 +61,6 @@ void Game::executeGameplay(bool isLoadedGame)
         cout << "Score for " << player2->getName() << ": " << player2->getPoints() << endl;
         board->printBoard();
         cout << "Your hand is" << endl;
-        //print current players hand
         cout << currentPlayer->getHand()->toString() << endl
              << endl;
 
@@ -65,7 +69,6 @@ void Game::executeGameplay(bool isLoadedGame)
             getline(cin, command);
             isLoadedGame = false;
         }
-
         do
         {
             cout << "> ";
@@ -133,32 +136,28 @@ void Game::executeGameplay(bool isLoadedGame)
 bool Game::playTurn(vector<string> userInput)
 {
     bool returnVal = true;
-    bool success;
     if (userInput.size() > 0 && userInput.size() < 5)
     {
         if (userInput[0] == "PLACE" && userInput[1] != "" && userInput[2] == "AT" && userInput[3] != "")
         {
             int locationRow = (userInput[3].at(0)) - ASCII_CONVERTER_LETTER;
-            //int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;
             std::string colVal = userInput[3];
-
             Tile *tile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
             if (colVal.length() > 2)
             {
-                char temp[2] = {colVal[1], colVal[2]};
-                std::string apple = temp;
-                int value = std::stoi(apple);
-                success = playTile(tile, locationRow, value + 1);
+                char tempArr[2] = {colVal[1], colVal[2]};
+                std::string tempString = tempArr;
+                int value = std::stoi(tempString);
+                returnVal = playTile(tile, locationRow, value + 1);
             }
             else
             {
                 int locationCol = (userInput[3].at(1)) - ASCII_CONVERTER_DIGIT;
-                success = playTile(tile, locationRow, locationCol + 1);
+                returnVal = playTile(tile, locationRow, locationCol + 1);
             }
-            returnVal = success;
         }
         else if (userInput[0] == "REPLACE" && userInput[1] != "")
-        { //user is replacing tile
+        {
             Tile *changeTile = new Tile(userInput[1].at(0), (userInput[1].at(1)) - ASCII_CONVERTER_DIGIT);
             returnVal = replaceTile(changeTile);
         }
@@ -207,12 +206,11 @@ bool Game::playTile(Tile *tile, int row, int col)
     bool returnVal = true;
     if (currentPlayer->getHand()->exists(tile))
     {
-        if (tile->isValid() && isValidMove(tile, row, col))
-        { //and move is legal
+        if (isValidMove(tile, row, col))
+        {
 
             board->placeTile(tile, row, col);
             updatePoints(row, col);
-            //update the score
             if (!bag->isEmpty())
             {
                 drawCard();
@@ -227,7 +225,7 @@ bool Game::playTile(Tile *tile, int row, int col)
     }
     else
     {
-        cout << "That tile is not in your hand. Try again: " << endl;
+        cout << "That tile is not in your hand, or is invalid. Try again: " << endl;
         returnVal = false;
     }
     return returnVal;
@@ -240,9 +238,8 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
     bool isRow = true;
     int newRow = 0;
     int newCol = 0;
-
     //First check if the row and col are within the board
-    if (!(row >= 0 && col >= 1 && row <= 25 && col <= 26))
+    if (!(row >= ROW_MIN && col >= COLUMN_MIN && row <= ROW_MAX && col <= COLUMN_MAX))
     {
         returnVal = false;
     }
@@ -261,13 +258,13 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
             for (int i = -1; i < 2; i++)
             {
                 if (j == 0)
-                { //check column
+                { //first check column
                     newRow = row + i;
                     newCol = col;
                     isRow = false;
                 }
                 else
-                { //check row
+                { //then check row
                     newRow = row;
                     newCol = col + i;
                     isRow = true;
@@ -335,24 +332,6 @@ void Game::switchPlayer()
     }
 }
 
-bool Game::compareTiles(Tile *tile, Tile *other, bool diffShape)
-{
-    bool returnVal = true;
-    if (tile->equals(other))
-    {
-        returnVal = false;
-    }
-    else if (diffShape)
-    {
-        returnVal = !(tile->shape == other->shape);
-    }
-    else if (!diffShape)
-    {
-        returnVal = !(tile->colour == other->colour);
-    }
-    return returnVal;
-}
-
 bool Game::checkNeighbours(int row, int col, bool diffShape, Tile *originalTile, bool isRow)
 {
     bool returnVal = true;
@@ -371,13 +350,8 @@ bool Game::checkNeighbours(int row, int col, bool diffShape, Tile *originalTile,
     {
         if (neighbour != nullptr)
         {
-            //cout << "neighbour found" << endl;
-            if (neighbour->equals(originalTile))
-            {
-                returnVal = true;
-            }
             //if shape is meant to be different, check it is different
-            else if (diffShape && (neighbour->shape == originalTile->shape))
+            if (diffShape && (neighbour->shape == originalTile->shape))
             {
                 returnVal = false;
             }
@@ -411,7 +385,7 @@ int Game::countNeighbours(int row, int col)
     Direction d;
     int count = 0;
 
-    if (row < 25)
+    if (row < ROW_MAX)
     {
         if (board->hasTileAt(row + 1, col))
         {
@@ -420,7 +394,7 @@ int Game::countNeighbours(int row, int col)
             downEmpty = false;
         }
     }
-    if (row > 0)
+    if (row > ROW_MIN)
     {
         if (board->hasTileAt(row - 1, col))
         {
@@ -429,8 +403,8 @@ int Game::countNeighbours(int row, int col)
             upEmpty = false;
         }
     }
-    //Due to implementation of columns, we are operating with cols 1 to 26 for indexing
-    if (col < 26)
+    
+    if (col < COLUMN_MAX)
     {
         if (board->hasTileAt(row, col + 1))
         {
@@ -439,7 +413,7 @@ int Game::countNeighbours(int row, int col)
             rightEmpty = false;
         }
     }
-    if (col > 1)
+    if (col > COLUMN_MIN)
     {
         if (board->hasTileAt(row, col - 1))
         {
@@ -495,23 +469,23 @@ int Game::countLine(int row, int col, Game::Direction direction)
 
     int y = 0;
     int x = 0;
-    switch (direction)
+    if(direction==Up) 
     {
-    case Up:
         y = -1;
-        break;
-    case Down:
+    }
+    if(direction==Down) 
+    {
         y = 1;
-        break;
-    case Left:
+    }
+    if(direction==Left) 
+    {
         x = -1;
-        break;
-    case Right:
+    }
+    else {
         x = 1;
-        break;
     }
 
-    if (row + y >= 0 && row + y <= 25 && col + x >= 1 && col + x <= 26)
+    if (row + y >= ROW_MIN && row + y <= ROW_MAX && col + x >= COLUMN_MIN && col + x <= COLUMN_MAX)
     {
         if (!board->hasTileAt(row + y, col + x))
         {
@@ -534,7 +508,7 @@ bool Game::neighboursContains(Tile *tile, int row, int col)
 {
     Direction d;
     bool tileFound = false;
-    if (row < 25)
+    if (row < ROW_MAX)
     {
         if (board->hasTileAt(row + 1, col))
         {
@@ -542,7 +516,7 @@ bool Game::neighboursContains(Tile *tile, int row, int col)
             tileFound = checkLine(row + 1, col, d, tile);
         }
     }
-    if (row > 0)
+    if (row > ROW_MIN)
     {
         if (board->hasTileAt(row - 1, col) && !tileFound)
         {
@@ -550,7 +524,7 @@ bool Game::neighboursContains(Tile *tile, int row, int col)
             tileFound = checkLine(row - 1, col, d, tile);
         }
     }
-    if (col < 26)
+    if (col < COLUMN_MAX)
     {
         if (board->hasTileAt(row, col + 1) && !tileFound)
         {
@@ -558,7 +532,7 @@ bool Game::neighboursContains(Tile *tile, int row, int col)
             tileFound = checkLine(row, col + 1, d, tile);
         }
     }
-    if (col > 1)
+    if (col > COLUMN_MIN)
     {
         if (board->hasTileAt(row, col - 1) && !tileFound)
         {
@@ -598,7 +572,7 @@ bool Game::checkLine(int row, int col, Game::Direction direction, Tile *searchTi
     {
         retVal = true;
     }
-    else if (row + y >= 0 && row + y <= 25 && col + x >= 1 && col + x <= 26)
+    else if (row + y >= ROW_MIN && row + y <= ROW_MAX && col + x >= COLUMN_MIN && col + x <= COLUMN_MAX)
     {
         if (!board->hasTileAt(row + y, col + x))
         {
