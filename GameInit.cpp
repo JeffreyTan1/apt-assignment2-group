@@ -79,10 +79,32 @@ void GameInit::newPlayer(int pNum)
     //Create player 1 data structures
     //Should not have the same named people. The game loader won't be able to tell which person should have the current turn.
     //The game will choose the player1 as the current player.
-    cout << "Enter a name for player " << pNum << " (uppercase characters only)" << endl;
+    bool cont = true;
     std::string name;
-    cout << "> ";
-    cin >> name;
+    while (cont)
+    {
+        cout << "Enter a name for player " << pNum << " (uppercase characters only)" << endl;
+        cout << "> ";
+        cin >> name;
+        cont = false;
+        int nameLen = name.length();
+        for (int i = 0; i < nameLen; i++)
+        {
+            if (!isupper(name[i]))
+            {
+                cont = true;
+            }
+        }
+        if (cont)
+        {
+            cout << "Please use uppercase characters only" << endl;
+        }
+        if (cin.eof())
+        {
+            eofInput = true;
+            cont = false;
+        }
+    }
 
     if (cin.eof())
     {
