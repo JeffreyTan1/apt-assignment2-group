@@ -113,9 +113,9 @@ bool Game::playTurn(vector<string> userInput)
 {
     bool returnVal = false;
 
-    if (userInput.size() > 0 && userInput.size() < INPUT_SIZE_MAX && !(userInput[INPUT_POS_2].length() > 2))
+    if (userInput.size() > 0 && userInput.size() < INPUT_SIZE_MAX)
     {
-        if (userInput[INPUT_POS_1] == "PLACE" && userInput[INPUT_POS_2] != "" && userInput[INPUT_POS_3] == "AT" && userInput[INPUT_POS_4] != "")
+        if (userInput[INPUT_POS_1] == "PLACE" && userInput[INPUT_POS_2] != "" && userInput[INPUT_POS_3] == "AT" && userInput[INPUT_POS_4] != "" && !(userInput[INPUT_POS_2].length() > 2))
         {
             int locationRow = (userInput[INPUT_POS_4].at(0)) - ASCII_CONVERTER_LETTER;
             std::string colVal = userInput[INPUT_POS_4];
@@ -150,7 +150,7 @@ bool Game::playTurn(vector<string> userInput)
                 cout << "That tile is not in your hand. Try again: " << endl;
             }
         }
-        else if (userInput[INPUT_POS_1] == "REPLACE" && userInput[INPUT_POS_2] != "" && userInput.size() == 2)
+        else if (userInput[INPUT_POS_1] == "REPLACE" && userInput[INPUT_POS_2] != "" && userInput.size() == 2 && !(userInput[INPUT_POS_2].length() > 2))
         { //user is replacing tile
             int tileIndex = currentPlayer->getHand()->existsAt(userInput[INPUT_POS_2].at(0), (userInput[INPUT_POS_2].at(1)) - ASCII_CONVERTER_DIGIT);
             //If the LinkedList returns a index for the found tile
@@ -170,17 +170,12 @@ bool Game::playTurn(vector<string> userInput)
                 turnNum--;
             }
         }
-        else if (userInput[INPUT_POS_1] == "SAVE")
+        else if (userInput[INPUT_POS_1] == "SAVE" && userInput.size() > 1)
         { //user is saving game
             std::string outputFileName;
-            if (userInput.size() > 1)
-            {
-                outputFileName = userInput[INPUT_POS_2];
-            }
-            else
-            {
-                outputFileName = "defaultSave";
-            }
+            cout << userInput[INPUT_POS_2] << endl;
+
+            outputFileName = userInput[INPUT_POS_2];
 
             GameSaver *gs = new GameSaver(player1, player2, board, bag, currentPlayer, outputFileName);
             delete gs;
@@ -299,26 +294,26 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
                         //otherwise, the colour should be different ie. diffShape=false as it was initialised
                         returnVal = checkNeighbours(newRow, newCol, diffShape, currentTile, isRow);
                     }
-                    if(j==0&&i==-1) 
+                    if (j == 0 && i == -1)
                     {
                         neighbour1check = returnVal;
                     }
-                    else if(j==0&&i==1) 
+                    else if (j == 0 && i == 1)
                     {
                         neighbour2check = returnVal;
                     }
-                    else if(j==1&&i==-1) 
+                    else if (j == 1 && i == -1)
                     {
                         neighbour3check = returnVal;
                     }
-                    else if(j==1&&i==1) 
+                    else if (j == 1 && i == 1)
                     {
                         neighbour4check = returnVal;
                     }
                 }
             }
         }
-        returnVal=neighbour1check&&neighbour2check&&neighbour3check&&neighbour4check;
+        returnVal = neighbour1check && neighbour2check && neighbour3check && neighbour4check;
     }
     return returnVal;
 }
