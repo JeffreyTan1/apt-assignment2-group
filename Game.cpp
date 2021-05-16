@@ -241,6 +241,10 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
 {
     bool returnVal = true;
     bool diffShape = false;
+    bool neighbour1check = true;
+    bool neighbour2check = true;
+    bool neighbour3check = true;
+    bool neighbour4check = true;
     bool isRow = true;
     int newRow = 0;
     int newCol = 0;
@@ -295,9 +299,26 @@ bool Game::isValidMove(Tile *userTile, int row, int col)
                         //otherwise, the colour should be different ie. diffShape=false as it was initialised
                         returnVal = checkNeighbours(newRow, newCol, diffShape, currentTile, isRow);
                     }
+                    if(j==0&&i==-1) 
+                    {
+                        neighbour1check = returnVal;
+                    }
+                    else if(j==0&&i==1) 
+                    {
+                        neighbour2check = returnVal;
+                    }
+                    else if(j==1&&i==-1) 
+                    {
+                        neighbour3check = returnVal;
+                    }
+                    else if(j==1&&i==1) 
+                    {
+                        neighbour4check = returnVal;
+                    }
                 }
             }
         }
+        returnVal=neighbour1check&&neighbour2check&&neighbour3check&&neighbour4check;
     }
     return returnVal;
 }
