@@ -173,7 +173,6 @@ bool Game::playTurn(vector<string> userInput)
         else if (userInput[INPUT_POS_1] == "SAVE" && userInput.size() > 1)
         { //user is saving game
             std::string outputFileName;
-            cout << userInput[INPUT_POS_2] << endl;
 
             outputFileName = userInput[INPUT_POS_2];
 
