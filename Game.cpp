@@ -150,7 +150,7 @@ bool Game::playTurn(vector<string> userInput)
                 cout << "That tile is not in your hand. Try again: " << endl;
             }
         }
-        else if (userInput[INPUT_POS_1] == "REPLACE" && userInput[INPUT_POS_2] != "" && userInput[INPUT_POS_3] == "")
+        else if (userInput[INPUT_POS_1] == "REPLACE" && userInput[INPUT_POS_2] != "" && userInput.size() == 2)
         { //user is replacing tile
             int tileIndex = currentPlayer->getHand()->existsAt(userInput[INPUT_POS_2].at(0), (userInput[INPUT_POS_2].at(1)) - ASCII_CONVERTER_DIGIT);
             //If the LinkedList returns a index for the found tile
@@ -163,6 +163,11 @@ bool Game::playTurn(vector<string> userInput)
             else
             {
                 cout << "That tile is not in your hand. Try again: " << endl;
+            }
+            //the case where user does replace command at the start of the game, still allow placement of first tile
+            if (turnNum == 1)
+            {
+                turnNum--;
             }
         }
         else if (userInput[INPUT_POS_1] == "SAVE")

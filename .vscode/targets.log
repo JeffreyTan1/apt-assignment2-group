@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun May 16 00:16:38 2021
+# Make data base, printed on Sun May 16 10:45:26 2021
 
 # Variables
 
@@ -55,7 +55,7 @@ PATH = /root/.vscode-server/bin/054a9295330880ed74ceaedda236253b4f39a335/bin:/us
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-70bdd868-4032-4fab-8dd6-ffa8aa1e5b62.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-15e220ea-12fb-4c30-bf4b-1efea9c41ce4.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -146,10 +146,8 @@ TERM = xterm-256color
 VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
 WSL_DISTRO_NAME = Ubuntu
-# environment
-MOTD_SHOWN = update-motd
 # variable set hash-table stats:
-# Load=69/1024=7%, Rehash=0, Collisions=4/94=4%
+# Load=68/1024=7%, Rehash=0, Collisions=4/93=4%
 
 # Pattern-specific Variable Values
 
@@ -214,7 +212,7 @@ LinkedList.cpp:
 # Not a target:
 Game.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2021-05-16 00:10:40.6397074
+#  Last modified 2021-05-16 00:29:42.9874652
 #  File has been updated.
 #  Successfully updated.
 
@@ -259,7 +257,7 @@ Board.o: Board.cpp
 
 qwirkle: Tile.o Node.o LinkedList.o Board.o Game.o GameInit.o Player.o qwirkle.o GameSaver.o
 #  Implicit rule search has not been done.
-#  Last modified 2021-05-16 00:12:22.3406019
+#  Last modified 2021-05-16 00:29:59.1763555
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 9):
@@ -276,9 +274,9 @@ qwirkle.o: qwirkle.cpp
 
 # Not a target:
 Node.cpp:
- 
 #  Implicit rule search has been done.
 #  Last modified 2021-05-15 17:24:16.1698864
+ 
 #  File has been updated.
 #  Successfully updated.
 
@@ -307,7 +305,7 @@ LinkedList.o: LinkedList.cpp
 Game.o: Game.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'Game'
-#  Last modified 2021-05-16 00:12:21.9860657
+#  Last modified 2021-05-16 00:29:58.8313561
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 12):
@@ -370,6 +368,6 @@ Player.o: Player.cpp
 # strcache performance: lookups = 96 / hit rate = 41%
 # hash-table stats:
 # Load=56/8192=1%, Rehash=0, Collisions=1/96=1%
-# Finished Make data base on Sun May 16 00:16:38 2021
+# Finished Make data base on Sun May 16 10:45:26 2021
 
  
